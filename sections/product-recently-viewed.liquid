@@ -1,0 +1,101 @@
+{% assign hide_border = settings.show_border %}
+{% assign enable = section.settings.rv_enable %}
+{% assign title = section.settings.rv_title %}
+{% assign layout = section.settings.rv_layout %}
+{% assign products_limit = section.settings.rv_products_limit %}
+{% assign use_one_and_half_layout = settings.use_two_and_half_layout %}
+{% assign arrows_style = settings.arrow_style %}
+{% assign arrows_style_class = "" %}
+{% assign use_one_and_half_layout = settings.use_two_and_half_layout %}
+
+{% if arrows_style == "Left-Right" %}
+    {% assign arrows_style_class = " slider-section--arrows-sides" %}
+{% endif %}
+
+{% if arrows_style == "Bottom-Centered" %}
+    {% assign arrows_style_class = " slider-section--arrows-bottom" %}
+{% endif %}
+
+{% if enable %}
+    {% if layout == "slider" %}
+        <section class="section slider-section{{ arrows_style_class }}{% unless hide_border %} slider-section--show-border{% endunless %} js-recently-viewed">
+            <div class="section__container">
+                <h2 class="section__title">
+                    {{ title }}
+                </h2>
+
+                <div class="slider-section__slider js-slider-section{% if use_one_and_half_layout %} js-slider-section-half-mobile{% endif %} js-recently-viewed-products"
+                     data-products-limit="{{ products_limit }}">
+                    <!-- Products are dynamically inserted -->
+                </div>
+
+                <div class="slider-arrow slider-arrow--prev slider-section__slider-arrow slider-section__slider-arrow--prev js-slider-section-prev">
+                    {% include 'icon-arrow-down' %}
+                </div>
+
+                <div class="slider-arrow slider-arrow--next slider-section__slider-arrow slider-section__slider-arrow--next js-slider-section-next">
+                    {% include 'icon-arrow-down' %}
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <section class="section recently-viewed-products js-recently-viewed">
+            <div class="section__container container">
+                <h2 class="section__title">
+                    {{ title }}
+                </h2>
+
+                <div class="row section__grid js-recently-viewed-products"
+                     data-products-limit="{{ products_limit }}">
+                    <!-- Products are dynamically inserted -->
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recently Viewed Products",
+  "class": "recently-viewed",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "rv_enable",
+      "label": "Enable"
+    },
+    {
+      "type": "text",
+      "id": "rv_title",
+      "label": "Title",
+      "default": "Recently viewed products"
+    },
+    {
+      "type": "radio",
+      "id": "rv_layout",
+      "label": "Layout",
+      "default": "slider",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "rv_products_limit",
+      "label": "Products limit",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ]
+}
+{% endschema %}
+

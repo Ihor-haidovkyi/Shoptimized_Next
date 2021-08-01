@@ -1,0 +1,677 @@
+{% assign checklist = "" %}
+{% assign view_size_chart = false %}
+{% assign personalisation_string = "" %}
+{% assign tab_below_atc = false %}
+{% assign no_tabs = false %}
+{% assign custom_tabs = false %}
+{% assign product_flash_sold_enable = false %}
+{% assign show_quantity_bar = false %}
+{% assign quantity = 0 %}
+{% assign qty_sold = 0 %}
+{% assign display_limited = false %}
+{% assign display_quantity = 0 %}
+{% assign limited_default = 0 %}
+{% assign show_order_estimate = true %}
+{% assign delivery_start_date = section.settings.delivery_start %}
+{% assign delivery_end_date = section.settings.delivery_end %}
+{% assign multibuy_prompt = false %}
+{% assign amazon_url = "" %}
+{% assign free_shipping_product = false %}
+{% assign display_countdown = false %}
+{% assign expire = 72 %}
+{% assign has_cross_sell_tag = false %}
+{% assign size_chart_page = settings.sizing_chart_page %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    {% if tag contains "checklist-" %}
+        {% capture checklist %}
+            {% if checklist == "" %}
+                {{ tag | replace: "checklist-", "" }}
+            {% else %}
+                {{ checklist }}|||{{ tag | replace: "checklist-", "" }}
+            {% endif %}
+        {% endcapture %}
+    {% endif %}
+
+    {% if tag == "view-size-chart" %}
+        {% assign view_size_chart = true %}
+    {% endif %}
+
+    {%- if tag contains "personalisation-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalisation-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalisation-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+
+    {%- if tag contains "personalization-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalization-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalization-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+
+    {% if tag == "tabs-below-atc" %}
+        {% assign tab_below_atc = true %}
+    {% endif %}
+
+    {% if tag == "no-tabs" %}
+        {% assign no_tabs = true %}
+    {% endif %}
+
+    {% if tag == "custom-tabs" %}
+        {% assign custom_tabs = true %}
+    {% endif %}
+
+    {% if tag == "product-flash-sold" %}
+        {% assign product_flash_sold_enable = true %}
+    {% endif %}
+
+    {% if tag == "show_quantity_bar" %}
+        {% assign show_quantity_bar = true %}
+    {% endif %}
+
+    {% if tag contains "quantity-" %}
+        {% assign quantity = tag | replace: "quantity-", "" | times: 1 %}
+    {% endif %}
+
+    {% if tag contains "quantitysold-" %}
+        {% assign qty_sold = tag | replace: "quantitysold-", "" | times: 1 %}
+    {% endif %}
+
+    {% if tag == "display-limited" %}
+        {% assign display_limited = true %}
+    {% endif %}
+
+    {% if tag contains "displayquantity-" %}
+        {% assign display_quantity = tag | replace: "displayquantity-", "" | times: 1 %}
+    {% endif %}
+
+    {% if tag contains "limited-default-" %}
+        {% assign limited_default = tag | replace: "limited-default-", "" %}
+    {% endif %}
+
+    {% if tag contains "display-shipping-countdown" %}
+        {% assign show_order_estimate = false %}
+    {% endif %}
+
+    {% if tag contains "estimatestart-" %}
+        {% assign delivery_start_date = tag | replace: "estimatestart-", "" %}
+    {% endif %}
+
+    {% if tag contains "estimateend-" %}
+        {% assign estimate_end_date = tag | replace: "estimateend-", "" %}
+    {% endif %}
+
+    {% if tag contains "multi-buy-prompt" %}
+        {% assign multibuy_prompt = true %}
+    {% endif %}
+
+    {% if tag contains "https:" or tag contains "http:" or tag contains "www." %}
+        {% assign amazon_url = tag %}
+    {% endif %}
+
+    {% if tag == "free-shipping" %}
+        {% assign free_shipping_product = true %}
+    {% endif %}
+
+    {% if tag == "display-countdown" %}
+        {% assign display_countdown = true %}
+    {% endif %}
+
+    {% if tag contains "expire-" %}
+        {% assign expire = tag | replace: "expire-", "" %}
+    {% endif %}
+
+    {% if tag contains "cross-sell" %}
+        {% assign has_cross_sell_tag = true %}
+    {% endif %}
+{% endfor %}
+
+<section data-section-id="{{ section.id }}"
+         data-section-type="product"
+         data-enable-history-state="true"
+         itemscope
+         itemtype="http://schema.org/Product">
+
+    {% include "product-meta-tags" %}
+
+    <div class="product js-product" data-handle="{{ product.handle }}">
+        <div class="container">
+            {% include 'breadcrumb' %}
+
+            <div class="product__main{% if settings.product_thumbnails == 'Bottom' %} product__main--slider-large{% endif %}{% if settings.scroll_image_feature %} js-product-main{% endif %}">
+                {% include "product-images-slider" %}
+
+                <div class="product-info">
+                    <h1 class="product-info__title">
+                        {{ product.title }}
+                    </h1>
+
+                    {% if section.settings.display_review_star_product %}
+                        <div id="goToReview" class="product-reviews-stars product-info__review-stars">
+                            {% if settings.productreview == "loox" %}
+                                <div class="loox-rating" data-id="{{ product.id }}"
+                                     data-rating="{{ product.metafields.loox.avg_rating }}"
+                                     data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                            {% endif %}
+
+                            {% if settings.productreview == "shopify_reviews" %}
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if settings.product_flash_sold_enable and product_flash_sold_enable and product.available %}
+                        {% include "product-flash-sold" %}
+                    {% endif %}
+
+                    {% include "product-notify-me-new" %}
+
+                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="priceCurrency" content="{{ shop.currency }}"/>
+                        <link itemprop="availability"
+                              href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"/>
+
+                        {% include "product-price-new" %}
+
+                        {% if settings.display_sku %}
+                            {% include "product-sku" %}
+                        {% endif %}
+
+                        {% if settings.enable_checklist and checklist != "" %}
+                            {% include "product-checklist" %}
+                        {% endif %}
+
+                        <div class="product-selectors">
+                            {% if settings.variant_swatch %}
+                                {% include "product-variant-swatch", unique_letter: "c" %}
+                            {% else %}
+                                {% include "product-variant-selects" %}
+                            {% endif %}
+                        </div>
+
+                        {% include "variant-notify-me-new" %}
+
+                        {% assign form_id = "AddToCartForm--" | append: product.id %}
+
+                        {% form "product", product, id: form_id, class: "product-form" %}
+                            {% if settings.product_personalisation %}
+                                {% include "product-personalisation-properties" %}
+                            {% endif %}
+
+                            {% include "product-variants-select" %}
+
+                            {% if product.available %}
+                                <div class="product-details{% if settings.cart_button_fullwidth %} product-details--full-width{% endif %} js-product-details{% unless product.selected_or_first_available_variant.available %} hidden{% endunless %}">
+                                    <div class="product-details__row{% unless settings.cart_button_fullwidth %} product-details__row--small{% endunless %}">
+                                        {% include "product-quantity" %}
+
+                                        <div class="product-actions">
+                                            {% assign hide_atc_on_mobile = settings.disableatc %}
+
+                                            <div class="product-actions__row{% if hide_atc_on_mobile %} product-actions__row--hide-mobile{% endif %}">
+                                                <div class="product-actions__add-to-cart-wrapper js-product-add-to-cart-wrapper">
+                                                    {% if multibuy_prompt and settings.multibuy_enable %}
+                                                        {% include "product-multibuy-counter" %}
+                                                    {% endif %}
+
+                                                    {% if settings.amazonbutton and amazon_url != "" %}
+                                                        {% include "product-amazon-button" %}
+                                                    {% else %}
+                                                        {% include "product-add-to-cart" %}
+                                                    {% endif %}
+                                                </div>
+
+                                                {% if settings.enable_wishlist %}
+                                                    <div class="product-actions__wishlist-wrapper">
+                                                        {% include "product-wishlist-button" %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="product-actions__row">
+                                                {% if settings.enable_checkout_icon %}
+                                                    <div class="product-actions__checkout-image{% if hide_atc_on_mobile %} product-actions__checkout-image--hide-margin-top-mobile{% endif %}">
+                                                        {% if settings.enable_custom_checkout_icon and settings.checkout_icon != blank %}
+                                                          <picture class="lazy">
+                                                            <img data-srcset="{{ settings.checkout_icon | img_url: '500x' }} 1x, {{ settings.checkout_icon | img_url: '1000x' }} 2x"
+                                                                 srcset="{{ settings.checkout_icon | img_url: '40x' }}"
+                                                                 alt="Checkout Secure">
+                                                          </picture>
+                                                        {% else %}
+                                                          <picture class="lazy">
+                                                            <img data-srcset="{{ 'secure-checkout.png' | asset_img_url: '500x' }} 1x, {{ 'secure-checkout.png' | asset_img_url: '1000x' }} 2x"
+                                                                 srcset="{{ 'secure-checkout.png' | asset_img_url: '40x' }}"
+                                                                 alt="Checkout Secure">
+                                                          </picture>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="js-uplift-slider">
+
+                                    </div>
+
+                                    {% if section.settings.enable_product_review %}
+                                        {% if section.settings.review_location == "show_reviews_separate_below_buttons" %}
+                                            {% if settings.product_review_type == "loox" %}
+                                                {% include 'product-reviews-loox' %}
+                                            {% endif %}
+
+                                            {% if settings.product_review_type == "shopify_reviews" %}
+                                                {% include 'product-reviews-shopify' %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if section.settings.description_location == 'description_below_buttons' %}
+                                        {% include "product-description" %}
+                                    {% endif %}
+
+                                    {% unless no_tabs %}
+                                        {% if section.settings.use_tag_to_show_tabs_below_atc %}
+                                            {% if tab_below_atc and section.settings.tabs_location == "tabs_below_buttons" %}
+                                                {% include "product-tabs-new" %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% if section.settings.tabs_location == "tabs_below_buttons" %}
+                                                {% include "product-tabs-new" %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endunless %}
+                                </div>
+                            {% endif %}
+                        {% endform %}
+
+                        {% if product.available %}
+                            {% if settings.enable_product_progressbar and product.available %}
+                                {% if settings.use_tags_to_display_quantity != true or show_quantity_bar %}
+                                    {% include "product-quantity-progress-new" %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if show_order_estimate %}
+                                {% if section.settings.enable_delivery_option %}
+                                    {% include "product-delivery-estimate" %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if settings.informations_alert_enable %}
+                                {% include "product-information-alert" %}
+                            {% endif %}
+
+                            {% if settings.visitors_counter_enable %}
+                                {% include "product-visitors-counter" %}
+                            {% endif %}
+
+                            {% if settings.orders_counter_enable %}
+                                {% include 'product-orders-counter' %}
+                            {% endif %}
+
+                            {% if settings.enable_countdown_timer %}
+                                {% if display_countdown %}
+                                    {% if settings.timer_model == "timer_model_1" %}
+                                        {% include "product-countdown-timer-1", expire: expire %}
+                                    {% endif %}
+
+                                    {% if settings.timer_model == "timer_model_2" %}
+                                        {% include "product-countdown-timer-2", expire: expire %}
+                                    {% endif %}
+
+                                    {% if settings.timer_model == "timer_model_3" %}
+                                        {% include "product-countdown-timer-3", expire: expire %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if settings.product_show_motivator_text %}
+                                {% include "product-motivator-text" %}
+                            {% endif %}
+
+                            {% if settings.product_we_ship_fast_hide %}
+                                {% include "product-motivator-additional-text" %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% include "product-reasons", position: 'right' %}
+                    </div>
+                </div>
+            </div>
+
+            {% unless no_tabs %}
+                {% if section.settings.tabs_location == "tabs_below_images" %}
+                    {% if section.settings.use_tag_to_show_tabs_below_atc %}
+                        {% if tab_below_atc %}
+                            <div class="product__below">
+                                {% include "product-tabs-new" %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="product__below">
+                            {% include "product-tabs-new" %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endunless %}
+        </div>
+    </div>
+
+    {% unless product == empty %}
+        <script type="application/json" data-product-json>
+            {{ product | json }}
+        </script>
+    {% endunless %}
+
+    <script>
+        window.productVariantsInventories = [
+            {%- for variant in product.variants -%}
+                { "id": {{ variant.id }}, "quantity": {{ variant.inventory_quantity | default: 0 }} }
+                {% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+        ]
+    </script>
+</section>
+
+{% if settings.stickycartenable %}
+  {% include "product-sticky-cart", show_reviews: section.settings.display_review_star_product %}
+{% endif %}
+
+{% unless settings.sticky_atc_mobile == "option_1" %}
+  {% include "product-sticky-cart-mobile" %}
+{% endunless %}
+
+{% if settings.display_sizing_chart %}
+    {% if view_size_chart %}
+        <section id="size-chart" class="modal-new modal-new--wide">
+            <div class="modal-new__content">
+                <div class="modal-new__close" data-close>
+                    <span class="fa fa-times"></span>
+                </div>
+
+                <div class="modal-new__body rte">
+                    {{ pages[size_chart_page].content }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product Page - Tabs",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This section is for Description Tabs Settings."
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product_tabs",
+      "label": "Enable tabs",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "use_tag_to_show_tabs_below_atc",
+      "label": "Use tags to show tabs below ATC",
+      "default": false,
+      "info": "Use 'tabs-below-atc' tag on the products"
+    },
+    {
+      "type": "select",
+      "id": "tabs_location",
+      "label": "Tabs location",
+      "options": [
+        {
+          "value": "tabs_below_buttons",
+          "label": "Show tabs below ATC button"
+        },
+        {
+          "value": "tabs_below_images",
+          "label": "Show tabs below images"
+        }
+      ],
+      "default": "tabs_below_images"
+    },
+    {
+      "type": "select",
+      "id": "default_tab",
+      "label": "Select default tab",
+      "options": [
+        {
+          "value": "0",
+          "label": "Description tab"
+        },
+        {
+          "value": "1",
+          "label": "Tab 1"
+        },
+        {
+          "value": "2",
+          "label": "Tab 2"
+        },
+        {
+          "value": "3",
+          "label": "Tab 3"
+        },
+        {
+          "value": "4",
+          "label": "Tab 4"
+        },
+        {
+          "value": "5",
+          "label": "Tab 5"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Description tab settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_description_tab",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "description_tab_heading",
+      "label": "Tab heading",
+      "default": "Description"
+    },
+    {
+      "type": "select",
+      "id": "description_location",
+      "label": "Location",
+      "options": [
+        {
+          "value": "description_below_buttons",
+          "label": "Show description below ATC button"
+        },
+        {
+          "value": "in_tabs",
+          "label": "Show description in tabs"
+        }
+      ],
+      "default": "in_tabs"
+    },
+    {
+      "type": "header",
+      "content": "Shipping tab settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shipping_tab",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_header",
+      "label": "Tab heading",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_shipping_label",
+      "label": "Shipping label",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_shipping_text",
+      "label": "Shipping text",
+      "default": "This item ships to {country}",
+      "info": "'{country}' will be replaced by target country name."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_flag",
+      "label": "Show country flag",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_delivery_option",
+      "label": "Show product delivery",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_delivery_label",
+      "label": "Delivery label",
+      "default": "Delivery"
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_delivery_estimate_text",
+      "label": "Delivery estimate text",
+      "default": "Estimated between {start_date} and {end_date}.",
+      "info": "'{start_date}' and '{end_date}' will be replaced by actual dates."
+    },
+    {
+      "type": "text",
+      "id": "shipping_tab_delivery_information_text",
+      "label": "Delivery information text",
+      "default": "Will usually ship within 1 business day."
+    },
+    {
+      "type": "text",
+      "id": "delivery_start",
+      "label": "Delivery start date",
+      "info": "Minimum days for delivery from current date",
+      "default": "10"
+    },
+    {
+      "type": "text",
+      "id": "delivery_end",
+      "label": "Delivery end date",
+      "info": "Maximum days for delivery from current date",
+      "default": "15"
+    },
+    {
+      "type": "text",
+      "id": "delivery_cut_off",
+      "label": "Delivery cut off",
+      "info": "Number only (24 hours format - 16:00:00 means 4PM) relative to timezone of seller",
+      "default": "16:00:00"
+    },
+    {
+      "type": "text",
+      "id": "delivery_off_days",
+      "label": "Delivery exclude days",
+      "default": "SAT SUN",
+      "info": "Use the 'MON','TUE','WED','THU','FRI','SAT' and 'SUN'. Separate exclude days with a space."
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_tab_text",
+      "label": "Tab text"
+    },
+    {
+      "type": "header",
+      "content": "Reviews tab settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product_review",
+      "label": "Enable",
+      "info": "Only displays when custom tabs are not enabled & will only work if Shopify or Loox are installed.",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "review_location",
+      "label": "Show reviews",
+      "options": [
+        {
+          "value": "show_reviews_separate_below_buttons",
+          "label": "Show reviews below ATC button"
+        },
+        {
+          "value": "show_reviews_separate",
+          "label": "Show reviews as separate section below tabs"
+        },
+        {
+          "value": "in_tabs",
+          "label": "Show reviews in tabs"
+        }
+      ],
+      "default": "in_tabs"
+    },
+    {
+      "type": "text",
+      "id": "product_review_tab_heading",
+      "label": "Review tab heading",
+      "default": "REVIEW"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_review_star_product",
+      "label": "Enable review stars",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Custom Tab",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_tab",
+          "label": "Enable"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

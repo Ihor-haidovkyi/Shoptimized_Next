@@ -1,0 +1,108 @@
+{% assign exitdate = settings.exitdate | plus: 0 %}
+<div class="modal-new entry-popup js-exit-popup"
+	 data-countdown="{{ settings.exitdate }}">
+	<div class="modal-new__overlay js-exit-popup-close"></div>
+
+	<div class="modal-new__content exit-one">
+		<div class="modal-new__close js-exit-popup-close">
+			<span class="fa fa-times"></span>
+		</div>
+
+		<div class="modal-new__wrapper entry-popup__wrapper clock-popup-inner">
+			<h2 class="entry-popup__title">
+				<span>
+					{{ settings.exitpopup_heading }}
+				</span>
+			</h2>
+
+			<p class="ptag">
+				{{ settings.exitpopup_text }}
+			</p>
+
+			<div class="entry-popup__countdown js-entry-popup-countdown">
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-hours-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-hours">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Hours
+						</span>
+					</div>
+				</div>
+
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-minutes-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-minutes">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Minutes
+						</span>
+					</div>
+				</div>
+
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-seconds-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-seconds">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Seconds
+						</span>
+					</div>
+				</div>
+			</div>
+
+			{% if cart.item_count > 0 %}
+				<form action="/cart" method="post" novalidate>
+					<input type="hidden" name="discount" value="{{ settings.discountcode }}">
+
+					<div class="popup_newsletter">
+						<button class="btn btncookie" type="submit"
+								name="checkout">{{ 'general.exitpopup.apply' | t }}</button>
+					</div>
+				</form>
+			{% else %}
+				<a class="btn btncookie"
+				   href="/collections/all">
+					{{ 'general.exitpopup.shop' | t }}</a>
+			{% endif %}
+
+			<p style="margin-top: 14px;margin-bottom: 14px;">
+				{{ 'general.exitpopup.or' | t }}
+			</p>
+
+			<p>
+				{{ 'general.exitpopup.enter' | t }}
+
+				<span style="
+      color: #42c54f ;
+      font-weight: bold;
+      border-bottom: 2px dotted;
+      ">{{ settings.discountcode }}</span> {{ 'general.exitpopup.checkout' | t }}
+			</p>
+		</div>
+	</div>
+</div>

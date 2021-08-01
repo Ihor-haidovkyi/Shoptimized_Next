@@ -1,0 +1,138 @@
+{% assign blocks = section.blocks %}
+{% assign banner_on_off = section.settings.banner_on_off %}
+{% assign count_of_blocks = 0 %}
+
+{% if blocks.size > 0 and banner_on_off == 'on' %}
+	{% for block in blocks %}
+		{% assign image = block.settings.slider_image %}
+
+		{% if image != blank %}
+			{% assign count_of_blocks = count_of_blocks | plus: 1 %}
+		{% endif %}
+	{% endfor %}
+
+	<section class="creative-banner">
+		<div class="creative-banner__container">
+			<div class="creative-banner__wrapper{% if count_of_blocks < 3 %} creative-banner__wrapper--center{% endif %}">
+				{% for block in blocks %}
+					{% assign title = block.settings.slider_image_headline %}
+					{% assign image = block.settings.slider_image %}
+					{% assign url = block.settings.slider_url %}
+					{% assign description = block.settings.slider_description %}
+					{% assign cta_text = block.settings.slider_cta_txt %}
+
+					{% if image != blank %}
+						<div class="creative-banner__item">
+							<a class="creative-banner__item-image-wrapper">
+								<img src="{{- image | img_url: '280x' -}}"
+									 alt="{{- image.alt -}}"
+									 class="creative-banner__item-image">
+
+								{% if title != blank %}
+									<h4 class="creative-banner__item-title">
+										{{- title -}}
+									</h4>
+								{% endif %}
+							</a>
+
+							{% if description != blank %}
+								<p class="creative-banner__item-description">
+									{{- description -}}
+								</p>
+							{% endif %}
+
+							{% if url != blank and cta_text != blank %}
+								<a class="creative-banner__item-link" href="{{- url -}}">
+									{{- cta_text -}}
+								</a>
+							{% endif %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Creative Banner",
+	"class": "index-section cole",
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays a row of upto 4 images including links."
+		},
+		{
+			"type": "radio",
+			"id": "banner_on_off",
+			"label": "ON/OFF Creative Banner",
+			"default": "on",
+			"options": [
+				{
+					"value": "on",
+					"label": "on"
+				},
+				{
+					"value": "off",
+					"label": "off"
+				}
+			]
+		}
+	],
+	"max_blocks": 4,
+	"blocks": [
+		{
+			"type": "slides",
+			"name": "Creative Banner",
+			"settings": [
+				{
+					"type": "text",
+					"id": "slider_image_headline",
+					"label": "Enter Headline"
+				},
+				{
+					"type": "image_picker",
+					"id": "slider_image",
+					"label": "Upload Image"
+				},
+				{
+					"type": "url",
+					"id": "slider_url",
+					"label": "Enter Link Url"
+				},
+				{
+					"type": "text",
+					"id": "slider_description",
+					"label": "Enter Description"
+				},
+				{
+					"type": "text",
+					"id": "slider_cta_txt",
+					"label": "Enter CTA Text"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Creative Banner",
+			"category": "Image",
+			"blocks": [
+				{
+					"type": "slides"
+				},
+				{
+					"type": "slides"
+				},
+				{
+					"type": "slides"
+				},
+				{
+					"type": "slides"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

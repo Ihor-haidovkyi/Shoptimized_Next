@@ -1,0 +1,14 @@
+{% assign product_delivery_cut_off = section.settings.delivery_cut_off %}
+{% assign product_delivery_off_days = section.settings.delivery_off_days %}
+{% assign estimate_start_date = section.settings.delivery_start %}
+{% assign estimate_end_date = section.settings.delivery_end %}
+
+<div class="product-delivery-estimate js-product-delivery-estimate{% unless product.selected_or_first_available_variant.available %} hidden{% endunless %}"
+	 data-min-delivery-days="{{ estimate_start_date }}"
+	 data-max-delivery-days="{{ estimate_end_date }}"
+	 data-delivery-cut-off-time="{{ product_delivery_cut_off }}"
+	 data-delivery-off-days="{{ product_delivery_off_days }}"
+	 data-delivery-days="{{ 'layout.day_small.sun' | t }} {{ 'layout.day_small.mon' | t }} {{ 'layout.day_small.tue' | t }} {{ 'layout.day_small.wed' | t }} {{ 'layout.day_small.thu' | t }} {{ 'layout.day_small.fri' | t }} {{ 'layout.day_small.sat' | t }}">
+
+	{{ 'products.delivery_estimate.label' | t | replace: "%time%", "<span class='product-delivery-estimate__time js-product-delivery-estimate-time'></span>" | replace: "%end_date%", "<span class='js-product-delivery-estimate-end-date'></span>" }}
+</div>

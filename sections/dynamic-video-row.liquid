@@ -1,0 +1,174 @@
+{% assign show_video_section = true %}
+
+{% unless section.settings.footer_video_display %}
+	{% assign show_video_section = false %}
+{% endunless %}
+
+{% if show_video_section %}
+	{% include 'video-row' %}
+{% endif %}
+
+{% schema %}
+{
+	"name": "homepage-video",
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays upto 2 videos in a row."
+		},
+		{
+			"type": "header",
+			"content": "Look And Feel"
+		},
+		{
+			"type": "color",
+			"id": "footer_video_bg_color",
+			"label": "Background Color",
+			"default": "#f8f8f8"
+		},
+		{
+			"type": "color",
+			"id": "footer_video_font_color",
+			"label": "Font Color",
+			"default": "#000000"
+		},
+		{
+			"type": "select",
+			"id": "footer_video_font_size",
+			"label": "Font Size",
+			"options": [
+				{
+					"value": "12px",
+					"label": "12px"
+				},
+				{
+					"value": "13px",
+					"label": "13px"
+				},
+				{
+					"value": "14px",
+					"label": "14px"
+				},
+				{
+					"value": "15px",
+					"label": "15px"
+				},
+				{
+					"value": "16px",
+					"label": "16px"
+				},
+				{
+					"value": "17px",
+					"label": "17px"
+				},
+				{
+					"value": "18px",
+					"label": "18px"
+				},
+				{
+					"value": "19px",
+					"label": "19px"
+				},
+				{
+					"value": "20px",
+					"label": "20px"
+				},
+				{
+					"value": "21px",
+					"label": "21px"
+				},
+				{
+					"value": "22px",
+					"label": "22px"
+				},
+				{
+					"value": "23px",
+					"label": "23px"
+				},
+				{
+					"value": "24px",
+					"label": "24px"
+				},
+				{
+					"value": "25px",
+					"label": "25px"
+				}
+			],
+			"default": "20px"
+		},
+		{
+			"type": "select",
+			"id": "footer_video_font_style",
+			"label": "Font Style",
+			"options": [
+				{
+					"value": "300",
+					"label": "Lighter",
+					"group": "Font Style"
+				},
+				{
+					"value": "400",
+					"label": "Normal",
+					"group": "Font Style"
+				},
+				{
+					"value": "600",
+					"label": "Bold",
+					"group": "Font Style"
+				},
+				{
+					"value": "700",
+					"label": "Bolder",
+					"group": "Font Style"
+				}
+			],
+			"default": "400"
+		},
+		{
+			"type": "header",
+			"content": "General"
+		},
+		{
+			"type": "checkbox",
+			"id": "footer_video_display",
+			"label": "Display Video"
+		},
+		{
+			"type": "text",
+			"id": "video1_title",
+			"label": "First video title"
+		},
+		{
+			"type": "text",
+			"id": "video1_iframe",
+			"label": "First video iframe"
+		},
+		{
+			"type": "text",
+			"id": "video1_caption",
+			"label": "First video caption"
+		},
+		{
+			"type": "text",
+			"id": "video2_title",
+			"label": "Second video title"
+		},
+		{
+			"type": "text",
+			"id": "video2_iframe",
+			"label": "Second video iframe"
+		},
+		{
+			"type": "text",
+			"id": "video2_caption",
+			"label": "Second video caption"
+		}
+	],
+	"presets": [
+		{
+			"name": "homepage-video"
+		}
+	]
+}
+{% endschema %}
+

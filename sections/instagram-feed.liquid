@@ -1,0 +1,77 @@
+{% assign instagram_client_id = section.settings.instagram_client_id %}
+{% assign title = section.settings.instagram_title %}
+{% assign link = section.settings.instagram_link %}
+{% assign use_carousel = section.settings.usecarousel %}
+{% assign instagram_count = section.settings.instagram_count %}
+
+{% if instagram_client_id != blank %}
+	<section class="instafeed instafeed--hidden js-instafeed-wrapper">
+		<div class="container">
+			{% if title != blank %}
+				<h2 class="section_title">
+					{% if link != blank %}
+						<a href="{{- link -}}">
+							{{- title -}}
+						</a>
+					{% else %}
+						{{- title -}}
+					{% endif %}
+				</h2>
+			{% endif %}
+
+			<div id="instafeed"
+				 class="instafeed__wrapper{% if use_carousel %} instafeed__wrapper--slider{% endif %} js-instagram"
+				 data-token="{{- instagram_client_id -}}"
+				 data-limit="{{- instagram_count -}}"
+				 data-slider="{{- use_carousel -}}"
+			>
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Instagram",
+	"class": "index-section cole",
+	"settings": [
+		{
+			"type": "text",
+			"id": "instagram_client_id",
+			"label": "Instagram Access Token"
+		},
+		{
+			"type": "text",
+			"id": "instagram_title",
+			"label": "Heading",
+			"default": "Instagram"
+		},
+		{
+			"type": "text",
+			"id": "instagram_link",
+			"label": "Link to your Instagram",
+			"default": "https://www.instagram.com/"
+		},
+		{
+			"type": "checkbox",
+			"id": "usecarousel",
+			"label": "Use Carousel"
+		},
+		{
+			"type": "range",
+			"id": "instagram_count",
+			"label": "Number of images",
+			"min": 2,
+			"max": 12,
+			"step": 1,
+			"default": 5
+		}
+	],
+	"presets": [
+		{
+			"name": "Instagram feeds",
+			"category": "Social"
+		}
+	]
+}
+{% endschema %}

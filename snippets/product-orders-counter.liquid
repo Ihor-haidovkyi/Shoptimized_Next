@@ -1,0 +1,23 @@
+{% assign orders_counter_enable_demo_data = settings.orders_counter_enable_demo_data %}
+{% assign orders_text = settings.orders_counter_text_before %}
+{% assign orders_counter_min = settings.orders_counter_min %}
+{% assign orders_counter_max = settings.orders_counter_max %}
+{% assign orders_counter_text = orders_counter_text | default: settings.orders_counter_text_before %}
+
+<div class="product-orders-counter">
+	{% if orders_counter_enable_demo_data %}
+		<span class="product-orders-counter__count js-product-orders-counter-demo"
+			  data-counter-min="{{ orders_counter_min }}"
+			  data-counter-max="{{ orders_counter_max }}">
+			3
+		</span>
+	{% else %}
+		<span class="product-orders-counter__count js-statsapp-orders-counter">
+			3
+		</span>
+	{% endif %}
+
+	<span class="product-orders-counter__text">
+		{{ orders_counter_text }}
+	</span>
+</div>

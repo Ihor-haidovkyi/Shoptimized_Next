@@ -1,0 +1,85 @@
+{% if product.available %}
+	{% assign product-cross-sell-id = blank %}
+
+	{% for tag in product.tags %}
+		{% assign tag = tag | downcase %}
+
+		{% if tag == "cross-sell-1" %}
+			{% assign product-cross-sell-id = "cross-sell-1" %}
+		{% elsif tag == "cross-sell-2" %}
+			{% assign product-cross-sell-id = "cross-sell-2" %}
+		{% elsif tag == "cross-sell-3" %}
+			{% assign product-cross-sell-id = "cross-sell-3" %}
+		{% elsif tag == "cross-sell-4" %}
+			{% assign product-cross-sell-id = "cross-sell-4" %}
+		{% elsif tag == "cross-sell-5" %}
+			{% assign product-cross-sell-id = "cross-sell-5" %}
+		{% elsif tag == "cross-sell-6" %}
+			{% assign product-cross-sell-id = "cross-sell-6" %}
+		{% elsif tag == "cross-sell-7" %}
+			{% assign product-cross-sell-id = "cross-sell-7" %}
+		{% elsif tag == "cross-sell-8" %}
+			{% assign product-cross-sell-id = "cross-sell-8" %}
+		{% endif %}
+	{% endfor %}
+
+	{% assign product-upsell-id = blank %}
+
+	{% for tag in product.tags %}
+		{% assign tag = tag | downcase %}
+
+		{% if tag == "upsell-enable-1" %}
+			{% assign product-cross-sell-id = "upsell-popup-1" %}
+		{% elsif tag == "upsell-enable-2" %}
+			{% assign product-cross-sell-id = "upsell-popup-2" %}
+		{% elsif tag == "upsell-enable-3" %}
+			{% assign product-cross-sell-id = "upsell-popup-3" %}
+		{% elsif tag == "upsell-enable-4" %}
+			{% assign product-cross-sell-id = "upsell-popup-4" %}
+		{% endif %}
+	{% endfor %}
+
+	<div class="product-add-to-cart">
+		{% if settings.pdp_button == 'add_to_cart' or settings.pdp_button == 'dynamic_checkout_button' %}
+			<button type="submit"
+							name="add"
+							class="product-actions__add-to-cart-button js-product-add-to-cart-button button button--large{% if settings.animate_cart_button %} button--shaking{% endif %}"
+							data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+							{% if product-upsell-id != blank %}data-upsell-id="{{ product-upsell-id }}"{% endif %}
+							{% if product-cross-sell-id != blank %}data-cross-sell-id="{{ product-cross-sell-id }}"{% endif %}>
+
+				{% if settings.add_to_cart_icon != blank and settings.show_atc_icon %}
+					<span class="button__icon">
+						{{ settings.add_to_cart_icon }}
+					</span>
+				{% endif %}
+
+				<span class="js-product-add-to-cart-button-text">
+					{% if free_shipping_product %}
+						{% if settings.freeshipping_add_to_cart_button_text != "" %}
+							{{ settings.freeshipping_add_to_cart_button_text }}
+						{% else %}
+							{{ settings.add_to_cart_button_text }}
+						{% endif %}
+					{% else %}
+						{{ settings.add_to_cart_button_text }}
+					{% endif %}
+				</span>
+			</button>
+
+			{% if settings.atc_to_cart_button %}
+				<a type="button"
+				   href="/cart"
+				   class="product-actions__add-to-cart-button button button--large js-product-view-cart-button hidden">
+					View Cart
+				</a>
+			{% endif %}
+
+			{% if settings.pdp_button == 'dynamic_checkout_button' %}
+				<div class="additional-buttons-wrapper">
+					{{ form | payment_button }}
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+{% endif %}

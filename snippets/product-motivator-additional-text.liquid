@@ -1,0 +1,10 @@
+{% assign product_motivator_additional_text = settings.product_we_ship_fast %}
+
+<div class="product-motivator-additional-text">
+	{% if product_motivator_additional_text == blank %}
+		<strong>{{ "products.call_to_action.ship_fast_1" | t }}</strong>
+		{{ "products.call_to_action.ship_fast_2" | t }}
+	{% else %}
+		{{ product_motivator_additional_text }}
+	{% endif %}
+</div>

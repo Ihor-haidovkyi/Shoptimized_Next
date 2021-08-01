@@ -1,0 +1,48 @@
+{% assign upsell_popup_enable1 = settings.upsell_popup_enable1 %}
+{% assign upsell_popup_enable2 = settings.upsell_popup_enable2 %}
+{% assign upsell_popup_enable3 = settings.upsell_popup_enable3 %}
+{% assign upsell_popup_enable4 = settings.upsell_popup_enable4 %}
+
+{% if upsell_popup_enable1 %}
+	{% include 'upsell-popup',
+		upsell_id:  'upsell-popup-1'
+		upsell_product: all_products[settings.free_product1],
+		upsell_headline_text: settings.upsell_headline_text1,
+		yes_button_text: settings.yes_button_text1,
+		no_button_text: settings.no_button_text1,
+		upsell_budge_image: 'special_offer1.png',
+		quantity_upsell: settings.quantity_upsell1 %}
+{% endif %}
+
+{% if upsell_popup_enable2 %}
+	{% include 'upsell-popup',
+		upsell_id:  'upsell-popup-2'
+		upsell_product: all_products[settings.free_product2],
+		upsell_headline_text: settings.upsell_headline_text2,
+		yes_button_text: settings.yes_button_text2,
+		no_button_text: settings.no_button_text2,
+		upsell_budge_image: 'special_offer2.png',
+		quantity_upsell: settings.quantity_upsell2 %}
+{% endif %}
+
+{% if upsell_popup_enable3 %}
+	{% include 'upsell-popup',
+		upsell_id:  'upsell-popup-3'
+		upsell_product: all_products[settings.free_product3],
+		upsell_headline_text: settings.upsell_headline_text3,
+		yes_button_text: settings.yes_button_text3,
+		no_button_text: settings.no_button_text3,
+		upsell_budge_image: 'special_offer3.png',
+		quantity_upsell: settings.quantity_upsell3 %}
+{% endif %}
+
+{% if upsell_popup_enable4 %}
+	{% include 'upsell-popup',
+		upsell_id:  'upsell-popup-4'
+		upsell_product: all_products[settings.free_product4],
+		upsell_headline_text: settings.upsell_headline_text4,
+		yes_button_text: settings.yes_button_text4,
+		no_button_text: settings.no_button_text4,
+		upsell_budge_image: 'special_offer4.png',
+		quantity_upsell: settings.quantity_upsell4 %}
+{% endif %}

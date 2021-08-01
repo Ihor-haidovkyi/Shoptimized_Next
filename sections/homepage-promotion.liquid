@@ -1,0 +1,211 @@
+{%- assign image = section.settings.promotion_main_desktop -%}
+{%- assign image_mobile = section.settings.promotion_main_mobile -%}
+{%- assign title = section.settings.promotion_title -%}
+{%- assign bg_color = section.settings.promotion_color -%}
+{%- assign text_color = section.settings.promotion_text_color -%}
+{%- assign hashtag = section.settings.promotion_hashtag -%}
+{%- assign more_text = section.settings.promotion_more_text -%}
+{%- assign enable_arrows = section.settings.promotion_enable_arrows -%}
+{%- assign timer = section.settings.promotion_timer -%}
+{%- assign blocks = section.blocks -%}
+
+{%- capture styles -%}
+	--promotion-bg-color: {{- bg_color -}};
+	--promotion-text-color: {{- text_color -}};
+{%- endcapture -%}
+{%- assign styles = styles | strip_newlines -%}
+
+{%- capture slides -%}
+	{% for block in blocks %}
+		{%- assign slide_image = block.settings.image -%}
+
+		<div class="promotion__slide">
+			<div class="promotion__image-wrapper">
+				{% if slide_image != blank %}
+					<picture class="lazy">
+						<img data-srcset="{{- slide_image | img_url: '310x' -}} 1x, {{- slide_image | img_url: '620x' -}} 2x"
+							 srcset="{{- slide_image | img_url: '100x' -}}"
+							 class="promotion__image"
+							 alt="{{- slide_image.alt -}}">
+					</picture>
+				{% else %}
+					{{ 'lifestyle-2'  | placeholder_svg_tag: 'placeholder-svg' }}
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{%- endcapture -%}
+
+<div class="promotion" style="{{- styles -}}">
+	<div class="container">
+		<div class="promotion__wrapper">
+			<div class="promotion__static">
+				{%- if title != blank or hashtag != blank -%}
+					<h2 class="promotion__static-title promotion__static-title--mobile">
+						{{- title -}}
+
+						<br>
+
+						{{- hashtag -}}
+					</h2>
+				{%- endif -%}
+
+				{%- if image != blank -%}
+					<picture class="lazy">
+						{%- if image_mobile != blank -%}
+							<source srcset="{{- image_mobile | img_url: '250x' -}} 1x, {{- image | img_url: '500x' -}} 2x" media="(max-width: 580px)">
+						{%- endif -%}
+
+						<img data-srcset="{{- image | img_url: '250x' -}} 1x, {{- image | img_url: '500x' -}} 2x"
+							 srcset="{{- image | img_url: '100x' -}}"
+							 class="promotion__static-image"
+							 alt="{{- image.alt -}}">
+					</picture>
+				{%- endif -%}
+
+				{%- if title != blank or hashtag != blank -%}
+					<div class="promotion__static-content">
+						<h2 class="promotion__static-title">
+							{{- title -}}
+
+							<br>
+
+							{{- hashtag -}}
+						</h2>
+					</div>
+				{%- endif -%}
+
+				{%- if more_text -%}
+					<p class="promotion__static-text">
+						{{- more_text -}}
+					</p>
+				{%- endif -%}
+			</div>
+
+			<div class="promotion__slider-wrapper">
+				{% if slides != blank %}
+					<div class="promotion__slider js-promotion-slider" data-speed="{{- timer -}}000" data-arrows="{{- enable_arrows -}}">
+						{{- slides -}}
+					</div>
+				{% else %}
+					<div class="promotion__slider js-promotion-slider" data-speed="{{- timer -}}000" data-arrows="{{- enable_arrows -}}">
+						<div class="promotion__slide">
+							<div class="promotion__image-wrapper">
+								{{ 'lifestyle-2'  | placeholder_svg_tag: 'placeholder-svg' }}
+							</div>
+						</div>
+
+						<div class="promotion__slide">
+							<div class="promotion__image-wrapper">
+								{{ 'lifestyle-1'  | placeholder_svg_tag: 'placeholder-svg' }}
+							</div>
+						</div>
+
+						<div class="promotion__slide">
+							<div class="promotion__image-wrapper">
+								{{ 'lifestyle-2'  | placeholder_svg_tag: 'placeholder-svg' }}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+
+				{%- if enable_arrows -%}
+					<div class="promotion__slider-arrow promotion__slider-arrow--prev js-promotion-slider-prev">
+						<i class='shoptimized-064'></i>
+					</div>
+
+					<div class="promotion__slider-arrow promotion__slider-arrow--next js-promotion-slider-next">
+						<i class='shoptimized-074'></i>
+					</div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Promotion",
+	"max_blocks": 8,
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays a static promotion image and a carousel of upto 8 images."
+		},
+		{
+			"type": "image_picker",
+			"id": "promotion_main_desktop",
+			"label": "Promotion Main Desktop Image"
+		},
+		{
+			"type": "image_picker",
+			"id": "promotion_main_mobile",
+			"label": "Promotion Main Mobile Image"
+		},
+		{
+			"type": "text",
+			"id": "promotion_title",
+			"label": "Promotion title",
+			"default": "Want to Win Cool Prizes?"
+		},
+		{
+			"type": "color",
+			"id": "promotion_color",
+			"label": "Background Color",
+			"default": "#49acd5"
+		},
+		{
+			"type": "color",
+			"id": "promotion_text_color",
+			"label": "Text Color",
+			"default": "#ffffff"
+		},
+		{
+			"type": "text",
+			"id": "promotion_hashtag",
+			"label": "Promotion hashtag",
+			"default": "#HASHTAG"
+		},
+		{
+			"type": "textarea",
+			"id": "promotion_more_text",
+			"label": "Promotion more text",
+			"default": "Take a selfie with our product and email it to happytohelp@yourdomain.com to win!"
+		},
+		{
+			"type": "checkbox",
+			"id": "promotion_enable_arrows",
+			"label": "Enable arrows for swipe images?"
+		},
+		{
+			"type": "range",
+			"id": "promotion_timer",
+			"label": "Autoscroll timer in sec. 0 for disable",
+			"min": 0,
+			"max": 15,
+			"step": 1,
+			"default": 2
+		}
+	],
+	"blocks": [
+		{
+			"type": "image",
+			"name": "Image slide",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "homepage-promotion",
+			"category": "Image"
+		}
+	]
+}
+{% endschema %}
+

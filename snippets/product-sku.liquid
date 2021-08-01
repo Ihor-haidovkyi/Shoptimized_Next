@@ -1,0 +1,8 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign sku = current_variant.sku %}
+
+{% if sku != blank %}
+	<div class="product-info__variant-sku" data-variant-sku>
+		{{ sku }}
+	</div>
+{% endif %}

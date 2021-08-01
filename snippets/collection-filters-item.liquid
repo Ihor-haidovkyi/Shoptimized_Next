@@ -1,0 +1,46 @@
+{% assign tags = sort  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+{% assign other_tags = '' %}
+
+{% for tag in current_tags %}
+	{% unless tags contains tag %}
+	{% assign temp_tag = tag | handle %}
+
+	{% assign temp_tag = temp_tag | append: '+' %}
+
+	{% assign other_tags = other_tags | append: temp_tag %}
+	{% endunless %}
+{% endfor %}
+
+{%- capture collection_filters_list -%}
+
+{%- endcapture -%}
+
+<div class="collection-filters__category js-accordion{% if active_tags != blank %} open{% endif %}">
+	<h4 class="collection-filters__category-title js-accordion-toggler">
+		{{ filter_heading }}
+	</h4>
+
+	<ul class="collection-filters__category-list js-accordion-content">
+		{% assign clear_url = collection.url | append: '/' | append: other_tags %}
+
+		{% for tag in tags %}
+			{% if current_tags contains tag %}
+				<li class="collection-filters__category-list-item">
+					{{ tag | prepend :'<div class="check">  &check;  </div>' | link_to_remove_tag: tag | replace: 'title=', 'selected class="collection-filters__category-list-item-link" title=' }}
+				</li>
+			{% elsif collection.all_tags contains tag %}
+				{% assign temp_tag = tag | handle %}
+
+				{% unless other_tags == '' %}
+					{% assign temp_tag = temp_tag | prepend: '' %}
+				{% endunless %}
+
+				{% assign add_tag_url = clear_url | append: temp_tag %}
+
+				<li class="collection-filters__category-list-item">
+					{{ tag | prepend  :'<div class="check">    </div>' | link_to: add_tag_url | replace: 'title=', ' class="collection-filters__category-list-item-link" title='  }}
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>

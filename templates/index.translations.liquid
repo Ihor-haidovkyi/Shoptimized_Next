@@ -1,0 +1,496 @@
+{%- comment -%}
+	Auto-generated file. Dont change!
+{%- endcomment -%}
+{%- layout none -%}{%- capture content -%}{{- content_for_index -}}{%- endcapture -%}{%- capture translations -%}{
+	"general": {
+		"404": {
+			"heading": {{- 'general.404.heading' | t | json -}},
+			"title": {{- 'general.404.title' | t | json -}},
+			"search_form_heading_before": {{- 'general.404.search_form_heading_before' | t | json -}},
+			"search_form_heading_after": {{- 'general.404.search_form_heading_after' | t | json -}},
+			"help_text_before": {{- 'general.404.help_text_before' | t | json -}},
+			"help_text_after": {{- 'general.404.help_text_after' | t | json -}},
+			"speak_text_before": {{- 'general.404.speak_text_before' | t | json -}},
+			"speak_text_after": {{- 'general.404.speak_text_after' | t | json -}},
+			"search_collection_text": {{- 'general.404.search_collection_text' | t | json -}},
+			"no_collection_text": {{- 'general.404.no_collection_text' | t | json -}}
+		},
+		"meta": {
+			"tags": {{- 'general.meta.tags' | t | json -}},
+			"page": {{- 'general.meta.page' | t | json -}}
+		},
+		"breadcrumbs": {
+			"home": {{- 'general.breadcrumbs.home' | t | json -}},
+			"home_link_title": {{- 'general.breadcrumbs.home_link_title' | t | json -}}
+		},
+		"newsletter_form": {
+			"newsletter_email": {{- 'general.newsletter_form.newsletter_email' | t | json -}},
+			"submit": {{- 'general.newsletter_form.submit' | t | json -}},
+			"confirmation": {{- 'general.newsletter_form.confirmation' | t | json -}}
+		},
+		"exitpopup": {
+			"apply": {{- 'general.exitpopup.apply' | t | json -}},
+			"shop": {{- 'general.exitpopup.shop' | t | json -}},
+			"or": {{- 'general.exitpopup.or' | t | json -}},
+			"enter": {{- 'general.exitpopup.enter' | t | json -}},
+			"checkout": {{- 'general.exitpopup.checkout' | t | json -}}
+		},
+		"crossell": {
+			"continue_shopping": {{- 'general.crossell.continue_shopping' | t | json -}},
+			"view_cart": {{- 'general.crossell.view_cart' | t | json -}},
+			"checkout": {{- 'general.crossell.checkout' | t | json -}},
+			"adding": {{- 'general.crossell.adding' | t | json -}},
+			"added": {{- 'general.crossell.added' | t | json -}},
+			"add_to_cart": {{- 'general.crossell.add_to_cart' | t | json -}}
+		},
+		"search": {
+			"heading": {{- 'general.search.heading' | t | json -}},
+			"title": {{- 'general.search.title' | t | json -}},
+			"search_form_heading_before": {{- 'general.search.search_form_heading_before' | t | json -}},
+			"search_form_heading_after": {{- 'general.search.search_form_heading_after' | t | json -}},
+			"see_results": {{- 'general.search.see_results' | t | json -}},
+			"help_text_before": {{- 'general.search.help_text_before' | t | json -}},
+			"help_text_after": {{- 'general.search.help_text_after' | t | json -}},
+			"speak_text_before": {{- 'general.search.speak_text_before' | t | json -}},
+			"speak_text_after": {{- 'general.search.speak_text_after' | t | json -}},
+			"search_collection_text": {{- 'general.search.search_collection_text' | t | json -}},
+			"no_collection_text": {{- 'general.search.no_collection_text' | t | json -}},
+			"submit": {{- 'general.search.submit' | t | json -}}
+		}
+	},
+	"blogs": {
+		"article": {
+			"author_on_date_html": {{- 'blogs.article.author_on_date_html' | t | json -}},
+			"older_post": {{- 'blogs.article.older_post' | t | json -}},
+			"by_author": {{- 'blogs.article.by_author' | t | json -}},
+			"newer_post": {{- 'blogs.article.newer_post' | t | json -}},
+			"tags": {{- 'blogs.article.tags' | t | json -}},
+			"comment_meta_html": {{- 'blogs.article.comment_meta_html' | t | json -}},
+			"read_more": {{- 'blogs.article.read_more' | t | json -}}
+		},
+		"comments": {
+			"title": {{- 'blogs.comments.title' | t | json -}},
+			"name": {{- 'blogs.comments.name' | t | json -}},
+			"email": {{- 'blogs.comments.email' | t | json -}},
+			"message": {{- 'blogs.comments.message' | t | json -}},
+			"post": {{- 'blogs.comments.post' | t | json -}},
+			"moderated": {{- 'blogs.comments.moderated' | t | json -}},
+			"success_moderated": {{- 'blogs.comments.success_moderated' | t | json -}},
+			"success": {{- 'blogs.comments.success' | t | json -}},
+			"with_count": {
+				"one": {{- 'blogs.comments.with_count.one' | t | json -}},
+				"other": {{- 'blogs.comments.with_count.other' | t | json -}}
+			}
+		},
+		"sidebar": {
+			"recent_articles": {{- 'blogs.sidebar.recent_articles' | t | json -}},
+			"categories": {{- 'blogs.sidebar.categories' | t | json -}},
+			"newsletter": {{- 'blogs.sidebar.newsletter' | t | json -}}
+		}
+	},
+	"cart": {
+		"general": {
+			"title": {{- 'cart.general.title' | t | json -}},
+			"drawer_title": {{- 'cart.general.drawer_title' | t | json -}},
+			"button": {{- 'cart.general.button' | t | json -}},
+			"couponappliedheading": {{- 'cart.general.couponappliedheading' | t | json -}},
+			"placeholder": {{- 'cart.general.placeholder' | t | json -}},
+			"couponappliedtext": {{- 'cart.general.couponappliedtext' | t | json -}},
+			"remove": {{- 'cart.general.remove' | t | json -}},
+			"note": {{- 'cart.general.note' | t | json -}},
+			"subtotal": {{- 'cart.general.subtotal' | t | json -}},
+			"total": {{- 'cart.general.total' | t | json -}},
+			"shipping_at_checkout": {{- 'cart.general.shipping_at_checkout' | t | json -}},
+			"update": {{- 'cart.general.update' | t | json -}},
+			"checkout": {{- 'cart.general.checkout' | t | json -}},
+			"empty": {{- 'cart.general.empty' | t | json -}},
+			"continue_browsing_html": {{- 'cart.general.continue_browsing_html' | t | json -}},
+			"close_cart": {{- 'cart.general.close_cart' | t | json -}},
+			"savings_html": {{- 'cart.general.savings_html' | t | json -}},
+			"reduce_quantity": {{- 'cart.general.reduce_quantity' | t | json -}},
+			"increase_quantity": {{- 'cart.general.increase_quantity' | t | json -}},
+			"added_to_cart": {{- 'cart.general.added_to_cart' | t | json -}},
+			"continue": {{- 'cart.general.continue' | t | json -}},
+			"related_title": {{- 'cart.general.related_title' | t | json -}},
+			"shop_now": {{- 'cart.general.shop_now' | t | json -}},
+			"product": {{- 'cart.general.product' | t | json -}},
+			"description": {{- 'cart.general.description' | t | json -}},
+			"quantity": {{- 'cart.general.quantity' | t | json -}},
+			"price": {{- 'cart.general.price' | t | json -}},
+			"checkout_as_guest": {{- 'cart.general.checkout_as_guest' | t | json -}},
+			"checkout_with_account": {{- 'cart.general.checkout_with_account' | t | json -}},
+			"secure_checkout": {{- 'cart.general.secure_checkout' | t | json -}},
+			"email": {{- 'cart.general.email' | t | json -}},
+			"password": {{- 'cart.general.password' | t | json -}},
+			"sign_in": {{- 'cart.general.sign_in' | t | json -}},
+			"forget_password": {{- 'cart.general.forget_password' | t | json -}},
+			"instructions": {{- 'cart.general.instructions' | t | json -}},
+			"minutes": {{- 'cart.general.minutes' | t | json -}},
+			"login": {{- 'cart.general.login' | t | json -}},
+			"name": {{- 'cart.general.name' | t | json -}},
+			"create_password": {{- 'cart.general.create_password' | t | json -}},
+			"returning_customer": {{- 'cart.general.returning_customer' | t | json -}},
+			"connect_with_email": {{- 'cart.general.connect_with_email' | t | json -}}
+		},
+		"label": {
+			"product": {{- 'cart.label.product' | t | json -}},
+			"price": {{- 'cart.label.price' | t | json -}},
+			"quantity": {{- 'cart.label.quantity' | t | json -}},
+			"total": {{- 'cart.label.total' | t | json -}}
+		}
+	},
+	"collections": {
+		"general": {
+			"title": {{- 'collections.general.title' | t | json -}},
+			"all_of_collection": {{- 'collections.general.all_of_collection' | t | json -}},
+			"no_matches": {{- 'collections.general.no_matches' | t | json -}},
+			"no_matches1": {{- 'collections.general.no_matches1' | t | json -}},
+			"link_title": {{- 'collections.general.link_title' | t | json -}},
+			"grid_view": {{- 'collections.general.grid_view' | t | json -}},
+			"list_view": {{- 'collections.general.list_view' | t | json -}},
+			"items_with_count": {
+				"one": {{- 'collections.general.items_with_count.one' | t | json -}},
+				"other": {{- 'collections.general.items_with_count.other' | t | json -}}
+			},
+			"more": {{- 'collections.general.more' | t | json -}}
+		},
+		"sidebar": {
+			"tags": {{- 'collections.sidebar.tags' | t | json -}},
+			"title": {{- 'collections.sidebar.title' | t | json -}},
+			"all": {{- 'collections.sidebar.all' | t | json -}}
+		},
+		"sorting": {
+			"title": {{- 'collections.sorting.title' | t | json -}},
+			"featured": {{- 'collections.sorting.featured' | t | json -}},
+			"best_selling": {{- 'collections.sorting.best_selling' | t | json -}},
+			"az": {{- 'collections.sorting.az' | t | json -}},
+			"za": {{- 'collections.sorting.za' | t | json -}},
+			"price_ascending": {{- 'collections.sorting.price_ascending' | t | json -}},
+			"price_descending": {{- 'collections.sorting.price_descending' | t | json -}},
+			"date_descending": {{- 'collections.sorting.date_descending' | t | json -}},
+			"date_ascending": {{- 'collections.sorting.date_ascending' | t | json -}},
+			"browse": {{- 'collections.sorting.browse' | t | json -}},
+			"all_items": {{- 'collections.sorting.all_items' | t | json -}},
+			"showing": {{- 'collections.sorting.showing' | t | json -}},
+			"of": {{- 'collections.sorting.of' | t | json -}},
+			"results": {{- 'collections.sorting.results' | t | json -}}
+		},
+		"onboarding": {
+			"modal_title": {{- 'collections.onboarding.modal_title' | t | json -}},
+			"no_products_html": {{- 'collections.onboarding.no_products_html' | t | json -}},
+			"add_product": {{- 'collections.onboarding.add_product' | t | json -}}
+		},
+		"grid": {
+			"quick_buy": {{- 'collections.grid.quick_buy' | t | json -}}
+		}
+	},
+	"contact": {
+		"form": {
+			"first_name": {{- 'contact.form.first_name' | t | json -}},
+			"last_name": {{- 'contact.form.last_name' | t | json -}},
+			"email": {{- 'contact.form.email' | t | json -}},
+			"phone": {{- 'contact.form.phone' | t | json -}},
+			"message": {{- 'contact.form.message' | t | json -}},
+			"send": {{- 'contact.form.send' | t | json -}},
+			"title": {{- 'contact.form.title' | t | json -}},
+			"details_title": {{- 'contact.form.details_title' | t | json -}},
+			"availability": {{- 'contact.form.availability' | t | json -}},
+			"live_chat": {{- 'contact.form.live_chat' | t | json -}},
+			"mailing_address": {{- 'contact.form.mailing_address' | t | json -}},
+			"faqs_link": {{- 'contact.form.faqs_link' | t | json -}},
+			"post_success": {{- 'contact.form.post_success' | t | json -}}
+		},
+		"track_order": {
+			"title": {{- 'contact.track_order.title' | t | json -}},
+			"order_number": {{- 'contact.track_order.order_number' | t | json -}},
+			"email_address": {{- 'contact.track_order.email_address' | t | json -}},
+			"button": {{- 'contact.track_order.button' | t | json -}}
+		}
+	},
+	"customer": {
+		"account": {
+			"title": {{- 'customer.account.title' | t | json -}},
+			"details": {{- 'customer.account.details' | t | json -}},
+			"view_addresses": {{- 'customer.account.view_addresses' | t | json -}},
+			"return": {{- 'customer.account.return' | t | json -}}
+		},
+		"activate_account": {
+			"title": {{- 'customer.activate_account.title' | t | json -}},
+			"subtext": {{- 'customer.activate_account.subtext' | t | json -}},
+			"password": {{- 'customer.activate_account.password' | t | json -}},
+			"password_confirm": {{- 'customer.activate_account.password_confirm' | t | json -}},
+			"submit": {{- 'customer.activate_account.submit' | t | json -}},
+			"cancel": {{- 'customer.activate_account.cancel' | t | json -}}
+		},
+		"addresses": {
+			"title": {{- 'customer.addresses.title' | t | json -}},
+			"default": {{- 'customer.addresses.default' | t | json -}},
+			"add_new": {{- 'customer.addresses.add_new' | t | json -}},
+			"edit_address": {{- 'customer.addresses.edit_address' | t | json -}},
+			"first_name": {{- 'customer.addresses.first_name' | t | json -}},
+			"last_name": {{- 'customer.addresses.last_name' | t | json -}},
+			"company": {{- 'customer.addresses.company' | t | json -}},
+			"address1": {{- 'customer.addresses.address1' | t | json -}},
+			"address2": {{- 'customer.addresses.address2' | t | json -}},
+			"city": {{- 'customer.addresses.city' | t | json -}},
+			"country": {{- 'customer.addresses.country' | t | json -}},
+			"province": {{- 'customer.addresses.province' | t | json -}},
+			"zip": {{- 'customer.addresses.zip' | t | json -}},
+			"phone": {{- 'customer.addresses.phone' | t | json -}},
+			"set_default": {{- 'customer.addresses.set_default' | t | json -}},
+			"add": {{- 'customer.addresses.add' | t | json -}},
+			"update": {{- 'customer.addresses.update' | t | json -}},
+			"cancel": {{- 'customer.addresses.cancel' | t | json -}},
+			"edit": {{- 'customer.addresses.edit' | t | json -}},
+			"delete": {{- 'customer.addresses.delete' | t | json -}}
+		},
+		"login": {
+			"title": {{- 'customer.login.title' | t | json -}},
+			"logout": {{- 'customer.login.logout' | t | json -}},
+			"email": {{- 'customer.login.email' | t | json -}},
+			"password": {{- 'customer.login.password' | t | json -}},
+			"forgot_password": {{- 'customer.login.forgot_password' | t | json -}},
+			"sign_in": {{- 'customer.login.sign_in' | t | json -}},
+			"cancel": {{- 'customer.login.cancel' | t | json -}},
+			"guest_title": {{- 'customer.login.guest_title' | t | json -}},
+			"guest_continue": {{- 'customer.login.guest_continue' | t | json -}},
+			"remember_me": {{- 'customer.login.remember_me' | t | json -}},
+			"dont_have_account": {{- 'customer.login.dont_have_account' | t | json -}}
+		},
+		"orders": {
+			"title": {{- 'customer.orders.title' | t | json -}},
+			"order_number": {{- 'customer.orders.order_number' | t | json -}},
+			"date": {{- 'customer.orders.date' | t | json -}},
+			"payment_status": {{- 'customer.orders.payment_status' | t | json -}},
+			"fulfillment_status": {{- 'customer.orders.fulfillment_status' | t | json -}},
+			"total": {{- 'customer.orders.total' | t | json -}},
+			"none": {{- 'customer.orders.none' | t | json -}}
+		},
+		"order": {
+			"title": {{- 'customer.order.title' | t | json -}},
+			"date": {{- 'customer.order.date' | t | json -}},
+			"cancelled": {{- 'customer.order.cancelled' | t | json -}},
+			"cancelled_reason": {{- 'customer.order.cancelled_reason' | t | json -}},
+			"billing_address": {{- 'customer.order.billing_address' | t | json -}},
+			"payment_status": {{- 'customer.order.payment_status' | t | json -}},
+			"shipping_address": {{- 'customer.order.shipping_address' | t | json -}},
+			"fulfillment_status": {{- 'customer.order.fulfillment_status' | t | json -}},
+			"discount": {{- 'customer.order.discount' | t | json -}},
+			"shipping": {{- 'customer.order.shipping' | t | json -}},
+			"tax": {{- 'customer.order.tax' | t | json -}},
+			"product": {{- 'customer.order.product' | t | json -}},
+			"sku": {{- 'customer.order.sku' | t | json -}},
+			"price": {{- 'customer.order.price' | t | json -}},
+			"quantity": {{- 'customer.order.quantity' | t | json -}},
+			"total": {{- 'customer.order.total' | t | json -}},
+			"fulfilled_at": {{- 'customer.order.fulfilled_at' | t | json -}},
+			"subtotal": {{- 'customer.order.subtotal' | t | json -}}
+		},
+		"recover_password": {
+			"title": {{- 'customer.recover_password.title' | t | json -}},
+			"email": {{- 'customer.recover_password.email' | t | json -}},
+			"submit": {{- 'customer.recover_password.submit' | t | json -}},
+			"cancel": {{- 'customer.recover_password.cancel' | t | json -}},
+			"subtext": {{- 'customer.recover_password.subtext' | t | json -}},
+			"success": {{- 'customer.recover_password.success' | t | json -}}
+		},
+		"reset_password": {
+			"title": {{- 'customer.reset_password.title' | t | json -}},
+			"subtext": {{- 'customer.reset_password.subtext' | t | json -}},
+			"password": {{- 'customer.reset_password.password' | t | json -}},
+			"password_confirm": {{- 'customer.reset_password.password_confirm' | t | json -}},
+			"submit": {{- 'customer.reset_password.submit' | t | json -}}
+		},
+		"register": {
+			"title": {{- 'customer.register.title' | t | json -}},
+			"first_name": {{- 'customer.register.first_name' | t | json -}},
+			"last_name": {{- 'customer.register.last_name' | t | json -}},
+			"email": {{- 'customer.register.email' | t | json -}},
+			"password": {{- 'customer.register.password' | t | json -}},
+			"submit": {{- 'customer.register.submit' | t | json -}},
+			"cancel": {{- 'customer.register.cancel' | t | json -}}
+		}
+	},
+	"homepage": {
+		"sections": {
+			"frontpage_title": {{- 'homepage.sections.frontpage_title' | t | json -}},
+			"featured_title": {{- 'homepage.sections.featured_title' | t | json -}},
+			"news_title": {{- 'homepage.sections.news_title' | t | json -}}
+		},
+		"onboarding": {
+			"modal_title": {{- 'homepage.onboarding.modal_title' | t | json -}},
+			"no_products_html": {{- 'homepage.onboarding.no_products_html' | t | json -}},
+			"add_product": {{- 'homepage.onboarding.add_product' | t | json -}},
+			"product_title": {{- 'homepage.onboarding.product_title' | t | json -}},
+			"no_collections_html": {{- 'homepage.onboarding.no_collections_html' | t | json -}},
+			"add_collection": {{- 'homepage.onboarding.add_collection' | t | json -}},
+			"collection_title": {{- 'homepage.onboarding.collection_title' | t | json -}}
+		}
+	},
+	"layout": {
+		"navigation": {
+			"menu": {{- 'layout.navigation.menu' | t | json -}}
+		},
+		"drawers": {
+			"browse": {{- 'layout.drawers.browse' | t | json -}},
+			"close_menu": {{- 'layout.drawers.close_menu' | t | json -}}
+		},
+		"cart": {
+			"title": {{- 'layout.cart.title' | t | json -}},
+			"items_count": {
+				"one": {{- 'layout.cart.items_count.one' | t | json -}},
+				"other": {{- 'layout.cart.items_count.other' | t | json -}}
+			}
+		},
+		"customer": {
+			"account": {{- 'layout.customer.account' | t | json -}},
+			"logged_in_as_html": {{- 'layout.customer.logged_in_as_html' | t | json -}},
+			"log_out": {{- 'layout.customer.log_out' | t | json -}},
+			"log_in": {{- 'layout.customer.log_in' | t | json -}},
+			"create_account": {{- 'layout.customer.create_account' | t | json -}}
+		},
+		"timer": {
+			"days": {{- 'layout.timer.days' | t | json -}},
+			"hours": {{- 'layout.timer.hours' | t | json -}},
+			"minutes": {{- 'layout.timer.minutes' | t | json -}},
+			"seconds": {{- 'layout.timer.seconds' | t | json -}},
+			"day_lowercase": {{- 'layout.timer.day_lowercase' | t | json -}},
+			"hour_lowercase": {{- 'layout.timer.hour_lowercase' | t | json -}},
+			"minute_lowercase": {{- 'layout.timer.minute_lowercase' | t | json -}},
+			"second_lowercase": {{- 'layout.timer.second_lowercase' | t | json -}},
+			"days_lowercase": {{- 'layout.timer.days_lowercase' | t | json -}},
+			"hours_lowercase": {{- 'layout.timer.hours_lowercase' | t | json -}},
+			"minutes_lowercase": {{- 'layout.timer.minutes_lowercase' | t | json -}},
+			"seconds_lowercase": {{- 'layout.timer.seconds_lowercase' | t | json -}}
+		},
+		"coupon_code": {
+			"text": {{- 'layout.coupon_code.text' | t | json -}},
+			"save": {{- 'layout.coupon_code.save' | t | json -}},
+			"copy_code": {{- 'layout.coupon_code.copy_code' | t | json -}},
+			"newsletter_coupon": {{- 'layout.coupon_code.newsletter_coupon' | t | json -}}
+		},
+		"days": {
+			"sunday": {{- 'layout.days.sunday' | t | json -}},
+			"monday": {{- 'layout.days.monday' | t | json -}},
+			"tuesday": {{- 'layout.days.tuesday' | t | json -}},
+			"wednesday": {{- 'layout.days.wednesday' | t | json -}},
+			"thursday": {{- 'layout.days.thursday' | t | json -}},
+			"friday": {{- 'layout.days.friday' | t | json -}},
+			"saturday": {{- 'layout.days.saturday' | t | json -}}
+		},
+		"day_small": {
+			"sun": {{- 'layout.day_small.sun' | t | json -}},
+			"mon": {{- 'layout.day_small.mon' | t | json -}},
+			"tue": {{- 'layout.day_small.tue' | t | json -}},
+			"wed": {{- 'layout.day_small.wed' | t | json -}},
+			"thu": {{- 'layout.day_small.thu' | t | json -}},
+			"fri": {{- 'layout.day_small.fri' | t | json -}},
+			"sat": {{- 'layout.day_small.sat' | t | json -}}
+		},
+		"month": {
+			"jan": {{- 'layout.month.jan' | t | json -}},
+			"feb": {{- 'layout.month.feb' | t | json -}},
+			"mar": {{- 'layout.month.mar' | t | json -}},
+			"apr": {{- 'layout.month.apr' | t | json -}},
+			"may": {{- 'layout.month.may' | t | json -}},
+			"jun": {{- 'layout.month.jun' | t | json -}},
+			"jul": {{- 'layout.month.jul' | t | json -}},
+			"aug": {{- 'layout.month.aug' | t | json -}},
+			"sep": {{- 'layout.month.sep' | t | json -}},
+			"oct": {{- 'layout.month.oct' | t | json -}},
+			"nov": {{- 'layout.month.nov' | t | json -}},
+			"dec": {{- 'layout.month.dec' | t | json -}}
+		},
+		"footer": {
+			"social_title": {{- 'layout.footer.social_title' | t | json -}},
+			"newsletter_title": {{- 'layout.footer.newsletter_title' | t | json -}},
+			"accepted_payments": {{- 'layout.footer.accepted_payments' | t | json -}},
+			"copyright": {{- 'layout.footer.copyright' | t | json -}},
+			"powered_by": {{- 'layout.footer.powered_by' | t | json -}},
+			"powered_by_link": {{- 'layout.footer.powered_by_link' | t | json -}}
+		}
+	},
+	"products": {
+		"general": {
+			"previous_product_html": {{- 'products.general.previous_product_html' | t | json -}},
+			"next_product_html": {{- 'products.general.next_product_html' | t | json -}},
+			"from_text_html": {{- 'products.general.from_text_html' | t | json -}},
+			"sale_price": {{- 'products.general.sale_price' | t | json -}},
+			"regular_price": {{- 'products.general.regular_price' | t | json -}},
+			"you_save": {{- 'products.general.you_save' | t | json -}},
+			"sizing": {{- 'products.general.sizing' | t | json -}},
+			"size_chart_title": {{- 'products.general.size_chart_title' | t | json -}},
+			"close_button": {{- 'products.general.close_button' | t | json -}},
+			"full_detail_button_text": {{- 'products.general.full_detail_button_text' | t | json -}},
+			"related_products_title": {{- 'products.general.related_products_title' | t | json -}}
+		},
+		"notify_form": {
+			"description": {{- 'products.notify_form.description' | t | json -}},
+			"email": {{- 'products.notify_form.email' | t | json -}},
+			"send": {{- 'products.notify_form.send' | t | json -}},
+			"message_content": {{- 'products.notify_form.message_content' | t | json -}},
+			"post_success": {{- 'products.notify_form.post_success' | t | json -}},
+			"post_error": {{- 'products.notify_form.post_error' | t | json -}}
+		},
+		"notify_form_variant": {
+			"description": {{- 'products.notify_form_variant.description' | t | json -}},
+			"email": {{- 'products.notify_form_variant.email' | t | json -}},
+			"send": {{- 'products.notify_form_variant.send' | t | json -}},
+			"message_content": {{- 'products.notify_form_variant.message_content' | t | json -}},
+			"post_success": {{- 'products.notify_form_variant.post_success' | t | json -}},
+			"post_error": {{- 'products.notify_form_variant.post_error' | t | json -}}
+		},
+		"product": {
+			"sold_out": {{- 'products.product.sold_out' | t | json -}},
+			"on_sale": {{- 'products.product.on_sale' | t | json -}},
+			"on_sale_from_html": {{- 'products.product.on_sale_from_html' | t | json -}},
+			"unavailable": {{- 'products.product.unavailable' | t | json -}},
+			"compare_at": {{- 'products.product.compare_at' | t | json -}},
+			"quantity": {{- 'products.product.quantity' | t | json -}},
+			"sale": {{- 'products.product.sale' | t | json -}},
+			"save": {{- 'products.product.save' | t | json -}},
+			"add_to_cart": {{- 'products.product.add_to_cart' | t | json -}}
+		},
+		"progress_bar": {
+			"limited_edition": {{- 'products.progress_bar.limited_edition' | t | json -}},
+			"only": {{- 'products.progress_bar.only' | t | json -}},
+			"left": {{- 'products.progress_bar.left' | t | json -}},
+			"sold": {{- 'products.progress_bar.sold' | t | json -}},
+			"of": {{- 'products.progress_bar.of' | t | json -}}
+		},
+		"call_to_action": {
+			"ship_fast_1": {{- 'products.call_to_action.ship_fast_1' | t | json -}},
+			"ship_fast_2": {{- 'products.call_to_action.ship_fast_2' | t | json -}}
+		},
+		"wishlist": {
+			"add_to_wishlist": {{- 'products.wishlist.add_to_wishlist' | t | json -}},
+			"remove_from_wishlist": {{- 'products.wishlist.remove_from_wishlist' | t | json -}}
+		},
+		"delivery_estimate": {
+			"label": {{- 'products.delivery_estimate.label' | t | json -}}
+		}
+	},
+	"gift_cards": {
+		"issued": {
+			"title": {{- 'gift_cards.issued.title' | t | json -}},
+			"subtext": {{- 'gift_cards.issued.subtext' | t | json -}},
+			"disabled": {{- 'gift_cards.issued.disabled' | t | json -}},
+			"expired": {{- 'gift_cards.issued.expired' | t | json -}},
+			"active": {{- 'gift_cards.issued.active' | t | json -}},
+			"redeem": {{- 'gift_cards.issued.redeem' | t | json -}},
+			"shop_link": {{- 'gift_cards.issued.shop_link' | t | json -}},
+			"print": {{- 'gift_cards.issued.print' | t | json -}},
+			"add_to_apple_wallet": {{- 'gift_cards.issued.add_to_apple_wallet' | t | json -}}
+		}
+	},
+	"date_formats": {
+		"month_day_year": {{- 'date_formats.month_day_year' | t | json -}}
+	},
+	"shopify": {
+		"checkout": {
+			"newsletter": {
+				"subscription_checkbox_label": {{- 'shopify.checkout.newsletter.subscription_checkbox_label' | t | json -}}
+			}
+		}
+	}
+}{%- endcapture -%}{{- translations -}}

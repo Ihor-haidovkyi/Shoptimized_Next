@@ -1,0 +1,24 @@
+<select name="id"
+		id="ProductSelect-{{ product.id }}"
+		data-product-id="{{ product.id }}"
+		class="product-common-selector js-product-common-selector"
+		data-product-select>
+
+	{% for variant in product.variants %}
+		{% if variant.available %}
+			<option data-image="{{ variant.image | product_img_url: 'small' | split:'?' | first }}"
+					data-option1="{{ variant.option1 | escape }}"
+					data-option2="{{ variant.option2 | escape }}"
+					data-option3="{{ variant.option3 | escape }}"
+					{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}
+					data-sku="{{ variant.sku }}"
+					value="{{ variant.id }}">
+				{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+		{% else %}
+			<option data-image="{{ variant.image | product_img_url: 'small' | split: '?' | first }}"
+					disabled="disabled">
+				{{ variant.title }} - {{ 'products.product.sold_out' | t }}
+			</option>
+		{% endif %}
+	{% endfor %}
+</select>

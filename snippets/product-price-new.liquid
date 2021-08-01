@@ -1,0 +1,42 @@
+{% if product.available %}
+    <div class="product-price">
+        {% if settings.show_price_label %}
+            <div class="product-price__label">
+                {{ "products.general.sale_price" | t }}
+            </div>
+        {% endif %}
+
+        <div class="product-price__prices">
+            <span id="ProductPrice"
+                  class="product-price__regular money"
+                  itemprop="price"
+                  data-product-price
+                  content="{{ current_variant.price | divided_by: 100.00 }}">
+
+                {{ current_variant.price | money }}
+            </span>
+
+            {% if settings.show_compare_price and product.compare_at_price_max > product.price %}
+                <span id="ComparePrice"
+                      data-compare-price
+                      class="product-price__compare money{% unless current_variant.compare_at_price %} hide{% endunless %}">
+
+                    {{ current_variant.compare_at_price | money }}
+                </span>
+            {% endif %}
+        </div>
+
+        {% if settings.show_compare_price and product.compare_at_price_max > product.price %}
+            {% if settings.show_saved_amount %}
+                <div class="product-price__you-save js-product-savings"
+                     data-price="{{ current_variant.price }}"
+                     data-compare-at-price="{{ current_variant.compare_at_price }}">
+
+                    You save:
+                    <span class="product-price__you-save-value js-product-savings-money-value"></span>
+                    <span class="product-price__you-save-value js-product-savings-percents-value"></span>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

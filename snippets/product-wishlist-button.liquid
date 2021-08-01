@@ -1,0 +1,17 @@
+<div class="product-wishlist tooltip-new js-wishlist-button"
+	 data-product-id="{{ product.id }}">
+
+	<span class="product-wishlist__icon js-wishlist-inactive">
+		{% include 'icon-wishlist' %}
+	</span>
+
+	<span class="product-wishlist__icon product-wishlist__icon--active js-wishlist-active hidden">
+		{% include 'icon-wishlist-fill' %}
+	</span>
+
+	<div class="tooltip-new__text js-wishlist-text"
+		 data-add-to-wishlist-text="{{ 'products.wishlist.add_to_wishlist' | t }}"
+		 data-remove-from-wishlist-text="{{ 'products.wishlist.remove_from_wishlist' | t }}">
+		{{ 'products.wishlist.add_to_wishlist' | t }}
+	</div>
+</div>

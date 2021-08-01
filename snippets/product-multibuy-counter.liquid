@@ -1,0 +1,36 @@
+{% assign multibuy_counter_enable_demo_data = settings.multibuy_counter_enable_demo_data %}
+{% assign multibuy_tag_text = settings.multibuy_tag_text %}
+{% assign multibuy_counter_min = settings.multibuy_counter_min %}
+{% assign multibuy_counter_max = settings.multibuy_counter_max %}
+{% assign multibuy_enable_animate = settings.p_tag_emoji_flash %}
+{% assign multibuy_icon = settings.multibuy_icon %}
+
+{% if product.available %}
+	<div class="product-multibuy-counter js-product-multibuy-counter{% if multibuy_enable_animate %} product-multibuy-counter--animated{% endif %}">
+		{% if multibuy_icon != blank %}
+			<span class="product-multibuy-counter__icon">
+				{{ multibuy_icon }}
+			</span>
+		{% endif %}
+
+		{% if multibuy_counter_enable_demo_data %}
+			<span class="js-product-multibuy-counter-demo"
+				  data-counter-min="{{ multibuy_counter_min }}"
+				  data-counter-max="{{ multibuy_counter_max }}">
+				3
+			</span>
+		{% else %}
+			<span class="js-statsapp-multibuy-counter">3</span>
+		{% endif %}
+
+		<span class="product-multibuy-counter__text">
+			{{ multibuy_tag_text }}
+		</span>
+
+		{% if multibuy_icon != blank %}
+			<span class="product-multibuy-counter__icon">
+				{{ multibuy_icon }}
+			</span>
+		{% endif %}
+	</div>
+{% endif %}

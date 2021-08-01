@@ -1,0 +1,120 @@
+{% assign file_extension = 'png' %}
+
+{% if swatch == blank %}
+    <div class="swatch error">
+        <p>You must include the snippet swatch.liquid with the name of a product option.</p>
+        <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+        <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+    </div>
+{% else %}
+    {% assign found_option = false %}
+    {% assign is_color = false %}
+    {% assign is_size = false %}
+    {% assign option_index = 0 %}
+
+    {% for option in product.options %}
+        {% if option == swatch %}
+            {% assign found_option = true %}
+            {% assign option_index = forloop.index0 %}
+            {% assign downcased_option = swatch | downcase %}
+
+            {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+                {% assign is_color = true %}
+            {% endif %}
+
+            {% if downcased_option contains 'size' %}
+                {% assign is_size = true %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% unless found_option %}
+        <div class="swatch error">
+            <p>You included the snippet swatch.liquid with the name of a product option — <code>'{{ swatch }}'</code> —
+                that does not belong to your product.</p>
+            <p>Use <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+            <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+            <p><strong>This is case-sensitive!</strong> Do not put in <code>'color'</code> if your product option name
+                is <code>'Color'</code>.</p>
+        </div>
+    {% else %}
+        <div class="product-swatch js-product-swatch-{{ swatch_index }}">
+            <h4 class="product-heading">{{ swatch }}</h4>
+
+            {% assign values = '' %}
+
+            {% for variant in product.variants %}
+                {% assign value = variant.options[option_index] %}
+
+                {% unless values contains value %}
+                {% assign values = values | join: ',' %}
+                {% assign values = values | append: ',' | append: value %}
+                {% assign values = values | split: ',' %}
+                {% assign selected_variant_value = product.selected_or_first_available_variant.options[option_index] %}
+                {% assign index = forloop.index %}
+                {% assign input_id = "option-" | append: product.id | append: "-" | append: option_index | append: "-" | append: index %}
+
+                    <div data-value="{{ value | escape }}"
+                         class="product-swatch__item tooltip-new tooltip-new--top tooltip-new--medium"
+                         data-swatch-item-selector
+                         data-index="option{{ option_index | plus: 1 }}"
+                         data-value="{{ value | escape }}">
+
+                        {% if settings.enable_product_tooltip %}
+                            <div class="tooltip-new__text product-swatch__tooltip-new-text">
+                                {{ settings.out_of_stock_text }}
+                            </div>
+                        {% endif %}
+
+                        <input id="{{ input_id }}"
+                               type="radio"
+                               name="option-{{ product.id }}-{{ option_index }}"
+                               data-single-option-selector
+                               data-index="option{{ option_index | plus: 1 }}"
+                               data-value="{{ value | escape }}"
+                               value="{{ value | escape }}"
+                               {% if selected_variant_value == value %}checked{% endif %}
+                               class="product-swatch__item-input">
+
+                        {% assign color_image = value | handle | append: '.' | append: file_extension | asset_url %}
+
+                        {% if is_color %}
+                            {% if settings.swatchestype == 'Color' %}
+                                <label for="{{ input_id }}"
+                                       class="product-swatch__item-label"
+                                       style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url('{{ color_image }}');">
+                                </label>
+                            {% elsif settings.swatchestype == 'Variant Image' %}
+                                <label for="{{ input_id }}"
+                                       class="product-swatch__item-label"
+                                       style="background-image: url({{ variant.image.src | product_img_url: '35x' }})">
+                                </label>
+                            {% else %}
+                                <label for="{{ input_id }}"
+                                       class="product-swatch__item-label">
+                                    {{ value }}
+                                </label>
+                            {% endif %}
+                        {% else %}
+                            <label for="{{ input_id }}"
+                                   class="product-swatch__item-label">
+                                {{ value }}
+                            </label>
+                        {% endif %}
+                    </div>
+                {% endunless %}
+            {% endfor %}
+
+            {% if is_size %}
+                {% if settings.display_sizing_chart %}
+                    {% if view_size_chart %}
+                        <div class="product-sizing">
+                            <a href="#" class="product-sizing__link js-modal-link"
+                               data-modal-id="size-chart">{{ 'products.general.sizing' | t }}</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endunless %}
+{% endif %}

@@ -1,0 +1,83 @@
+{% assign countdown_timer_text = settings.countdown_timer_text %}
+
+<div class="product-countdown-timer product-countdown-timer--model-3 js-product-countdown" data-expire-hours="{{ expire }}">
+	{% if countdown_timer_text %}
+		<h4 class="product-countdown-timer__heading">
+			{{ countdown_timer_text }}
+		</h4>
+	{% endif %}
+
+	<div class="product-countdown-timer__countdown js-product-countdown-timer-countdown">
+		<div class="product-countdown-timer__countdown-value-wrapper">
+			<div class="product-countdown-timer__countdown-value">
+				<svg width="100%" height="100%" viewBox="0 0 34 34" class="product-countdown-timer__countdown-value-circle js-entry-popup-countdown-days-circle">
+					<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+					<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+					<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+				</svg>
+
+				<div class="product-countdown-timer__countdown-value-number js-product-countdown-timer-countdown-days">
+					0
+				</div>
+
+				<span class="product-countdown-timer__countdown-value-label">
+					Days
+				</span>
+			</div>
+		</div>
+
+		<div class="product-countdown-timer__countdown-value-wrapper">
+			<div class="product-countdown-timer__countdown-value">
+				<svg width="100%" height="100%" viewBox="0 0 34 34" class="product-countdown-timer__countdown-value-circle js-product-countdown-timer-countdown-hours-circle">
+					<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+					<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+					<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+				</svg>
+
+				<div class="product-countdown-timer__countdown-value-number js-product-countdown-timer-countdown-hours">
+					0
+				</div>
+
+				<span class="product-countdown-timer__countdown-value-label">
+					Hours
+				</span>
+			</div>
+		</div>
+
+		<div class="product-countdown-timer__countdown-value-wrapper">
+			<div class="product-countdown-timer__countdown-value">
+				<svg width="100%" height="100%" viewBox="0 0 34 34" class="product-countdown-timer__countdown-value-circle js-product-countdown-timer-countdown-minutes-circle">
+					<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+					<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+					<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+				</svg>
+
+				<div class="product-countdown-timer__countdown-value-number js-product-countdown-timer-countdown-minutes">
+					0
+				</div>
+
+				<span class="product-countdown-timer__countdown-value-label">
+					Minutes
+				</span>
+			</div>
+		</div>
+
+		<div class="product-countdown-timer__countdown-value-wrapper">
+			<div class="product-countdown-timer__countdown-value">
+				<svg width="100%" height="100%" viewBox="0 0 34 34" class="product-countdown-timer__countdown-value-circle js-product-countdown-timer-countdown-seconds-circle">
+					<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+					<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+					<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+				</svg>
+
+				<div class="product-countdown-timer__countdown-value-number js-product-countdown-timer-countdown-seconds">
+					0
+				</div>
+
+				<span class="product-countdown-timer__countdown-value-label">
+					Seconds
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

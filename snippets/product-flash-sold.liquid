@@ -1,0 +1,20 @@
+{% assign flash_icon = settings.flash_sold_icon %}
+
+<div class="total-sold-flash js-total-sold-flash"
+	 data-counter-min-quantity="{{ settings.flash_sold_min_qty }}"
+	 data-counter-max-quantity="{{ settings.flash_sold_max_qty }}"
+	 data-counter-min-time="{{ settings.flash_sold_min_time }}"
+	 data-counter-max-time="{{ settings.flash_sold_max_time }}">
+
+	{% if flash_icon != blank %}
+		<span class="total-sold-flash__fire">
+			{{ flash_icon }}
+		</span>
+	{% endif %}
+
+	{%- if settings.product_flash_sold_enable_demo_data -%}
+		<span class="js-total-sold-flash-quantity">0</span> sold in last <span class="js-total-sold-flash-time"></span> hours
+	{%- else -%}
+		<span class="js-statsapp-orders-counter">..</span> sold in last {{ settings.orders_counter_period | abs }} hours
+	{%- endif -%}
+</div>

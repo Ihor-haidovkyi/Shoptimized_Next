@@ -1,0 +1,147 @@
+{% assign personalisation_string = "" %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    {%- if tag contains "personalisation-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalisation-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalisation-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+
+    {%- if tag contains "personalization-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalization-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalization-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+{% endfor %}
+
+<div class="mobile-sticky-slide-popup js-mobile-sticky-slide-popup">
+    <div class="mobile-sticky-slide-popup__content product-info">
+        {% form "product", product, class: "product-form" %}
+            <div class="mobile-sticky-slide-popup__main-info">
+                <div class="mobile-sticky-slide-popup__image-wrapper">
+                    <picture class="lazy">
+                        <img data-srcset="{{ current_variant.image | img_url: '130x' }} 1x, {{ current_variant.image | img_url: '260x' }} 2x"
+                             srcset="{{ current_variant.image | img_url: '10x' }}"
+                             class="mobile-sticky-slide-popup__image js-product-sticky-cart-image"
+                             alt="{{ product.title }}">
+                    </picture>
+                </div>
+
+                <div class="mobile-sticky-slide-popup__text-wrapper">
+                    <h3 class="mobile-sticky-slide-popup__title">
+                        {{ product.title }}
+                    </h3>
+
+                    <div class="mobile-sticky-slide-popup__price">
+                        {% include "product-price-new" %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-sticky-slide-popup__info product-selectors">
+                {% include "product-variants-select" %}
+
+                {% if settings.variant_swatch %}
+                    {% include "product-variant-swatch", unique_letter: "a" %}
+                {% else %}
+                    {% include "product-variant-selects" %}
+                {% endif %}
+            </div>
+
+            {% if settings.product_personalisation %}
+                {% include "product-personalisation-properties" %}
+            {% endif %}
+
+            {% assign product-cross-sell-id = blank %}
+
+            {% for tag in product.tags %}
+                {% assign tag = tag | downcase %}
+
+                {% if tag == "cross-sell-1" %}
+                    {% assign product-cross-sell-id = "cross-sell-1" %}
+                    {% elsif tag == "cross-sell-2" %}
+                    {% assign product-cross-sell-id = "cross-sell-2" %}
+                    {% elsif tag == "cross-sell-3" %}
+                    {% assign product-cross-sell-id = "cross-sell-3" %}
+                    {% elsif tag == "cross-sell-4" %}
+                    {% assign product-cross-sell-id = "cross-sell-4" %}
+                    {% elsif tag == "cross-sell-5" %}
+                    {% assign product-cross-sell-id = "cross-sell-5" %}
+                    {% elsif tag == "cross-sell-6" %}
+                    {% assign product-cross-sell-id = "cross-sell-6" %}
+                    {% elsif tag == "cross-sell-7" %}
+                    {% assign product-cross-sell-id = "cross-sell-7" %}
+                    {% elsif tag == "cross-sell-8" %}
+                    {% assign product-cross-sell-id = "cross-sell-8" %}
+                {% endif %}
+            {% endfor %}
+
+            {% assign product-upsell-id = blank %}
+
+            {% for tag in product.tags %}
+                {% assign tag = tag | downcase %}
+
+                {% if tag == "upsell-enable-1" %}
+                    {% assign product-cross-sell-id = "upsell-popup-1" %}
+                    {% elsif tag == "upsell-enable-2" %}
+                    {% assign product-cross-sell-id = "upsell-popup-2" %}
+                    {% elsif tag == "upsell-enable-3" %}
+                    {% assign product-cross-sell-id = "upsell-popup-3" %}
+                    {% elsif tag == "upsell-enable-4" %}
+                    {% assign product-cross-sell-id = "upsell-popup-4" %}
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit"
+                    name="add"
+                    class="mobile-sticky-slide-popup__atc button button--large js-product-add-to-cart-button js-mobile-sticky-slide-popup-atc hidden"
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                    data-no-change-text
+                    {% if product-upsell-id != blank %}data-upsell-id="{{ product-upsell-id }}"{% endif %}
+                    {% if product-cross-sell-id != blank %}data-cross-sell-id="{{ product-cross-sell-id }}"{% endif %}
+            >
+
+                <span class="js-product-add-to-cart-button-text">
+                    {% if settings.Sticky_add_to_cart_button_text != blank %}
+                        {{ settings.Sticky_add_to_cart_button_text }}
+                    {% endif %}
+                </span>
+            </button>
+
+            <div class="js-mobile-sticky-slide-popup-checkout hidden">
+                <button type="submit"
+                        name="add"
+                        class="mobile-sticky-slide-popup__buy-now button button--large js-mobile-sticky-slide-popup-buy-now"
+                        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                        data-redirect-url="/checkout"
+						{% if product-upsell-id != blank %}data-upsell-id="{{ product-upsell-id }}"{% endif %}
+						{% if product-cross-sell-id != blank %}data-cross-sell-id="{{ product-cross-sell-id }}"{% endif %}
+				>
+					<span class="js-product-add-to-cart-button-text">
+                        {% if free_shipping_product %}
+							{% if settings.freeshipping_add_to_cart_button_text != "" %}
+								+ {{- settings.freeshipping_add_to_cart_button_text -}}
+							{% else %}
+								{{- settings.Sticky_Buy_button_text -}}
+							{% endif %}
+						{% else %}
+							{{- settings.Sticky_Buy_button_text -}}
+						{% endif %}
+                    </span>
+                </button>
+
+                {{ content_for_additional_checkout_buttons }}
+            </div>
+        {% endform %}
+    </div>
+</div>

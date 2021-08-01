@@ -1,0 +1,30 @@
+{% assign variant_quantity = product.selected_or_first_available_variant.inventory_quantity %}
+
+{% if product.available and settings.display_quantity_dropdown %}
+	<div class="product-quantity js-product-quantity">
+		<h4 class="product-heading">
+			{{ "products.product.quantity" | t }}
+		</h4>
+
+		<div class="product-quantity__item">
+			<span class="product-quantity__action product-quantity__action--remove js-quantity-remove">-</span>
+
+			<input type="number"
+				   name="quantity"
+				   data-no-replace
+				   value="1"
+				   min="1"
+				   max="99"
+				   class="input input--primary product-quantity__input js-quantity-input">
+
+			<span class="product-quantity__action product-quantity__action--add js-quantity-add">+</span>
+		</div>
+	</div>
+{% else %}
+	<input type="hidden"
+		   class="js-quantity-input"
+		   name="quantity"
+		   value="1"
+		   min="1"
+		   max="99">
+{% endif %}

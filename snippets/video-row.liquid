@@ -1,0 +1,70 @@
+{%- capture styles -%}
+	--background-color: {{- section.settings.footer_video_bg_color -}};
+	--font-color: {{- section.settings.footer_video_font_color -}};
+	--font-size: {{- section.settings.footer_video_font_size -}};
+	--font-style: {{- section.settings.footer_video_font_style -}};
+{%- endcapture -%}
+
+{%- assign styles = styles | strip_newlines -%}
+
+<div class="video-row" style="{{- styles -}}">
+	<div class="container">
+		<div class="video-row__wrapper">
+			<div class="video-row__item">
+				{% if section.settings.video1_title != blank %}
+					<h4 class="video-row__item-title">
+						{{ section.settings.video1_title }}
+					</h4>
+				{% endif %}
+
+				<div class="video-row__iframe">
+					<div class="video-row__iframe-wrapper{% if section.settings.video1_iframe contains 'vimeo' %} js-vimeo{% endif %}">
+						{% if section.settings.video1_iframe == "" %}
+							<img src="{{ 'video.png' | asset_url }}" alt="No Video"/>
+						{% else %}
+							{% if section.settings.video1_iframe contains 'vimeo' %}
+								{{ section.settings.video1_iframe | replace: 'src', 'data-src' }}
+							{% else %}
+								{{ section.settings.video1_iframe }}
+							{% endif %}
+						{% endif %}
+					</div>
+
+					{% if section.settings.video1_caption != "" %}
+						<p class="video-row__caption">
+							{{ section.settings.video1_caption }}
+						</p>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="video-row__item">
+				{% if section.settings.video2_title != blank %}
+					<h4 class="video-row__item-title">
+						{{ section.settings.video2_title }}
+					</h4>
+				{% endif %}
+
+				<div class="video-row__iframe">
+					<div class="video-row__iframe-wrapper{% if section.settings.video2_iframe contains 'vimeo' %} js-vimeo{% endif %}">
+						{% if section.settings.video2_iframe == blank %}
+							<img src="{{ 'video.png' | asset_url }}" alt="No Video"/>
+						{% else %}
+							{% if section.settings.video2_iframe contains 'vimeo' %}
+								{{ section.settings.video2_iframe | replace: 'src', 'data-src' }}
+							{% else %}
+								{{ section.settings.video2_iframe }}
+							{% endif %}
+						{% endif %}
+					</div>
+
+					{% if section.settings.video2_caption != blank %}
+						<p class="video-row__caption">
+							{{ section.settings.video2_caption }}
+						</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

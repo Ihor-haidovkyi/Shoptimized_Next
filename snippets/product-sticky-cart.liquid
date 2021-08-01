@@ -1,0 +1,73 @@
+{% assign form_id = "AddToCartForm--" | append: product.id | append: "2" %}
+
+<div class="product-sticky-cart js-product-sticky-cart"
+	 data-section-type="product-sticky-bar-desktop"
+	 data-enable-history-state="true">
+	<div class="product-sticky-cart__container">
+		{% form "product", product, id: form_id, class: "product-form" %}
+			<div class="product-sticky-cart__row">
+				<div class="product-short-info">
+					<div class="product-short-info__image-wrapper">
+						<picture class="lazy">
+							<img data-srcset="{{ product.featured_image | img_url: '70x' }} 1x, {{ product.featured_image | img_url: '140x' }} 2x"
+									 srcset="{{ product.featured_image | img_url: '10x' }}"
+									 class="product-short-info__image js-product-sticky-cart-image"
+									 alt="{{ product.title }}">
+						</picture>
+					</div>
+
+
+					<div class="product-short-info__text-wrapper">
+						<h3 class="product-short-info__title">
+							{{ product.title }}
+						</h3>
+
+						<div class="product-short-info__price">
+							<span class="product-short-info__regular-price money" data-product-price>
+								{{ current_variant.price | money }}
+							</span>
+
+							{% if settings.show_compare_price %}
+								<span class="product-short-info__compare-price money" data-compare-price>
+									{% if current_variant.compare_at_price > product.price %}
+										{{ current_variant.compare_at_price | money }}
+									{% endif %}
+								</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+				<div class="product-reviews-stars product-short-reviews-widget">
+					{% if settings.product_review_type == "loox" %}
+						<span class="loox-rating" data-id="{{ product.id }}"
+								data-rating="{{ product.metafields.loox.avg_rating }}"
+								data-raters="{{ product.metafields.loox.num_reviews }}">
+						</span>
+					{% endif %}
+
+					{% if settings.product_review_type == "shopify_reviews" %}
+						<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+					{% endif %}
+				</div>
+
+				<div class="product-sticky-cart__quantity-wrapper">
+					{% include "product-quantity" %}
+				</div>
+
+				<div class="product-sticky-cart__options-wrapper">
+					{% include "product-variants-select" %}
+					{% include "product-variant-selects" %}
+				</div>
+
+				<div class="product-sticky-cart__atc-wrapper js-product-sticky-atc{% unless product.selected_or_first_available_variant.available %} hidden{% endunless %}">
+					{% if settings.amazonbutton and amazon_url != "" %}
+						{% include "product-amazon-button" %}
+					{% else %}
+						{% include "product-add-to-cart" %}
+					{% endif %}
+				</div>
+			</div>
+		{% endform %}
+	</div>
+</div>

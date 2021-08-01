@@ -1,0 +1,19 @@
+{% assign size_chart = true %}
+
+{% if product.available and product.variants.size > 1 %}
+	{% assign option_index = 0 %}
+
+	{% for option in product.options %}
+		{% assign downcased_option = option | downcase %}
+
+		{% if downcased_option contains 'size' %}
+			{% assign size_chart = false %}
+		{% endif %}
+
+		{% assign swatch = option %}
+
+		{% include "swatch-new", swatch: option, swatch_index: forloop.index, unique_letter: unique_letter %}
+
+		{% assign option_index = option_index | plus: 1 %}
+	{% endfor %}
+{% endif %}

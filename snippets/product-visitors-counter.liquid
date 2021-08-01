@@ -1,0 +1,22 @@
+{% assign enable_demo_data = settings.visitors_counter_enable_demo %}
+{% assign counter_demo_min = settings.visitors_counter_min %}
+{% assign counter_demo_max = settings.visitors_counter_max %}
+{% assign visitors_counter_text = settings.visitors_counter_text_after %}
+
+<div class="product-visitors-counter js-product-visitors-counter">
+	{% if enable_demo_data %}
+		<span class="product-visitors-counter__count js-product-visitors-counter-demo"
+					data-counter-min="{{ counter_demo_min }}"
+					data-counter-max="{{ counter_demo_max }}">
+			3
+		</span>
+	{% else %}
+		<span class="product-visitors-counter__count js-statsapp-visitors-counter">
+			3
+		</span>
+	{% endif %}
+
+	<span class="product-visitors-counter__text">
+		{{ visitors_counter_text }}
+	</span>
+</div>

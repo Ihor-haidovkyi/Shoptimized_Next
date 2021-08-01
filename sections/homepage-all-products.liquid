@@ -1,0 +1,120 @@
+{%- assign title = section.settings.title -%}
+{%- assign collection = section.settings.collection -%}
+{%- assign show_all_product_home = section.settings.showallproducthome -%}
+{%- assign grid = section.settings.grid -%}
+
+{% if show_all_product_home %}
+	{% assign section_products = collections.all.products %}
+{% else %}
+	{% assign section_products = collections[collection].products %}
+{% endif %}
+{%- if collection != blank or section_products.count > 0 -%}
+	<div class="collection-products">
+		<div class="container">
+			{%- if title != blank -%}
+				<h2 class="section_title">
+					{{- title -}}
+				</h2>
+			{%- endif -%}
+
+			<div class="collection-products__grid">
+				{%- for product in section_products limit:grid -%}
+					<div class="collection-products__product">
+						{%- include "product-grid-item-new" -%}
+					</div>
+				{%- endfor -%}
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="collection-products">
+		<div class="container">
+			{%- if title != blank -%}
+				<h2 class="section_title">
+					{{- title -}}
+				</h2>
+			{%- endif -%}
+
+			<div class="collection-products__grid">
+				{% for i in (1..grid) %}
+					<div class="collection-products__product">
+						<div class="product-grid-item">
+							<div class="product-grid-item__inner">
+								<div class="product-grid-item__media">
+									<a href="#">
+										{{ 'product-1'  | placeholder_svg_tag: 'placeholder-svg' }}
+									</a>
+								</div>
+
+								<div class="product-grid-item__info">
+									<a href="#" class="product-grid-item__product-name">
+										Never Underestimate An Old Dude With a Surfboard Hoodie
+									</a>
+
+									<div class="product-grid-item__price">
+											<span>
+												$14.00
+											</span>
+									</div>
+
+									<div class="star-rating">
+										<span class="fa fa-star rating"></span>
+										<span class="fa fa-star rating"></span>
+										<span class="fa fa-star rating"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="rating-review">( 3 reviews )</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Show all products",
+	"class": "index-section",
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays either all products, or products from a collection in rows."
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Featured collection"
+		},
+		{
+			"type": "checkbox",
+			"id": "showallproducthome",
+			"label": "Show All products on Homepage"
+		},
+		{
+			"id": "collection",
+			"type": "collection",
+			"label": "Collection"
+		},
+		{
+			"type": "range",
+			"id": "grid",
+			"label": "number of products to show",
+			"min": 1,
+			"max": 50,
+			"step": 1,
+			"default": 8
+		}
+	],
+	"presets": [
+		{
+			"name": "Show products on homepage",
+			"category": "Collection"
+		}
+	]
+}
+{% endschema %}

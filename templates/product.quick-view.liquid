@@ -1,0 +1,209 @@
+{% layout none %}
+
+{% assign checklist = "" %}
+{% assign view_size_chart = false %}
+{% assign size_chart_page = settings.sizing_chart_page %}
+{% assign personalisation_string = "" %}
+{% assign tab_below_atc = false %}
+{% assign no_tabs = false %}
+{% assign custom_tabs = false %}
+{% assign product_flash_sold_enable = false %}
+{% assign show_quantity_bar = false %}
+{% assign quantity = 0 %}
+{% assign qty_sold = 0 %}
+{% assign display_limited = false %}
+{% assign display_quantity = 0 %}
+{% assign limited_default = 0 %}
+{% assign show_order_estimate = true %}
+{% assign delivery_start_date = section.settings.delivery_start %}
+{% assign delivery_end_date = section.settings.delivery_end %}
+{% assign multibuy_prompt = false %}
+{% assign amazon_url = "" %}
+{% assign free_shipping_product = false %}
+{% assign display_countdown = false %}
+{% assign expire = 72 %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    <!-- checklist -->
+    {% if tag contains "checklist-" %}
+        {% capture checklist %}
+            {% if checklist == "" %}
+                {{ tag | replace: "checklist-", "" }}
+            {% else %}
+                {{ checklist }}|||{{ tag | replace: "checklist-", "" }}
+            {% endif %}
+        {% endcapture %}
+    {% endif %}
+    <!-- END checklist -->
+
+    <!-- view_size_chart -->
+    {% if tag == "view-size-chart" %}
+        {% assign view_size_chart = true %}
+    {% endif %}
+    <!-- END view_size_chart -->
+
+    <!-- size_chart_page -->
+    {% if tag contains "sizechart-" %}
+        {% assign size_chart_page = tag | replace: "sizechart-", "" %}
+    {% endif %}
+    <!-- END size_chart_page -->
+
+    <!-- personalisation_string -->
+    {%- if tag contains "personalisation-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalisation-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalisation-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+
+    {%- if tag contains "personalization-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalization-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalization-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+    <!-- END personalisation_string -->
+
+    <!-- tab_below_atc -->
+    {% if tag == "tabs-below-atc" %}
+        {% assign tab_below_atc = true %}
+    {% endif %}
+    <!-- END tab_below_atc -->
+
+    <!-- no_tabs -->
+    {% if tag == "no-tabs" %}
+        {% assign no_tabs = true %}
+    {% endif %}
+    <!-- no_tabs -->
+
+    <!-- custom_tabs -->
+    {% if tag == "custom-tabs" %}
+        {% assign custom_tabs = true %}
+    {% endif %}
+    <!-- END custom_tabs -->
+
+    <!-- product_flash_sold_enable -->
+    {% if tag == "product-flash-sold" %}
+        {% assign product_flash_sold_enable = true %}
+    {% endif %}
+    <!-- END product_flash_sold_enable -->
+
+    <!-- show_quantity_bar -->
+    {% if tag == "show_quantity_bar" %}
+        {% assign show_quantity_bar = true %}
+    {% endif %}
+    <!-- END show_quantity_bar -->
+
+    <!-- quantity -->
+    {% if tag contains "quantity-" %}
+        {% assign quantity = tag | replace: "quantity-", "" | times: 1 %}
+    {% endif %}
+    <!-- END quantity -->
+
+    <!-- qty_sold -->
+    {% if tag contains "quantitysold-" %}
+        {% assign qty_sold = tag | replace: "quantitysold-", "" | times: 1 %}
+    {% endif %}
+    <!-- END qty_sold -->
+
+    <!-- display_limited -->
+    {% if tag == "display-limited" %}
+        {% assign display_limited = true %}
+    {% endif %}
+    <!-- END display_limited -->
+
+    <!-- display_quantity -->
+    {% if tag contains "displayquantity-" %}
+        {% assign display_quantity = tag | replace: "displayquantity-", "" | times: 1 %}
+    {% endif %}
+    <!-- END display_quantity -->
+
+    <!-- limited_default -->
+    {% if tag contains "limited-default-" %}
+        {% assign limited_default = tag | replace: "limited-default-", "" %}
+    {% endif %}
+    <!-- END limited_default -->
+
+    <!-- show_order_estimate -->
+    {% if tag contains "display-shipping-countdown" %}
+        {% assign show_order_estimate = false %}
+    {% endif %}
+    <!-- END show_order_estimate -->
+
+    <!-- delivery_start_date -->
+    {% if tag contains "estimatestart-" %}
+        {% assign delivery_start_date = tag | replace: "estimatestart-", "" %}
+    {% endif %}
+    <!-- END delivery_start_date -->
+
+    <!-- delivery_end_date -->
+    {% if tag contains "estimateend-" %}
+        {% assign estimate_end_date = tag | replace: "estimateend-", "" %}
+    {% endif %}
+    <!-- END delivery_end_date -->
+
+    <!-- multibuy_prompt -->
+    {% if tag contains "multi-buy-prompt" %}
+        {% assign multibuy_prompt = true %}
+    {% endif %}
+    <!-- END multibuy_prompt -->
+
+    <!-- amazon_url -->
+    {% if tag contains "https:" or tag contains "http:" or tag contains "www." %}
+        {% assign amazon_url = tag %}
+    {% endif %}
+    <!-- END amazon_url -->
+
+    <!-- free_shipping_product -->
+    {% if tag == "free-shipping" %}
+        {% assign free_shipping_product = true %}
+    {% endif %}
+    <!-- END free_shipping_product -->
+
+    <!-- display_countdown -->
+    {% if tag == "display-countdown" %}
+        {% assign display_countdown = true %}
+    {% endif %}
+    <!-- END display_countdown -->
+
+    <!-- expire -->
+    {% if tag contains "expire-" %}
+        {% assign expire = tag | replace: "expire-", "" %}
+    {% endif %}
+    <!-- END expire -->
+{% endfor %}
+
+<div class="quick-view js-quick-view"
+     data-section-type="quick-view-product">
+    {% include "product-meta-tags" %}
+
+    <div class="quick-view__container">
+        {% include "quick-view-images" %}
+        {% include "quick-view-info" %}
+    </div>
+
+    {% unless product == empty %}
+        <script type="application/json" data-product-json>
+          {{ product | json }}
+        </script>
+    {% endunless %}
+
+    <script type="application/json" data-product-inventories-json>
+      [
+        {%- for variant in product.variants -%}
+          {
+            "id": {{ variant.id }},
+            "quantity": {{ variant.inventory_quantity | default: 0 }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    </script>
+</div>

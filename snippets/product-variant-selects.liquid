@@ -1,0 +1,19 @@
+{% if product.available and product.variants.size > 1 %}
+	{% for option in product.options_with_values %}
+		{% assign option_index = forloop.index0 %}
+
+		<div class="product-option-selector js-product-option-selector-{{ option_index | plus: 1 }}">
+			<h4 class="product-heading">{{ option.name }}</h4>
+
+			<select class="select"
+					data-single-option-selector
+					data-index="option{{ forloop.index }}">
+				{% for value in option.values %}
+					<option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>
+						{{ value }}
+					</option>
+				{% endfor %}
+			</select>
+		</div>
+	{% endfor %}
+{% endif %}

@@ -1,0 +1,168 @@
+{% if section.settings.enable %}
+	{% if section.settings.visitors_counter_enable or section.settings.addedtocart_counter_enable or section.settings.orders_counter_enable or section.settings.multibuy_counter_enable %}
+		<section class="product-information">
+			<input type="checkbox" id="product-information-sidebar" class="product-information__hidden-checkbox" hidden>
+
+			<div class="product-information__inner">
+				<label for="product-information-sidebar" class="product-information__open-button">
+					{% include 'icon-arrow-down' %}
+				</label>
+
+				<div class="product-information__content">
+					{% if section.settings.visitors_counter_enable %}
+						{% assign visitors_counter_text = section.settings.visitors_counter_text %}
+
+						<div class="product-information__section js-product-visitors-counter">
+                          <span>
+                              <span class="js-statsapp-visitors-counter">3</span>
+                              {{ visitors_counter_text }}
+                          </span>
+						</div>
+					{% endif %}
+
+					{% if section.settings.addedtocart_counter_enable %}
+						{% assign min_added_to_cart = settings.addedtocart_counter_min %}
+						{% assign max_added_to_cart = settings.addedtocart_counter_max %}
+
+						<div class="product-information__section js-product-added-to-cart-counter">
+                          <span>
+                              {% if settings.addedtocart_counter_enable_demo_data %}
+								  <span class="js-product-added-to-cart-counter-demo"
+										data-counter-min="{{ min_added_to_cart }}"
+										data-counter-max="{{ max_added_to_cart }}"
+								  >3</span>
+                              {% else %}
+								  <span class="js-statsapp-addedtocart-counter">3</span>
+							  {% endif %}
+
+							  {{ section.settings.addedtocart_counter_text }}
+                          </span>
+						</div>
+					{% endif %}
+
+					{% if section.settings.orders_counter_enable %}
+						{% assign orders_counter_min = settings.orders_counter_min %}
+						{% assign orders_counter_max = settings.orders_counter_max %}
+
+						<div class="product-information__section">
+                          <span>
+                              {% if settings.orders_counter_enable_demo_data %}
+								  <span class="js-product-orders-counter-demo"
+										data-counter-min="{{ orders_counter_min }}"
+										data-counter-max="{{ orders_counter_max }}">3</span>
+                              {% else %}
+								  <span class="product-orders-counter__count js-statsapp-orders-counter">3</span>
+							  {% endif %}
+
+							  {{ section.settings.orders_counter_text }}
+                          </span>
+						</div>
+					{% endif %}
+
+					{% if section.settings.multibuy_counter_enable %}
+						<div class="product-information__section js-product-multibuy-counter">
+							{% assign multibuy_counter_enable_demo_data = settings.multibuy_counter_enable_demo_data %}
+							{% assign multibuy_counter_min = settings.multibuy_counter_min %}
+							{% assign multibuy_counter_max = settings.multibuy_counter_max %}
+
+							<span>
+                              {% if multibuy_counter_enable_demo_data %}
+								  <span class="js-product-multibuy-counter-demo"
+										data-counter-min="{{ multibuy_counter_min }}"
+										data-counter-max="{{ multibuy_counter_max }}">3</span>
+                              {% else %}
+								  <span class="js-statsapp-multibuy-counter">3</span>
+							  {% endif %}
+
+								{{ section.settings.multibuy_counter_text }}
+                          </span>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+{% endif %}
+
+{% schema %}
+{
+	"name": "Product Information",
+	"settings": [
+		{
+			"type": "header",
+			"content": "General"
+		},
+		{
+			"type": "checkbox",
+			"id": "enable",
+			"label": "Enable",
+			"default": false
+		},
+		{
+			"type": "header",
+			"content": "Visitors"
+		},
+		{
+			"type": "checkbox",
+			"id": "visitors_counter_enable",
+			"label": "Enable visitors",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "visitors_counter_text",
+			"label": "Visitors text",
+			"default": "visitors right now"
+		},
+		{
+			"type": "header",
+			"content": "Added to cart",
+			"info": "To customize this feature, go to Settings/Product Page"
+		},
+		{
+			"type": "checkbox",
+			"id": "addedtocart_counter_enable",
+			"label": "Enable counter",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "addedtocart_counter_text",
+			"label": "'Added to cart' text",
+			"default": "visitors have this item in their cart right now"
+		},
+		{
+			"type": "header",
+			"content": "Orders"
+		},
+		{
+			"type": "checkbox",
+			"id": "orders_counter_enable",
+			"label": "Enable orders",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "orders_counter_text",
+			"label": "Orders text",
+			"default": "people have bought this item"
+		},
+		{
+			"type": "header",
+			"content": "Percent of people who buy 2 or more"
+		},
+		{
+			"type": "checkbox",
+			"id": "multibuy_counter_enable",
+			"label": "Enable percent",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "multibuy_counter_text",
+			"label": "Percent text",
+			"default": "% of people buy 2 or more"
+		}
+	]
+}
+{% endschema %}

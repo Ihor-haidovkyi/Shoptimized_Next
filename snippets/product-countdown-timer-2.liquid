@@ -1,0 +1,11 @@
+{% assign countdown_timer_text = settings.countdown_timer_text %}
+
+<div class="product-countdown-timer product-countdown-timer--model-2">
+	{% if countdown_timer_text %}
+		<h4 class="product-countdown-timer__heading">
+			{{ countdown_timer_text }}
+		</h4>
+	{% endif %}
+
+	<div id="product-countdown" class="js-product-countdown flipdown" data-expire-hours="{{ expire }}"></div>
+</div>

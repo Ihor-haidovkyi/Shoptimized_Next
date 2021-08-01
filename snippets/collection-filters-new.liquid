@@ -1,0 +1,22 @@
+<div class="collection-filters">
+	{% if settings.sort-dropdown-a-check %}
+		{% include 'collection-filters-item'
+			sort: settings.sort_a,
+			filter_heading: settings.filter1heading
+		%}
+	{% endif %}
+
+	{% if settings.sort-dropdown-b-check %}
+		{% include 'collection-filters-item'
+			sort: settings.sort_b,
+			filter_heading: settings.filter2heading
+		%}
+	{% endif %}
+
+	{% if settings.sort-dropdown-c-check %}
+		{% include 'collection-filters-item'
+			sort: settings.sort_c,
+			filter_heading: settings.filter3heading
+		%}
+	{% endif %}
+</div>

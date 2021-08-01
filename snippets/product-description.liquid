@@ -1,0 +1,25 @@
+<div class="product__description rte" itemprop="description">
+	{% unless settings.benifit_bullets %}
+		{{ product.description }}
+	{% else %}
+		{{ product.description | replace: '<ul>', '<ul class="bullets-list">' | replace: '<li>', '<li class="bullets-list__item"><i class="fa fa-check-circle"></i>' }}
+	{% endunless %}
+
+	{% if settings.product_description and settings.product_desc_below_image != blank %}
+		<div class="product-tabs__description-image-wrapper">
+			{% if settings.product_desc_below_link != blank %}
+				<a href="{{ settings.product_desc_below_link }}">
+			{% endif %}
+
+				<picture class="lazy">
+					<img data-srcset="{{ settings.product_desc_below_image | img_url: '700x' }} 1x, {{ settings.product_desc_below_image | img_url: '1400x' }} 2x"
+						 srcset="{{ settings.product_desc_below_image | img_url: '100x' }}"
+						 alt="{{ settings.product_desc_below_image.alt | escape }}">
+				</picture>
+
+			{% if settings.product_desc_below_link != blank %}
+				</a>
+			{% endif %}
+		</div>
+	{% endif %}
+</div>

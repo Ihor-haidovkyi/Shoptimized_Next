@@ -1,0 +1,261 @@
+{% assign entrydate = settings.entrydate | plus: 0 %}
+<div id="Purchase-popup"
+	 class="modal-new entry-popup js-entry-popup"
+	 data-delay="{{ settings.newsletter_popup_seconds }}"
+	 data-restart="{{ settings.newsletter_popup_days }}"
+	 data-countdown="{{ settings.entrydate }}">
+	<div class="modal-new__overlay js-entry-popup-close"></div>
+
+	<div class="modal-new__content">
+		<div class="modal-new__close js-entry-popup-close">
+			<span class="fa fa-times"></span>
+		</div>
+
+		<div class="modal-new__wrapper entry-popup__wrapper clock-popup-inner">
+			{% if settings.showlogopopup %}
+				<picture class="lazy">
+					<img data-srcset="{{ 'popuplogo.png' | asset_url }}"
+						 srcset="{{ 'popuplogo.png' | asset_img_url: '10x' }}"
+						 class="limn entry-popup__image"
+						 alt="popup logo">
+				</picture>
+			{% endif %}
+
+			<h2>
+				{{ settings.entrypopup_heading }}
+			</h2>
+
+			<p class="ptag">
+				{{ settings.entrypopup_text }}
+			</p>
+
+			<div class="entry-popup__countdown js-entry-popup-countdown">
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-hours-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-hours">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Hours
+						</span>
+					</div>
+				</div>
+
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-minutes-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-minutes">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Minutes
+						</span>
+					</div>
+				</div>
+
+				<div class="entry-popup__countdown-value-wrapper">
+					<div class="entry-popup__countdown-value">
+						<svg width="100%" height="100%" viewBox="0 0 34 34" class="entry-popup__countdown-value-circle js-entry-popup-countdown-seconds-circle">
+							<circle class="donut-hole" cx="17" cy="17" r="15.91549430918954" fill="#fff"></circle>
+							<circle class="donut-ring" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="0.3"></circle>
+							<circle class="donut-segment" cx="17" cy="17" r="15.91549430918954" fill="transparent" stroke="{{ settings.color_primary }}" stroke-width="0.3" stroke-dasharray="85 15" stroke-dashoffset="25"></circle>
+						</svg>
+
+						<div class="entry-popup__countdown-value-number js-entry-popup-countdown-seconds">
+							0
+						</div>
+
+						<span class="entry-popup__countdown-value-label">
+							Seconds
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<ul class="deals">
+				{{ settings.entrypopup_bottomtext }}
+			</ul>
+
+			<div class="entry-popup__newsletter">
+				{% if settings.newslatter_type == "mailchimp" %}
+					<form action="{{ settings.mailchimpURL }}/subscribe/post-json?u={{ settings.mailchimpUID }}&amp;id={{ settings.mailchimpID }}&c=?"
+						  method="get" class="contact-form mailing-form mailchimpajaxpopup mc-embedded-subscribe-form"
+						  name="mc-embedded-subscribe-form" target="_blank">
+						<div class="form-group clearfix">
+							<input required type="email"
+								   placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+								   name="EMAIL" id="contact_email" class="form-ccontrol newsletter ajaxtextpopup"
+								   aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}"
+								   autocapitalize="off">
+							<button type="submit"
+									class="btan btn-success ajxbtnpopup btncookiepur">{{ settings.newslatter_btn_text }}</button>
+						</div>
+					</form>
+
+					<div id="subscriberesultpopup">
+						<div class="coupon-code hidden js-success">
+							<div class="w70">
+								<p class="thank-msg">
+									{{ settings.newslatter_coupan }}
+								</p>
+
+								{% if settings.coupan != '' %}
+									<p class="coupon-text">{{ 'layout.coupon_code.text' | t }}
+										<input type="text" value="{{ settings.coupan }}" id="coupan_code">
+									</p>
+								{% endif %}
+							</div>
+
+							{% if settings.coupan != '' %}
+								<div class="w30">
+									<p class="save-txt">
+										{{ 'layout.coupon_code.save' | t }}
+									</p>
+
+									<p class="copy-div">
+										<span class="button_text">
+											{{ 'layout.coupon_code.copy_code' | t }}
+										</span>
+									</p>
+								</div>
+							{% endif %}
+						</div>
+
+						<p class="js-error-enter-email hidden">Please enter Email</p>
+
+						<p class="js-error-must-contain-email hidden">An email address must contain a single @</p>
+
+						<p class="js-error-invalid-email hidden">The domain portion of the email address is invalid</p>
+
+						<p class="js-error-another hidden"></p>
+					</div>
+					{% elsif settings.newslatter_type == "klaviyo" %}
+
+					<form class="contact-form mailing-form mc-embedded-subscribe-formm"
+						  action="//manage.kmail-lists.com/subscriptions/subscribe"
+						  data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET"
+						  target="_blank" novalidate="novalidate">
+						<input type="hidden" name="g" value="{{ settings.newslatter_klaviyo_id }}">
+
+						<div class="form-group clearfix klaviyo_field_group klaviyo_form_actions">
+							<input type="email" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+								   name="email" id="k_id_email" class="form-ccontrol newsletter"
+								   aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off"
+								   autocapitalize="off">
+							<button type="submit"
+									class="btan btn-success klaviyo_submit_button btncookiepur">{{ settings.newslatter_btn_text }}</button>
+						</div>
+
+						<div class="klaviyo_messages">
+							<div class="success_message" style="display:none;">
+								<div class='coupon-code'>
+									<div class='w70'><p class='thank-msg'> {{ settings.newslatter_coupan }} </p>
+										{% if settings.coupan != '' %}
+											<p class='coupon-text'>{{ 'layout.coupon_code.text' | t }}
+												<input type="text" value="{{ settings.coupan }}" id="coupan_code">
+											</p>
+										{% endif %}
+									</div>
+
+									{% if settings.coupan != '' %}
+										<div class='w30'>
+											<p class='save-txt'>
+												{{ 'layout.coupon_code.save' | t }}
+											</p>
+											<p class='copy-div'>
+											<span class="button_text">
+												{{ 'layout.coupon_code.copy_code' | t }}
+											</span>
+											</p>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="error_message" style="display:none;"></div>
+						</div>
+					</form>
+
+					<script type="text/javascript"
+							src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+					<script type="text/javascript">
+                        KlaviyoSubscribe.attachToForms('.mc-embedded-subscribe-formm', {
+                            hide_form_on_success: true,
+                            custom_success_message: true
+                        });
+					</script>
+				{% else %}
+					{% form 'customer', id: null %}
+
+					{{ form.errors | default_errors }}
+				{% if form.posted_successfully? %}
+					<div class='coupon-code'>
+						<div class='w70'><p class='thank-msg'> {{ settings.newslatter_coupan }} </p>
+							{% if settings.coupan != '' %}
+								<p class='coupon-text'>
+									{{ 'layout.coupon_code.text' | t }}
+
+									<input type="text" value="{{ settings.coupan }}" id="coupan_code"></p>
+							{% endif %}
+						</div>
+
+						{% if settings.coupan != '' %}
+							<div class='w30'><p class='save-txt'>{{ 'layout.coupon_code.save' | t }}</p>
+								<p class='copy-div'><span
+											class="button_text">{{ 'layout.coupon_code.copy_code' | t }}</span></p>
+							</div>
+						{% endif %}
+					</div>
+				{% else %}
+					<div class="input-group">
+						<input required type="email" value="{% if customer %}{{ customer.email }}{% endif %}"
+							   placeholder="Email Address" name="contact[email]" id="popup_Email" class="form-control"
+							   aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off"
+							   autocapitalize="off">
+						<input type="hidden" name="contact[tags]" value="newsletter">
+						<span class="input-group-btn">
+                <button name="ftentry" class="btn btncookiepur" type="submit">{{ settings.entrypopup_button }}</button>
+              </span>
+					</div>
+				{% endif %}
+					{% endform %}
+				{% endif %}
+			</div>
+			{% if settings.termscheck %}
+
+				<p class="checktext" style="margin-top: 14px"><label for="footercheckentry"><input type="checkbox"
+																								   id="footercheckentry"> {{ settings.termstext }}
+						<a target="_blank" href="{{ settings.termstextlink }}">{{ settings.termslinktext }}</a></label>
+				</p>
+				<script>
+					{% unless settings.newslatter_type == "mailchimp" %}
+                    $('.btncookiepur').click(function () {
+                        if ($('#footercheckentry').is(':checked')) {
+                            $(this).submit();
+							{% unless settings.newslatter_type == "klaviyo" %}
+                            $.magnificPopup.close();
+							{% endunless %}
+                        } else {
+                            alert('{{ settings.termstext_warning }}');
+                            return false;
+                        }
+                    });
+					{% endunless %}
+				</script>
+			{% endif %}
+		</div>
+	</div>
+</div>

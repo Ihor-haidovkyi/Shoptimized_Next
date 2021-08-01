@@ -1,0 +1,52 @@
+{% assign cross-sell-1c = false %}
+{% assign cross-sell-2c = false %}
+{% assign cross-sell-3c = false %}
+{% assign cross-sell-4c = false %}
+{% assign cross-sell-5c = false %}
+{% assign cross-sell-6c = false %}
+{% assign cross-sell-7c = false %}
+{% assign cross-sell-8c = false %}
+{% for tag in product.tags %}
+  {% assign tag = tag | downcase %}
+  {% if tag == "cross-sell-1" %}
+    {% assign cross-sell-1c = true %}
+  {% elsif tag == "cross-sell-2" %}
+    {% assign cross-sell-2c = true %}
+  {% elsif tag == "cross-sell-3" %}
+    {% assign cross-sell-3c = true %}
+  {% elsif tag == "cross-sell-4" %}
+    {% assign cross-sell-4c = true %}
+  {% elsif tag == "cross-sell-5" %}
+    {% assign cross-sell-5c = true %}
+  {% elsif tag == "cross-sell-6" %}
+    {% assign cross-sell-6c = true %}
+  {% elsif tag == "cross-sell-7" %}
+    {% assign cross-sell-7c = true %}
+  {% elsif tag == "cross-sell-8" %}
+    {% assign cross-sell-8c = true %}
+  {% endif %}
+{% endfor %}
+{% if settings.show_upsell_related_collection1 != "" and cross-sell-1c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection1] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection2 != "" and cross-sell-2c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection2] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection3 != "" and cross-sell-3c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection3] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection4 != "" and cross-sell-4c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection4] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection5 != "" and cross-sell-5c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection5] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection6 != "" and cross-sell-6c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection6] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection7 != "" and cross-sell-7c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection7] -%}
+{% endif %}
+{% if  settings.show_upsell_related_collection8 != "" and cross-sell-8c %}
+  {%- assign collection1 = collections[settings.show_upsell_related_collection8] -%}
+{% endif %}

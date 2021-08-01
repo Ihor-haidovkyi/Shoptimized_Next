@@ -1,0 +1,116 @@
+{% assign badgestyle = "topright" %}
+  {% assign badge = false %}
+  {% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+    {% if tag contains "badgestyle-" %}{% capture badgestyle %}{{ tag | replace: "badgestyle-","" }}{% endcapture %}{% endif %}
+    {% if tag contains "badge-" %}{% capture badge %}{{ tag | replace: "badge-","" }}{% endcapture %}{% endif %}
+  {% endfor %}
+  {% unless product.available %}
+    <div class="badges topleft">
+      <picture class="lazy">
+        <img data-srcset="{{ 'sold_out.png' | asset_img_url: '100x' }} 1x, {{ 'sold_out.png' | asset_img_url: '200x' }} 2x"
+             srcset="{{ 'sold_out.png' | asset_img_url: '100x' }}"
+             class="p-badge-img"
+             alt="Badge">
+      </picture>
+    </div>
+  {% elsif badge %}
+    <div class="badges {{ badgestyle }}">
+      {% if badge == "freeshipping" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'shipping_free.png' | asset_img_url: '100x' }} 1x, {{ 'shipping_free.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'shipping_free.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "bestseller" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'best_seller.png' | asset_img_url: '100x' }} 1x, {{ 'best_seller.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'best_seller.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "new" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'new.png' | asset_img_url: '100x' }} 1x, {{ 'new.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'new.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "onsale" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'on_sale.png' | asset_img_url: '100x' }} 1x, {{ 'on_sale.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'on_sale.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "performance" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'performance.png' | asset_img_url: '100x' }} 1x, {{ 'performance.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'performance.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "savenow" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'save_now.png' | asset_img_url: '100x' }} 1x, {{ 'save_now.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'save_now.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "toprated" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'top_rated.png' | asset_img_url: '100x' }} 1x, {{ 'top_rated.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'top_rated.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "preorder" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'pre_order.png' | asset_img_url: '100x' }} 1x, {{ 'pre_order.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'pre_order.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "instock" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'in_stock.png' | asset_img_url: '100x' }} 1x, {{ 'in_stock.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'in_stock.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "soldout" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'sold_out.png' | asset_img_url: '100x' }} 1x, {{ 'sold_out.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'sold_out.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "custom1" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'custom_1.png' | asset_img_url: '100x' }} 1x, {{ 'custom_1.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'custom_1.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+      {% if badge == "custom2" %}
+        <picture class="lazy">
+          <img data-srcset="{{ 'custom_2.png' | asset_img_url: '100x' }} 1x, {{ 'custom_2.png' | asset_img_url: '200x' }} 2x"
+               srcset="{{ 'custom_2.png' | asset_img_url: '100x' }}"
+               class="p-badge-img"
+               alt="Badge">
+        </picture>
+      {% endif %}
+    </div>
+  {% endunless %}

@@ -1,0 +1,54 @@
+<div class="cross-sell-popup-product">
+    <a href="{{ product.url }}" class="cross-sell-popup-product__image-wrapper">
+        <picture class="lazy">
+            <source srcset="{{- product.featured_image | img_url: '105x' -}} 1x, {{- product.featured_image | img_url: '210x' -}} 2x" media="(max-width: 380px)">
+            <source srcset="{{- product.featured_image | img_url: '135x' -}} 1x, {{- product.featured_image | img_url: '270x' -}} 2x" media="(max-width: 575px)">
+
+            <img class="js-cross-sell-product-image"
+                 data-srcset="{{ product.featured_image | img_url: '250x' }} 1x, {{ product.featured_image | img_url: '500x' }} 2x"
+                 srcset="{{ product.featured_image | img_url: '40x' }}"
+                 alt="{{ product.featured_image.alt }}">
+        </picture>
+    </a>
+
+    <a href="{{ product.url }}" class="cross-sell-popup-product__title">
+        {{ product.title }}
+    </a>
+
+    <div class="cross-sell-popup-product__price">
+        <span class="money js-cross-sell-product-price">
+            {{ product.price | money }}
+        </span>
+    </div>
+
+    <div class="cross-sell-popup-product__selector-wrapper">
+        <p class="cross-sell-popup-product__selector-name">
+            {{ product.options | join: "/" }}
+        </p>
+
+        <select class="select select--small cross-sell-popup-product__selector js-cross-sell-product-select">
+            {% for variant in product.variants %}
+                {% if variant.available %}
+                    <option value="{{ variant.id }}"
+                            data-image="{{ variant.image | img_url: '250x' }}"
+                            data-price="{{ variant.price | money }}"
+                            {% if variant.id == product.first_or_selected_variant.id %}selected{% endif %}>
+                        {{ variant.title }}
+                    </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="cross-sell-popup-product__atc-wrapper">
+        <button type="button"
+                name="add"
+                class="button button--large js-cross-sell-product-atc"
+                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+
+            <span class="js-cross-sell-product-atc-text">
+                {{ settings.add_to_cart_button_text }}
+            </span>
+        </button>
+    </div>
+</div>

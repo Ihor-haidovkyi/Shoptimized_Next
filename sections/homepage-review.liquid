@@ -1,0 +1,185 @@
+{% assign display = section.settings.footer_review_display %}
+{% assign title = section.settings.section_title %}
+{% assign bg_color = section.settings.footer_review_bg_color %}
+{% assign quotation_mark_color = section.settings.footer_quotation_mark_color %}
+{% assign font_color = section.settings.footer_review_font_color %}
+{% assign title_color = section.settings.footer_review_title_color %}
+{% assign author_color = section.settings.footer_review_author_color %}
+{% assign mobile_font_size = section.settings.author_mobile_font_size %}
+{% assign blocks = section.blocks %}
+
+{% capture styles %}
+	--bg-color: {{- bg_color -}};
+	--quotation-mark-color: {{- quotation_mark_color -}};
+	--font-color: {{- font_color -}};
+	--title-color: {{- title_color -}};
+	--author-color: {{- author_color -}};
+	--mobile-font-size: {{- mobile_font_size -}};
+{% endcapture %}
+{% assign styles = styles | strip_newlines %}
+
+{% if display and blocks.size > 0 %}
+	<section class="home-reviews js-reviews-slider-wrapper"
+			 style="{{- styles -}}">
+		<div class="container">
+			{% if title != blank %}
+				<h2 class="section_title home-reviews__title">
+					{{- title -}}
+				</h2>
+			{% endif %}
+
+			<div class="home-reviews__content">
+				<div class="home-reviews__wrapper js-testimonial-slick">
+					{% for block in blocks %}
+						{% assign image = block.settings.image %}
+						{% assign quote = block.settings.quote %}
+						{% assign author = block.settings.autor_name %}
+
+						<div>
+							<div class="home-reviews__item">
+								<div class="home-reviews__item-image-wrapper">
+									{% if image == blank %}
+										<picture class="lazy">
+											<img data-srcset="{{ 'footer_review_1_1.png' | asset_img_url: '110x' }} 1x, {{ 'footer_review_1_1.png' | asset_img_url: '220x' }} 2x"
+												 srcset="{{ 'footer_review_1_1.png' | asset_img_url: '20x' }}"
+												 class="home-reviews__item-image"
+												 width="89"
+												 height="89"
+												 alt="{{- author -}}">
+										</picture>
+									{% else %}
+										<picture class="lazy">
+											<img data-srcset="{{- image | img_url: '110x' -}} 1x, {{- image | img_url: '220x' -}} 2x"
+												 srcset="{{- image | img_url: '20x' -}}"
+												 class="home-reviews__item-image"
+												 width="89"
+												 height="89"
+												 alt="{{- author -}}">
+										</picture>
+									{% endif %}
+								</div>
+
+								<div class="home-reviews__item-text">
+									{% if quote != blank %}
+										<p class="home-reviews__item-blockquote">
+											{{- quote -}}
+										</p>
+									{% endif %}
+
+									{% if author != blank %}
+										<p class="home-reviews__item-author-name">
+											{{- author -}}
+										</p>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				<div class="home-reviews__slider-arrows">
+					<div class="home-reviews__slider-arrow home-reviews__slider-arrow--prev js-home-reviews-slider-section-prev">
+						<i class='shoptimized-064'></i>
+					</div>
+
+					<div class="home-reviews__slider-arrow home-reviews__slider-arrow--next js-home-reviews-slider-section-next">
+						<i class='shoptimized-074'></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Homepage review",
+	"class": "index-section cole",
+	"max_blocks": 10,
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays a carousel of customers reviews with photos."
+		},
+		{
+			"type": "checkbox",
+			"id": "footer_review_display",
+			"label": "Display Reviews"
+		},
+		{
+			"type": "text",
+			"id": "section_title",
+			"label": "Section title"
+		},
+		{
+			"type": "header",
+			"content": "Look And Feel"
+		},
+		{
+			"type": "color",
+			"id": "footer_review_bg_color",
+			"label": "Background Color",
+			"default": "#ffffff"
+		},
+		{
+			"type": "color",
+			"id": "footer_quotation_mark_color",
+			"label": "Quotation Mark Color",
+			"default": "#000000"
+		},
+		{
+			"type": "color",
+			"id": "footer_review_font_color",
+			"label": "Font Color",
+			"default": "#000000"
+		},
+		{
+			"type": "color",
+			"id": "footer_review_title_color",
+			"label": "Title Font Color",
+			"default": "#f0723d"
+		},
+		{
+			"type": "color",
+			"id": "footer_review_author_color",
+			"label": "Author Font Color",
+			"default": "#f0723d"
+		},
+		{
+			"type": "text",
+			"id": "author_mobile_font_size",
+			"label": "Mobile Font Size",
+			"default": "18px"
+		}
+	],
+	"blocks": [
+		{
+			"type": "image",
+			"name": "reviews",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image",
+					"info": "For best results use images with a 1:1 Aspect ratio(Like 100x100)"
+				},
+				{
+					"type": "text",
+					"id": "quote",
+					"label": "Review Text"
+				},
+				{
+					"type": "text",
+					"id": "autor_name",
+					"label": "Review User Name"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Homepage Review"
+		}
+	]
+}
+{% endschema %}

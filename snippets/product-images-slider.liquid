@@ -1,0 +1,130 @@
+<div class="product-images{% if settings.thumbbordersettings == 'one' %} product-images--hide-borders{% endif %}{% if settings.thumbbordersettings == 'two' %} product-images--hide-main-border{% endif %}{% unless settings.thumb_as_slider %}{% if settings.product_thumbnails == 'Bottom' %} product-images--no-slider{% endif %}{% endunless %}">
+	<div class="product-images__container{% if settings.scroll_image_feature %} js-product-images{% endif %}{% if settings.product_thumbnails == 'Right' %} product-images__container--images-right{% endif %}{% if settings.product_thumbnails == 'Bottom' %} product-images__container--images-below{% endif %}{% if settings.hide_thumb_on_mobile %} product-images__container--hide-thumbs-mobile{% endif %}{% unless settings.thumb_as_slider %} product-images__container--hide-arrows{% endunless %}">
+		{% if product.images.size > 0 %}
+			<div class="product-images__socials-wrapper product-images__socials-wrapper--thumbs">
+				{% include 'social-sharing-new' %}
+			</div>
+
+			{% if product.images.size > 1 %}
+				<div class="product-images__thumbs{% if settings.hide_thumb_on_desktop %} product-images__thumbs--hide-desktop{% endif %}">
+					<div class="slider-arrow slider-arrow--prev product-images__thumbs-arrow product-images__thumbs-arrow--prev">
+						{% include 'icon-arrow-down' %}
+					</div>
+
+					<div class="product-images__thumbs-images js-product-thumbs{% if product.images.size < 5 %} product-images__thumbs-images--disable-track{% endif %}"
+						 {% if settings.product_thumbnails == 'Bottom' %}data-is-images-below{% endif %}>
+
+						{% if settings.thumb_as_slider or settings.product_thumbnails == 'Left' or settings.product_thumbnails == 'Right' %}
+							{% for media in product.media %}
+								{% case media.media_type %}
+								{% when 'image' %}
+									<div class="product-images__thumb-wrapper">
+										{% if settings.video_embading %}
+											<div data-image="{{ media.preview_image.src | img_url: '1024x' }}"
+												 class="product-images__thumb{% if media.alt contains 'youtube' or media.alt contains 'vimeo' %} product-images__popup-trigger product-images__popup-trigger--thumb{% endif %}">
+												<img src="{{ media.preview_image.src | img_url: '120x' }}"
+													 alt="{{ media.alt | escape }}">
+												<div class="product-images__thumb-shadow"></div>
+											</div>
+										{% else %}
+											<div data-image="{{ media.preview_image.src | img_url: '1024x' }}"
+												 class="product-images__thumb">
+												<img src="{{ media.preview_image.src | img_url: '120x' }}"
+													 alt="{{ media.alt | escape }}">
+												<div class="product-images__thumb-shadow"></div>
+											</div>
+										{% endif %}
+									</div>
+								{% endcase %}
+							{% endfor %}
+						{% else %}
+							{% for image in product.images %}
+								<div class="product-images__thumb-wrapper">
+									<picture
+										class="lazy product-images__thumb{% if forloop.first %} product-images__thumb--active{% endif %}{% if settings.video_embading and image.alt contains 'youtube' or media.alt contains 'vimeo' %} product-images__popup-trigger product-images__popup-trigger--thumb{% endif %} js-product-thumb"
+										data-index="{{ forloop.index0 }}">
+										<img data-srcset="{{ image.src | img_url: '120x' }} 1x, {{ image.src | img_url: '240x' }} 2x"
+											 srcset="{{ image.src | img_url: '20x' }}"
+											 alt="{{ image.alt | escape }}">
+									</picture>
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+
+					<div class="slider-arrow slider-arrow--next product-images__thumbs-arrow product-images__thumbs-arrow--next">
+						{% include 'icon-arrow-down' %}
+					</div>
+				</div>
+			{% endif %}
+
+			<div class="product-images__slider-wrapper">
+				<div class="product-images__slider-container">
+					{% if settings.hide_thumb_on_desktop %}
+						<div class="slider-arrow slider-arrow--prev product-images__slider-arrow product-images__slider-arrow--prev">
+							{% include 'icon-arrow-down' %}
+						</div>
+					{% endif %}
+
+					{% if settings.badges_enable_product %}
+						{% include 'product-badges' %}
+					{% endif %}
+
+					<div class="product-images__slider js-product-slider"{% if settings.hide_thumb_on_desktop %} data-show-arrows{% endif %}>
+						{% for media in product.media %}
+							{% case media.media_type %}
+							{% when 'image' %}
+								{% if settings.video_embading %}
+									{% if media.alt contains 'youtube' or media.alt contains 'vimeo' %}
+										<a href="{{ media.alt | escape }}"
+										   class="product-images__slider-image product-images__popup-trigger"
+										   data-fancybox>
+											<img src="{{ media.preview_image.src | img_url: '1024x' }}"
+												 alt="{{ media.alt | escape }}">
+										</a>
+									{% else %}
+										<a href="{{ media.preview_image.src | img_url: '1024x' }}"
+										   class="product-images__slider-image MagicZoom"
+										   data-options="textExpandHint: {{ settings.zoom_expand_text_desktop }}; textHoverZoomHint: {{ settings.zoom_hover_text_desktop }}; textClickZoomHint: {{ settings.zoom_click_text_desktop }}; {% unless settings.hintonoff %}hint: off; {% endunless %}{% unless settings.zoommodeonoff %} zoomMode: off; {% endunless %}zoomPosition: {{ settings.zoommode }};  {% unless settings.zoomexpand %}expand: off ;{% endunless %} zoomOn: {{ settings.zoomon }};"
+										   data-mobile-options="textClickZoomHint: {{ settings.zoom_tap_text_mobile }}; textTouchZoomHint: {{ settings.zoom_touch_text_mobile }}; textExpandHint: {{ settings.zoom_expand_text_mobile }}"
+										   id="product-zoom"
+										   data-zoom-id="product-zoom">
+
+											<img src="{{ media.preview_image.src | img_url: '1024x' }}"
+												 alt="{{ media.alt | escape }}">
+										</a>
+									{% endif %}
+								{% else %}
+									<a href="{{ media.preview_image.src | img_url: '1024x' }}"
+									   class="product-images__slider-image MagicZoom"
+									   data-options="textExpandHint: {{ settings.zoom_expand_text_desktop }}; textHoverZoomHint: {{ settings.zoom_hover_text_desktop }}; textClickZoomHint: {{ settings.zoom_click_text_desktop }}; {% unless settings.hintonoff %}hint: off; {% endunless %}{% unless settings.zoommodeonoff %} zoomMode: off; {% endunless %}zoomPosition: {{ settings.zoommode }};  {% unless settings.zoomexpand %}expand: off ;{% endunless %} zoomOn: {{ settings.zoomon }};"
+									   data-mobile-options="textClickZoomHint: {{ settings.zoom_tap_text_mobile }}; textTouchZoomHint: {{ settings.zoom_touch_text_mobile }}; textExpandHint: {{ settings.zoom_expand_text_mobile }}"
+									   id="product-zoom"
+									   data-zoom-id="product-zoom">
+
+										<img src="{{ media.preview_image.src | img_url: '1024x' }}"
+											 alt="{{ media.alt | escape }}">
+									</a>
+								{% endif %}
+							{% endcase %}
+						{% endfor %}
+					</div>
+
+					{% if settings.hide_thumb_on_desktop %}
+						<div class="slider-arrow slider-arrow--next product-images__slider-arrow product-images__slider-arrow--next">
+							{% include 'icon-arrow-down' %}
+						</div>
+					{% endif %}
+				</div>
+
+				<div class="product-images__socials-wrapper">
+					{% include 'social-sharing-new' %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if settings.top_reasons_display_position == 'left' %}
+			{% include "product-reasons", position: 'left' %}
+		{% endif %}
+	</div>
+</div>

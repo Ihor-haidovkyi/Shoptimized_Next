@@ -1,0 +1,61 @@
+{% assign display_quantity_count_demo_data = display_quantity_count_demo_data | default: settings.display_quantity_count_demo_data %}
+{% assign orders_counter_enable_demo_data = orders_counter_enable_demo_data | default: settings.orders_counter_enable_demo_data %}
+{% assign informations_alert_text = informations_alert_text | default: settings.informations_alert_text %}
+{% assign flash_sold_min_qty = settings.flash_sold_min_qty %}
+{% assign flash_sold_max_qty = settings.flash_sold_max_qty %}
+{% assign orders_counter_min = settings.orders_counter_min %}
+{% assign orders_counter_max = settings.orders_counter_max %}
+
+{% capture quantity_counter_html %}
+	{% assign inventory_quantity = 0 %}
+
+	{% for variant in product.variants %}
+		{% assign inventory_quantity = inventory_quantity | plus: variant.inventory_quantity %}
+	{% endfor %}
+
+	{% if display_quantity_count_demo_data %}
+		<span class="product-information-alert__quantity js-product-information-alert-quantity-demo"
+			  data-counter-min="{{ flash_sold_min_qty }}"
+			  data-counter-max="{{ flash_sold_max_qty }}">
+			3
+		</span>
+	{% else %}
+		{% assign variant_inventory_quantity = product.selected_or_first_available_variant.inventory_quantity | default: 0 %}
+
+		<span class="product-information-alert__quantity js-product-information-alert-quantity-real"
+			  data-total="{{ inventory_quantity }}">
+			{{ variant_inventory_quantity }}
+		</span>
+	{% endif %}
+{% endcapture %}
+
+{% capture fire_icon_html %}
+	<span class="product-information-alert__fire">
+		{% include 'icon-fire' %}
+	</span>
+{% endcapture %}
+
+{% capture visitors_counter_html %}
+	<span class="product-information-alert__visitors js-statsapp-visitors-counter">..</span>
+{% endcapture %}
+
+{% capture orders_counter_html %}
+	{% if orders_counter_enable_demo_data %}
+		<span class="product-information-alert__orders js-product-orders-counter-demo"
+			  data-counter-min="{{ orders_counter_min }}"
+			  data-counter-max="{{ orders_counter_max }}">
+			3
+		</span>
+	{% else %}
+		<span class="product-information-alert__orders js-statsapp-orders-counter">3</span>
+	{% endif %}
+{% endcapture %}
+
+{% assign informations_alert_text = informations_alert_text | replace: "[quantity_counter]", quantity_counter_html %}
+{% assign informations_alert_text = informations_alert_text | replace: "[fire_icon]", fire_icon_html %}
+{% assign informations_alert_text = informations_alert_text | replace: "[visitors_counter]", visitors_counter_html %}
+{% assign informations_alert_text = informations_alert_text | replace: "[orders_counter]", orders_counter_html %}
+
+<div class="product-information-alert js-product-information-alert">
+	{{ informations_alert_text }}
+</div>

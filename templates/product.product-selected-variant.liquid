@@ -1,0 +1,17 @@
+{% layout none %}
+
+{
+	"id": {{ product.id | json }},
+	"variants": [
+		{% for variant in product.variants %}
+			{
+				"id": {{ variant.id | json }},
+				"inventoryQuantity": {{ variant.inventory_quantity | json }},
+				"inventoryPolicy": {{ variant.inventory_policy | json }},
+				"inventoryManagement": {{ variant.inventory_management | json }}
+			}{% unless forloop.last %},{% endunless %}
+		{% endfor %}
+	]
+}
+
+

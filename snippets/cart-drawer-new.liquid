@@ -1,0 +1,44 @@
+<div id="CartDrawer" class="drawer drawer--right">
+	<div class="drawer__header">
+		<div class="drawer__title h3">{{ 'cart.general.drawer_title' | t }}</div>
+		<div class="drawer__close js-drawer-close">
+			<button type="button" class="icon-fallback-text">
+				<i class="fa fa-times"></i>
+				<span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
+			</button>
+		</div>
+	</div>
+	<div id="CartContainer">
+		<img src="https://cdn.shopify.com/s/files/1/0251/0179/t/17/assets/ajax-load.gif?12730148446180618072" alt="cload" class="cload">
+	</div>
+	{% if settings.footer_checkout_single %}
+		<div class="grid__item large--one-whole checkout--icons-product">
+			{% if settings.enable_custom_checkout_icon and settings.checkout_icon != blank %}
+				<picture class="lazy">
+					<img data-srcset="{{ settings.checkout_icon | img_url: '500x' }} 1x, {{ settings.checkout_icon | img_url: '1000x' }} 2x"
+						 srcset="{{ settings.checkout_icon | img_url: '40x' }}"
+						 class="no-border checkout-img ratina-img lazyload"
+						 alt="Checkout Secure">
+				</picture>
+			{% else %}
+				<picture class="lazy">
+					<img data-srcset="{{ 'secure-checkout.png' | asset_img_url: '500x' }} 1x, {{ 'secure-checkout.png' | asset_img_url: '1000x' }} 2x"
+						 srcset="{{ 'secure-checkout.png' | asset_img_url: '40x' }}"
+						 class="no-border checkout-img ratina-img lazyload"
+						 alt="Checkout Secure">
+				</picture>
+			{% endif %}
+		</div>
+	{% else %}
+		{% include "cart-checkout-icons" %}
+	{% endif %}
+
+	{% if settings.enable_cartstrip_text %}
+		<div class="cart--promo-msg common_shipping_text js-product-motivator-text"
+			 data-motivator-text="{{- settings.free_shipping_text_cart_page -}}"
+			 data-free-shipping-text="{{- settings.free_shipping_text_free_cart_page -}}"
+		>
+			<span class="js-product-motivator-text-main"></span>
+		</div>
+	{% endif %}
+</div>

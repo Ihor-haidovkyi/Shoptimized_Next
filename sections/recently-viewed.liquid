@@ -1,0 +1,97 @@
+{% assign enable = section.settings.enabileit %}
+{% assign title = section.settings.rv_title %}
+{% assign style = section.settings.rv_products_style %}
+{% assign products_limit = section.settings.rv_max_display %}
+
+{% if enable %}
+	{% if style == "slider" %}
+		<section class="collection-products">
+			<div class="container js-recently-viewed">
+				<h2 class="section_title">
+					{{ title }}
+				</h2>
+
+				<div class="collection-products__slider-wrapper">
+					<div class="collection-products__slider collection-products__slider--recently-viewed js-recently-viewed-products-slider js-recently-viewed-products-home"
+						 data-products-limit="{{ products_limit }}">
+						<!-- Products are dynamically inserted -->
+					</div>
+
+					<div class="collection-products__slider-arrow collection-products__slider-arrow--prev js-recently-viewed-products-prev">
+						<i class='shoptimized-064'></i>
+					</div>
+
+					<div class="collection-products__slider-arrow collection-products__slider-arrow--next js-recently-viewed-products-next">
+						<i class='shoptimized-074'></i>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% else %}
+		<section class="collection-products js-recently-viewed">
+			<div class="container">
+				<h2 class="section_title">
+					{{ title }}
+				</h2>
+
+				<div class="collection-products__grid-wrapper js-recently-viewed-products"
+					 data-products-limit="{{ products_limit }}">
+					<!-- Products are dynamically inserted -->
+				</div>
+			</div>
+		</section>
+	{% endif %}
+{% endif %}
+
+
+{% schema %}
+{
+	"name": "Recently viewed products",
+	"class": "index-section cole",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "enabileit",
+			"label": "Enable"
+		},
+		{
+			"type": "text",
+			"id": "rv_title",
+			"label": "Title",
+			"default": "Recently viewed products"
+		},
+		{
+			"type": "radio",
+			"id": "rv_products_style",
+			"label": "Layout",
+			"default": "slider",
+			"options": [
+				{
+					"value": "slider",
+					"label": "Slider"
+				},
+				{
+					"value": "grid",
+					"label": "Grid"
+				}
+			]
+		},
+		{
+			"type": "range",
+			"id": "rv_max_display",
+			"label": "Products limit",
+			"min": 3,
+			"max": 12,
+			"step": 1,
+			"default": 6
+		}
+	],
+	"presets": [
+		{
+			"name": "Recently viewed products",
+			"category": "Product"
+		}
+	]
+}
+{% endschema %}
+

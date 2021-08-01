@@ -1,0 +1,59 @@
+{% if settings.variant_notify_me_form and product.available %}
+	<div class="product-notify-form product-notify-form--variant js-variant-notify-form{% if product.selected_or_first_available_variant.available %} hidden{% endif %}">
+		{% form "contact", class: "js-product-notify-form" %}
+			{% if form.posted_successfully? %}
+				<p>
+					<em>{{ 'products.notify_form_variant.post_success' | t }}</em>
+				</p>
+			{% else %}
+				{% if form.errors %}
+					<p class="product-notify-form__info">
+						<em>{{ 'products.notify_form_variant.post_error' | t }}</em>
+					</p>
+				{% endif %}
+
+				<p>
+					<label for="contact[email]" class="product-notify-form__label">
+						{{ settings.variant_notify_text }}
+					</label>
+
+					<span class="product-notify-form__form">
+                    {% if customer %}
+						<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+                    {% else %}
+						<input required
+							   type="email"
+							   name="contact[email]"
+							   id="contact[email]"
+							   class="input product-notify-form__input"
+							   placeholder="{{ settings.variant_notify_email_placeholder }}"
+							   value="{{ contact.fields.email }}"/>
+					{% endif %}
+
+                    <input type="hidden"
+						   name="contact[body]"
+						   value="{{ 'products.notify_form_variant.message_content' | t: product: product.title, url: canonical_url }}"/>
+
+                    <input class="button product-notify-form__button"
+						   type="submit"
+						   value="{{ settings.variant_notify_button }}"/>
+                </span>
+				</p>
+
+				{% if settings.termscheck %}
+					<p class="product-notify-form__check-text">
+						<input type="checkbox" id="terms" class="js-product-notify-form-checkbox">
+
+						<label for="terms">
+							{{ settings.termstext }}
+
+							<a target="_blank" class="product-notify-form__link" href="{{ settings.termstextlink }}">
+								{{ settings.termslinktext }}
+							</a>
+						</label>
+					</p>
+				{% endif %}
+			{% endif %}
+		{% endform %}
+	</div>
+{% endif %}

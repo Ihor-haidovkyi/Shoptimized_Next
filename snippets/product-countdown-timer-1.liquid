@@ -1,0 +1,47 @@
+{% assign countdown_timer_text = settings.countdown_timer_text %}
+
+<div class="product-countdown-timer product-countdown-timer--model-1 js-product-countdown" data-expire-hours="{{ expire }}">
+	{% if countdown_timer_text %}
+		<h4 class="product-countdown-timer__heading">
+			{{ countdown_timer_text }}
+		</h4>
+	{% endif %}
+
+	<div class="product-countdown-timer__counter">
+		<div class="product-countdown-timer__row product-countdown-timer__row--numbers">
+			<div class="product-countdown-timer__cell">
+				<span class="js-product-countdown-days"></span>
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				<span class="js-product-countdown-hours"></span>
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				<span class="js-product-countdown-minutes"></span>
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				<span class="js-product-countdown-seconds"></span>
+			</div>
+		</div>
+
+		<div class="product-countdown-timer__row">
+			<div class="product-countdown-timer__cell">
+				{{ 'layout.timer.days' | t }}
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				{{ 'layout.timer.hours' | t }}
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				{{ 'layout.timer.minutes' | t }}
+			</div>
+
+			<div class="product-countdown-timer__cell">
+				{{ 'layout.timer.seconds' | t }}
+			</div>
+		</div>
+	</div>
+</div>

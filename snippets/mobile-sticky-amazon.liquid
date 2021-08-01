@@ -1,0 +1,8 @@
+<a href="{{ product_external_url }}"
+   target="_blank"
+   class="product-sticky-cart-mobile__button product-sticky-cart-mobile__button--buy-now button button--large">
+
+    {% if settings.amazon_button_text != blank %}
+        {{ settings.amazon_button_text }}
+    {% endif %}
+</a>

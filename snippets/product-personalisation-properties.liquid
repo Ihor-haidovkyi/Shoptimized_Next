@@ -1,0 +1,34 @@
+{% assign personalisation_string = personalisation_string | split: '|||' %}
+
+{% if product.available %}
+	<div class="product-info__properties js-product-properties{% if product.selected_or_first_available_variant.inventory_quantity < 1 %} hidden{% endif %}">
+		{% for personalisation_word in personalisation_string %}
+			{% assign personalisation_word_array = personalisation_word | split: '-' %}
+			{% assign personalisation_word_name = personalisation_word_array | first %}
+			{% assign personalisation_word_limit = personalisation_word_array | last %}
+
+			<div class="product-property js-product-property">
+				<label for="{{ personalisation_word_name }}" class="product-property__label">
+					{{ personalisation_word_name | replace: '_', ' ' | capitalize }} *
+				</label>
+
+				<input
+					{% unless personalisation_word_name == personalisation_word_limit %}
+						data-charlimit="{{ personalisation_word_limit | replace: ' ', '' }}"
+					{% endunless %}
+
+					type="text"
+					class="input product-property__input js-product-property-input"
+					id="{{ personalisation_word_name }}"
+					placeholder="Enter your {{ personalisation_word_name | replace: '_', ' ' | downcase }} here"
+					name="properties[{{ personalisation_word_name | replace: '_', ' ' | capitalize }}]"
+					data-error="Please enter a {{ personalisation_word_name | replace: '_', ' ' | downcase }}.">
+
+				{% unless personalisation_word_name == personalisation_word_limit %}
+					<e class="product-property__hint">Max {{ personalisation_word_limit }} characters.</e>
+					<div class="product-property__error js-product-property-error" style="display: none;"></div>
+				{% endunless %}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

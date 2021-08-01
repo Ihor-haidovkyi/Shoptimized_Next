@@ -1,0 +1,402 @@
+{% for block in section.blocks %}
+    {% assign selected_product = block.settings.product %}
+
+    {% if selected_product == product.handle %}
+        {% if block.type == 'image_on_the_left' %}
+            {% assign image = block.settings.image %}
+            {% assign heading = block.settings.heading %}
+            {% assign text = block.settings.text %}
+            {% assign bg_color = block.settings.bg_color %}
+            {% assign heading_color = block.settings.heading_color %}
+            {% assign text_color = block.settings.text_color %}
+
+            <style>
+                .product-section-{{ forloop.index }} {
+                    background-color: {{ bg_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__heading {
+                    color: {{ heading_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__text {
+                    color: {{ text_color }};
+                }
+            </style>
+
+            <section class="product-section product-section-{{ forloop.index }} product-section--image-left">
+                <div class="product-section__container">
+                    <div class="product-section__content">
+                        {% if image %}
+                            <div class="product-section__image">
+                                <picture class="lazy">
+                                    <img data-srcset="{{ image | img_url: '500x' }} 1x, {{ image | img_url: '1000x' }} 2x"
+                                         srcset="{{ image | img_url: '40x' }}"
+                                         alt="{{ image.alt }}">
+                                </picture>
+                            </div>
+                        {% endif %}
+
+                        {% if heading or text %}
+                            <div class="product-section__info">
+                                {% if heading %}
+                                    <h3 class="product-section__heading">
+                                        {{ heading }}
+                                    </h3>
+                                {% endif %}
+
+                                {% if text %}
+                                    <div class="product-section__text">
+                                        {{ text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        {% if block.type == 'image_on_the_right' %}
+            {% assign image = block.settings.image %}
+            {% assign heading = block.settings.heading %}
+            {% assign text = block.settings.text %}
+            {% assign bg_color = block.settings.bg_color %}
+            {% assign heading_color = block.settings.heading_color %}
+            {% assign text_color = block.settings.text_color %}
+
+            <style>
+                .product-section-{{ forloop.index }} {
+                    background-color: {{ bg_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__heading {
+                    color: {{ heading_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__text {
+                    color: {{ text_color }};
+                }
+            </style>
+
+            <section class="product-section product-section-{{ forloop.index }} product-section--image-right">
+                <div class="product-section__container">
+                    <div class="product-section__content">
+                        {% if heading or text %}
+                            <div class="product-section__info">
+                                {% if heading %}
+                                    <h3 class="product-section__heading">
+                                        {{ heading }}
+                                    </h3>
+                                {% endif %}
+
+                                {% if text %}
+                                    <div class="product-section__text">
+                                        {{ text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% if image %}
+                            <div class="product-section__image">
+                                <picture class="lazy">
+                                    <img data-srcset="{{ image | img_url: '500x' }} 1x, {{ image | img_url: '1000x' }} 2x"
+                                         srcset="{{ image | img_url: '40x' }}"
+                                         alt="{{ image.alt }}">
+                                </picture>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        {% if block.type == 'image_overlay' %}
+            {% assign image = block.settings.image %}
+            {% assign heading = block.settings.heading %}
+            {% assign text = block.settings.text %}
+            {% assign heading_color = block.settings.heading_color %}
+            {% assign text_color = block.settings.text_color %}
+
+            <style>
+                .product-section-{{ forloop.index }} {
+                    background-color: {{ bg_color }};
+                    background-image: url({{ image | img_url: '1920x' }});
+                }
+
+                .product-section-{{ forloop.index }} .product-section__heading {
+                    color: {{ heading_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__text {
+                    color: {{ text_color }};
+                }
+            </style>
+
+            <section class="product-section product-section-{{ forloop.index }} product-section--image-overlay">
+                <div class="product-section__container">
+                    <div class="product-section__content">
+                        {% if heading or text %}
+                            <div class="product-section__info">
+                                {% if heading %}
+                                    <h3 class="product-section__heading">
+                                        {{ heading }}
+                                    </h3>
+                                {% endif %}
+
+                                {% if text %}
+                                    <div class="product-section__text">
+                                        {{ text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        {% if block.type == 'image' %}
+            {% assign image = block.settings.image %}
+
+            {% if image %}
+                <section class="product-section product-section-{{ forloop.index }} product-section--image">
+                    {% if image %}
+                        <div class="product-section__image">
+                            <picture class="lazy">
+                                <img data-srcset="{{ image | img_url: '1920x' }} 1x, {{ image | img_url: '3840x' }} 2x"
+                                     srcset="{{ image | img_url: '40x' }}"
+                                     alt="{{ image.alt }}">
+                            </picture>
+                        </div>
+                    {% endif %}
+                </section>
+            {% endif %}
+        {% endif %}
+
+        {% if block.type == 'page' %}
+            {% assign page = pages[block.settings.page] %}
+            {% assign bg_color = block.settings.bg_color %}
+            {% assign heading_color = block.settings.heading_color %}
+            {% assign text_color = block.settings.text_color %}
+
+            <style>
+                .product-section-{{ forloop.index }} {
+                    background-color: {{ bg_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__heading {
+                    color: {{ heading_color }};
+                }
+
+                .product-section-{{ forloop.index }} .product-section__text {
+                    color: {{ text_color }};
+                }
+            </style>
+
+            {% if page %}
+                <section class="product-section product-section-{{ forloop.index }} product-section--page">
+                    <div class="product-section__container">
+                        <div class="product-section__content rte">
+                            <h3 class="product-section__heading">
+                                {{ page.title }}
+                            </h3>
+
+                            <div class="product-section__text">
+                                {{ page.content }}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Product Sections",
+  "max_blocks": 100,
+  "blocks": [
+    {
+      "type": "image_on_the_left",
+      "name": "Image on the left",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Section background color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        }
+      ]
+    },
+    {
+      "type": "image_on_the_right",
+      "name": "Image on the right",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Section background color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        }
+      ]
+    },
+    {
+      "type": "image_overlay",
+      "name": "Image overlay",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Content page"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Section background color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "image_on_the_left"
+      },
+      {
+        "type": "image_on_the_right"
+      },
+      {
+        "type": "image_overlay"
+      }
+    ]
+  }
+}
+{% endschema %}

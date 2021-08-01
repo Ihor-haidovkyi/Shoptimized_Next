@@ -1,0 +1,55 @@
+{% assign product-cross-sell-id = blank %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    {% if tag == "cross-sell-1" %}
+        {% assign product-cross-sell-id = "cross-sell-1" %}
+        {% elsif tag == "cross-sell-2" %}
+        {% assign product-cross-sell-id = "cross-sell-2" %}
+        {% elsif tag == "cross-sell-3" %}
+        {% assign product-cross-sell-id = "cross-sell-3" %}
+        {% elsif tag == "cross-sell-4" %}
+        {% assign product-cross-sell-id = "cross-sell-4" %}
+        {% elsif tag == "cross-sell-5" %}
+        {% assign product-cross-sell-id = "cross-sell-5" %}
+        {% elsif tag == "cross-sell-6" %}
+        {% assign product-cross-sell-id = "cross-sell-6" %}
+        {% elsif tag == "cross-sell-7" %}
+        {% assign product-cross-sell-id = "cross-sell-7" %}
+        {% elsif tag == "cross-sell-8" %}
+        {% assign product-cross-sell-id = "cross-sell-8" %}
+    {% endif %}
+{% endfor %}
+
+{% assign product-upsell-id = blank %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    {% if tag == "upsell-enable-1" %}
+        {% assign product-cross-sell-id = "upsell-popup-1" %}
+        {% elsif tag == "upsell-enable-2" %}
+        {% assign product-cross-sell-id = "upsell-popup-2" %}
+        {% elsif tag == "upsell-enable-3" %}
+        {% assign product-cross-sell-id = "upsell-popup-3" %}
+        {% elsif tag == "upsell-enable-4" %}
+        {% assign product-cross-sell-id = "upsell-popup-4" %}
+    {% endif %}
+{% endfor %}
+
+<button type="button"
+        name="add"
+        class="product-sticky-cart-mobile__button product-sticky-cart-mobile__button--atc button button--large js-product-add-to-cart-button{% if settings.sticky_atc_mobile == "option_2" or settings.sticky_atc_mobile == "option_4" %} js-mobile-sticky-open-slide-popup{% endif %}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        data-no-change-text
+        data-target="atc"
+        {% if product-upsell-id != blank %}data-upsell-id="{{ product-upsell-id }}"{% endif %}
+        {% if product-cross-sell-id != blank %}data-cross-sell-id="{{ product-cross-sell-id }}"{% endif %}>
+
+    <span class="js-product-add-to-cart-button-text">
+        {% if settings.Sticky_add_to_cart_button_text != blank %}
+            {{ settings.Sticky_add_to_cart_button_text }}
+        {% endif %}
+    </span>
+</button>

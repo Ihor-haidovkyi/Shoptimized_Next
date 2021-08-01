@@ -1,0 +1,35 @@
+{% assign atc_button_text = settings.Sticky_add_to_cart_button_text %}
+{% assign form_id = "AddToCartForm--" | append: product.id | append: "3" %}
+{% assign product_external_url = blank %}
+
+{% for tag in product.tags %}
+    {% if tag contains "https:" or tag contains "http:" or tag contains "www." %}
+        {% assign product_external_url = tag %}
+    {% endif %}
+{% endfor %}
+
+<div class="product-sticky-cart-mobile js-product-sticky-cart-mobile{% unless settings.disableatc %} hidden-untile-main-button{% endunless %}"
+     data-section-type="product-sticky-bar-mobile"
+     data-enable-history-state="true">
+
+    {% if settings.enable_wishlist %}
+        <div class="product-sticky-cart-mobile__wish-list">
+            {% include "product-wishlist-button" %}
+        </div>
+    {% endif %}
+
+    {% if settings.amazonbutton and product_external_url != blank %}
+        {% include "mobile-sticky-amazon", product_external_url: product_external_url %}
+    {% else %}
+        {% form "product", product, id: form_id, class: "product-form product-sticky-cart-mobile__buttons" %}
+            {% include "mobile-sticky-add-to-cart" %}
+
+            {% if settings.sticky_atc_mobile == "option_2" or settings.sticky_atc_mobile == "option_3" %}
+                {% include "mobile-sticky-buy-now" %}
+            {% endif %}
+        {% endform %}
+    {% endif %}
+
+    {% include "product-variants-select" %}
+    {% include "mobile-sticky-slide-popup" %}
+</div>

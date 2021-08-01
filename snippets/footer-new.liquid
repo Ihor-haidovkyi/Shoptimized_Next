@@ -1,0 +1,202 @@
+<footer class="footer utd">
+    {% if settings.footer_second_row_display %}
+        <div class="footer__main">
+            <div class="container">
+                <div class="footer__main-row row"
+                     {% unless settings.newslatter_form_show and settings.footer_checkout_display %}style="justify-content: center;"{% endunless %}>
+                    {% if settings.newslatter_form_show %}
+                        <div class="footer__col footer__newsletter-wrapper {% if settings.footer_checkout_display %} col-lg-3{% else %} col-lg-4{% endif %}"
+                             {% unless settings.newslatter_form_show %}style="padding: 0"{% endunless %}>
+                            {% if settings.newslatter_form_show %}
+                                <h3 class="footer__title footer__title--newsletter">{{ settings.newslatter_heading }}</h3>
+
+                                {% if settings.newslatter_type == "mailchimp" %}
+                                    <form action="{{ settings.mailchimpURL }}/subscribe/post-json?u={{ settings.mailchimpUID }}&amp;id={{ settings.mailchimpID }}&c=?"
+                                          method="get"
+                                          class="contact-form mailing-form mailchimpajax mc-embedded-subscribe-form"
+                                          name="mc-embedded-subscribe-form" target="_blank">
+                                        <div class="footer__form-group">
+                                            <input required type="email"
+                                                   placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                                                   name="EMAIL" id="ccontact_email"
+                                                   class="input footer__newsletter-input"
+                                                   aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                                                   autocapitalize="off">
+                                            <button type="submit"
+                                                    class="button footer__form-group-submit js-mailchimp">{{ settings.newslatter_btn_text }}</button>
+                                        </div>
+                                    </form>
+
+                                    <div id="subscriberesult"></div>
+                                    {% elsif settings.newslatter_type == "klaviyo" %}
+                                    {% include 'klaviyo-new' %}
+                                {% else %}
+                                    {% form 'customer', class: "footer__form" %}
+                                        {{ form.errors | default_errors }}
+
+                                        {% if form.posted_successfully? %}
+                                            {% assign posted_successfully = true %}
+
+                                            <div class='footer-coupon-code'>
+                                                <div class='footer-coupon-code__text'>
+                                                    <p class='footer-coupon-code__thanks-msg'>{{ settings.newslatter_coupan }}</p>
+
+                                                    {% if settings.coupan != '' %}
+                                                        <p class='footer-coupon-code__coupon-text'>
+                                                            {{ 'layout.coupon_code.text' | t }}
+                                                            <input type="text" value="{{ settings.coupan }}" class="footer-coupon-code__input" id="coupan_code_copy">
+                                                        </p>
+                                                    {% endif %}
+                                                </div>
+
+                                                {% if settings.coupan != '' %}
+                                                    <div class='footer-coupon-code__code'>
+                                                        <p class='footer-coupon-code__save-text'>{{ 'layout.coupon_code.save' | t }}</p>
+                                                        <p class='footer-coupon-code__copy-div'>
+															<span class="footer-coupon-code__copy-code button_copy_code">
+																{{ 'layout.coupon_code.copy_code' | t }}
+															</span>
+                                                        </p>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <div class="footer__form-group">
+                                                <input required type="email" value="{% if customer %}{{ customer.email }}{% endif %}"
+                                                       placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                                                       name="contact[email]"
+                                                       id="coupon_Email"
+                                                       class="form-ccontrol newsletter ajaxtext input footer__newsletter-input"
+                                                       aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                                                       autocorrect="off"
+                                                       autocapitalize="off">
+
+                                                <input type="hidden" name="contact[tags]" value="newsletter">
+
+                                                <button type="submit" name="ft" class="button footer__form-group-submit">
+                                                    {{ settings.newslatter_btn_text }}
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    {% endform %}
+                                {% endif %}
+
+                                {% unless posted_successfully %}
+                                    {% if settings.termscheck %}
+                                        <label class="footer__checkbox-wrapper" for="termsCheck">
+                                            <input class="terms-check-input" type="checkbox" id="termsCheck"> {{ settings.termstext }}
+
+                                            <a target="_blank" href="{{ settings.termstextlink }}">
+                                                &nbsp;{{ settings.termslinktext }}
+                                            </a>
+                                        </label>
+                                    {% endif %}
+                                {% endunless %}
+
+                                <p class="footer__hint"><i>{{ settings.newslatter_text }}</i></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <div class="footer__col footer__col-menu{% if settings.footer_checkout_display %}{% unless settings.newslatter_form_show %} col-lg-4{% else %} col-lg-3{% endunless %}{% else %} col-lg-4{% endif %}"
+                         {% unless settings.newslatter_form_show %}style="border-left: none"{% endunless %}>
+                        <ul class="footer__menu">
+                            {% for link in linklists[settings.footer_linklist].links %}
+                                <li class="footer__menu-item">
+                                    <a href="{{ link.url }}"
+                                       class="footer__menu-link">
+                                        {{- link.title -}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="footer__col {% if settings.footer_checkout_display %}{% unless settings.newslatter_form_show %} col-lg-4 {% else %} col-lg-3 {% endunless %}{% else %} col-lg-4 footer__col-contact--no-border-right{% endif %} footer__col-contact">
+                        {% if settings.enable_header_contact %}
+                            <div class="footer__contact">
+                                <h3 class="footer__title footer__title--contact">{{ settings.header_question_line }}</h3>
+
+                                <h5 class="footer__phone-wrapper">
+                                    {% if settings.linkurlforphone or settings.header_phone %}
+                                        <a href="{% if settings.linkurlforphone %}{{ settings.urlforphone }}{% else %}tel:{{ settings.header_phone }}{% endif %}">
+                                            {% if settings.usecustomphoneiconforfooter %}
+                                              <picture class="lazy">
+                                                <img data-srcset="{{ 'question-icon-footer.png' | asset_img_url: '30x' }} 1x, {{ 'question-icon-footer.png' | asset_img_url: '60x' }} 2x"
+                                                     srcset="{{ 'question-icon-footer.png' | asset_img_url: '5px' }}"
+                                                     class="footer__phone-icon-custom"
+                                                     alt="Checkout Secure">
+                                              </picture>
+                                            {% else %}
+                                                <span class="fa fa-phone"></span>
+                                            {% endif %}
+
+                                            {{ settings.header_phone -}}
+                                        </a>
+                                    {% endif %}
+                                </h5>
+
+                                <p class="footer__working-hours">
+                                    {{ settings.header_time }}
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if settings.footer_checkout_display %}
+                        <div class="footer__col {% unless settings.newslatter_form_show %} col-lg-4{% else %} col-lg-3{% endunless %} footer-col__checkout">
+                            <div class="footer__contact">
+                                {% if settings.footer_checkout_single %}
+                                    <h3 class="footer__title">{{ settings.checkout_box_heading_text }}</h3>
+
+                                    <p>{{ settings.checkout_box_info_text }}</p>
+
+                                  <picture class="lazy">
+                                    <img data-srcset="{{ 'ff-checkout-single.png' | asset_img_url: '950x' }} 1x, {{ 'ff-checkout-single.png' | asset_img_url: '1900x' }} 2x"
+                                         srcset="{{ 'ff-checkout-single.png' | asset_img_url: '100px' }}"
+                                         class="no-border ratina-img footer__checkout-images"
+                                         alt="Checkout Secure">
+                                  </picture>
+                                {% else %}
+                                    <h3 class="footer__title">{{ settings.checkout_box_heading_text }}</h3>
+                                    <p>{{ settings.checkout_box_info_text }}</p>
+                                    {% include 'checkout-icons' %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="footer__secondary">
+        {% capture powered_by_text %}{{ 'layout.footer.powered_by' | t }}{% endcapture %}
+        {% capture powered_by_link %}{{ 'layout.footer.powered_by_link' | t }}{% endcapture %}
+        {% capture grid_class %}{% if powered_by_text.size > 0 %}col-lg-4{% else %}col-lg-6{% endif %}{% endcapture %}
+
+        <div class="container">
+            <div class="footer__secondary-row row">
+                <div class="{{ grid_class }}">
+                    <p class="footer__copyright">&copy; {{ "now" | date: "%Y" }} <a href="/">{{ shop.name }}</a>. {{ 'layout.footer.copyright' | t }}</p>
+                </div>
+
+                {% if powered_by_text.size > 0 %}
+                    <div class="col-lg-4 footer_powered-by">
+                        {% if powered_by_link.size > 0 %}
+                            <p><a href="{{ 'layout.footer.powered_by_link' | t }}">{{ powered_by_text }}</a></p>
+                        {% else %}
+                            <p>{{ powered_by_text }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="{{ grid_class }}">
+                    <div class="footer__socials">
+                        {% include 'social-icons-new' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

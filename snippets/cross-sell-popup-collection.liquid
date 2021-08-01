@@ -1,0 +1,61 @@
+{% assign popup_text = settings.related_popup_text %}
+
+<section id="{{ cross_sell_id }}"
+         class="modal-new modal-new--wide cross-sell-popup js-cross-sell-popup"
+         data-collection="{{ cross_sell_collection | json | escape }}">
+
+    <div class="modal-new__content">
+        <div class="modal-new__close cross-sell-popup__close-button" data-close>
+            <span class="fa fa-times"></span>
+        </div>
+
+		<div class="cross-sell-popup__success js-cross-sell-popup-success">
+			Item added in cart
+		</div>
+
+
+        <div class="modal-new__body rte">
+            <div class="cross-sell-popup__heading js-cross-sell-popup-heading">
+                {% include "product-motivator-text", product_motivator_text: settings.related_popup_heading, free_shipping_text: settings.related_popup_heading_free_shipping %}
+            </div>
+
+            {% if popup_text != blank %}
+                <div class="cross-sell-popup__text">
+                    {{ popup_text }}
+                </div>
+            {% endif %}
+
+            {% if cross_sell_collection.products.size > 0 %}
+                <div class="cross-sell-popup__products">
+                    <div class="row">
+                        {% for product in cross_sell_collection.products %}
+                            {% if product.available and product.variants.size > 0 %}
+                                <div class="cross-sell-popup__product-wrapper col-sm-4 js-cross-sell-product">
+                                    {% include "cross-sell-popup-product", product: product %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <footer class="modal-new__footer cross-sell-popup__footer">
+            <a href="/"
+               class="button cross-sell-popup__continue-button">
+                {{ 'general.crossell.continue_shopping' | t }}
+            </a>
+
+            <a href="/cart"
+               class="button cross-sell-popup__view-cart-button">
+                {{ 'general.crossell.view_cart' | t }}
+            </a>
+
+            <form method="post" action="/cart">
+                <button class="button cross-sell-popup__checkout-button" type="submit" name="checkout">
+                    {{ 'general.crossell.checkout' | t }}
+                </button>
+            </form>
+        </footer>
+    </div>
+</section>

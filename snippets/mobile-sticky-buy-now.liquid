@@ -1,0 +1,18 @@
+<button type="button"
+        name="add"
+        class="product-sticky-cart-mobile__button product-sticky-cart-mobile__button--buy-now js-product-add-to-cart-button button button--large{% if settings.sticky_atc_mobile == "option_2" %} js-mobile-sticky-open-slide-popup{% endif %}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        data-no-change-text
+        data-target="buy-now"
+        data-redirect-url="/checkout">
+
+	{% if free_shipping_product %}
+		{% if settings.freeshipping_add_to_cart_button_text != "" %}
+			+ {{- settings.freeshipping_add_to_cart_button_text -}}
+		{% else %}
+			{{- settings.Sticky_Buy_button_text -}}
+		{% endif %}
+	{% else %}
+		{{- settings.Sticky_Buy_button_text -}}
+	{% endif %}
+</button>

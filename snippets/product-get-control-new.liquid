@@ -1,0 +1,180 @@
+{% if settings.collection_item_options_display or settings.collection_item_add_to_cart_display %}
+    <div class="product-control">
+        {% capture form_id %}AddToCartForm--{{ product.id }}{% endcapture %}
+
+        {% form "product", product, id: form_id, class: "product-form" %}
+            <select class="product-control__default-select{% if settings.collection_item_options_default_view %} product-control__default-select--show{% endif %} js-select-variants" name="id">
+                {% for variant in product.variants %}
+                    <option value="{{ variant.id }}"
+                            {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                            data-price="{{- variant.price -}}"
+                            {% if settings.collection_item_options_default_view %}{% unless variant.available %} disabled="disabled"{% endunless %}{% endif %}
+                            data-compare-price="{% if variant.compare_at_price > variant.price %}{{- variant.compare_at_price -}}{% endif %}"
+                            data-available="{{- variant.available -}}"
+                            data-title="{{- variant.title | escape -}}"
+                    >
+                        {{- variant.title -}}
+                    </option>
+                {% endfor %}
+            </select>
+
+            {% if settings.collection_item_options_display and settings.collection_item_options_default_view != true %}
+                {% unless product.has_only_default_variant %}
+                    {% assign style_circle = settings.collection_item_options_style_circle | escape | downcase | split: '|' %}
+                    {% assign style_square = settings.collection_item_options_style_square | escape | downcase | split: '|' %}
+                    {% assign option1 = product.selected_or_first_available_variant.option1 %}
+                    {% assign option2 = product.selected_or_first_available_variant.option2 %}
+                    {% assign option3 = product.selected_or_first_available_variant.option3 %}
+
+                    <div class="product-control__options-wrapper">
+                        {% for option in product.options_with_values %}
+                            {% assign option_name = option.name | escape | downcase %}
+                            {% assign option_index = forloop.index0 %}
+                            {% assign is_circle = false %}
+                            {% assign is_square = false %}
+                            {% assign is_color = false %}
+                            {% assign is_image = false %}
+
+                            {% if style_circle contains option_name %}
+                                {% assign is_circle = true %}
+
+                                {% if settings.collection_item_options_style_circle_settings == 'color' %}
+                                    {% assign is_color = true %}
+                                {% else %}
+                                    {% assign is_image = true %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if style_square contains option_name %}
+                                {% assign is_square = true %}
+
+                                {% if settings.collection_item_options_style_square_settings == 'color' %}
+                                    {% assign is_color = true %}
+                                {% else %}
+                                    {% assign is_image = true %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% capture label_styles %}{% if is_circle %}product-control__label--circle{% endif %}{% if is_square %}product-control__label--square{% endif %}{% endcapture %}
+
+                            <div class="{{ is_color }} product-control__option{% if option.values.size == 1 %} product-control__option--hidden{% endif %}">
+                                {% for value in option.values %}
+                                    {% assign index = forloop.index0 %}
+                                    {% assign input_id = "option-" | append: product.id | append: "-" | append: option_index | append: "-" | append: index %}
+                                    {% assign is_selected = false %}
+
+                                    {% case option_index %}
+                                    {% when 0 %}
+                                        {% if value == option1 %}
+                                            {% assign is_selected = true %}
+                                        {% endif %}
+                                    {% when 1 %}
+                                        {% if value == option2 %}
+                                            {% assign is_selected = true %}
+                                        {% endif %}
+                                    {% when 2 %}
+                                        {% if value == option3 %}
+                                            {% assign is_selected = true %}
+                                        {% endif %}
+                                    {% endcase %}
+
+                                    {% if is_image %}
+                                        {% assign value_image = null %}
+
+                                        {% for variant in product.variants %}
+                                            {% if value == variant.option1 or value == variant.option2 or value == variant.option3 %}
+                                                {% if variant.image != blank %}
+                                                    {% assign value_image = variant.image %}
+                                                    {% break %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if value_image == null %}
+                                            {% assign value_image = image %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    <div class="product-control__value">
+                                        <input id="get-control-{{ input_id }}"
+                                               name="option-{{ product.id }}-{{ option_index }}"
+                                               class="product-control__radio js-product-card-radio"
+                                               type="radio"
+                                               value="{{- value | escape -}}"
+                                               {% if is_selected %}checked="checked"{% endif %}>
+
+                                        <label class="product-control__label{% if label_styles != blank %} {{- label_styles -}}{% endif %}"
+                                               for="get-control-{{ input_id }}"
+                                               {% if is_color %}style="background-color: {{ value }};"{% endif %}
+                                               {% if is_image %}style="background-image: url('{{ value_image | img_url }}');"{% endif %}
+                                        >
+                                            {{ value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endunless %}
+            {% endif %}
+
+            {% if settings.collection_item_add_to_cart_display %}
+                {% capture default_add_to_cart_button_text %}{{ 'products.product.add_to_cart' | t }}{% endcapture %}
+                {% assign product-cross-sell-id = blank %}
+
+                {% for tag in product.tags %}
+                    {% assign tag = tag | downcase %}
+
+                    {% if tag == "cross-sell-1" %}
+                        {% assign product-cross-sell-id = "cross-sell-1" %}
+                    {% elsif tag == "cross-sell-2" %}
+                        {% assign product-cross-sell-id = "cross-sell-2" %}
+                    {% elsif tag == "cross-sell-3" %}
+                        {% assign product-cross-sell-id = "cross-sell-3" %}
+                    {% elsif tag == "cross-sell-4" %}
+                        {% assign product-cross-sell-id = "cross-sell-4" %}
+                    {% elsif tag == "cross-sell-5" %}
+                        {% assign product-cross-sell-id = "cross-sell-5" %}
+                    {% elsif tag == "cross-sell-6" %}
+                        {% assign product-cross-sell-id = "cross-sell-6" %}
+                    {% elsif tag == "cross-sell-7" %}
+                        {% assign product-cross-sell-id = "cross-sell-7" %}
+                    {% elsif tag == "cross-sell-8" %}
+                        {% assign product-cross-sell-id = "cross-sell-8" %}
+                    {% endif %}
+                {% endfor %}
+
+                {% assign product-upsell-id = blank %}
+
+                {% for tag in product.tags %}
+                    {% assign tag = tag | downcase %}
+
+                    {% if tag == "upsell-enable-1" %}
+                        {% assign product-cross-sell-id = "upsell-popup-1" %}
+                    {% elsif tag == "upsell-enable-2" %}
+                        {% assign product-cross-sell-id = "upsell-popup-2" %}
+                    {% elsif tag == "upsell-enable-3" %}
+                        {% assign product-cross-sell-id = "upsell-popup-3" %}
+                    {% elsif tag == "upsell-enable-4" %}
+                        {% assign product-cross-sell-id = "upsell-popup-4" %}
+                    {% endif %}
+                {% endfor %}
+
+                <button type="button"
+                        name="add"
+                        data-product-options-add-to-cart
+                        data-variant-id="{{ product.first_available_variant.id }}"
+                        data-sold-out-text="{{ 'products.product.unavailable' | t }}"
+                        data-add-to-card-text="{{ settings.add_to_cart_button_text | default: default_add_to_cart_button_text -}}"
+                        class="button product-control__button js-product-add-to-cart-button"
+                        {% if product-upsell-id != blank %}data-upsell-id="{{ product-upsell-id }}"{% endif %}
+                        {% if product-cross-sell-id != blank %}data-cross-sell-id="{{ product-cross-sell-id }}"{% endif %}
+                >
+                    <span class="js-product-add-to-cart-button-text">
+                        {{ settings.add_to_cart_button_text | default: default_add_to_cart_button_text -}}
+                    </span>
+                </button>
+            {% endif %}
+        {% endform %}
+    </div>
+{% endif %}

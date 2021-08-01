@@ -1,0 +1,9 @@
+<div class="header-space">
+{{ content_for_index }}
+</div>
+
+{% unless template contains 'product' or template contains 'index' or template == 'collection' or template == 'collection.list' %}
+	<style>
+  		.owl-item .large--one-quarter{width:100%;}
+	</style>
+{% endunless %}

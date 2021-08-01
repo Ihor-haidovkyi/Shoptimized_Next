@@ -1,0 +1,7 @@
+{% if product.available %}
+	<div class="product-actions__add-to-cart">
+		<a href="{{ amazon_url }}" class="button button--large product-actions__amazon-button">
+			{{ settings.amazon_button_text }}
+		</a>
+	</div>
+{% endif %}

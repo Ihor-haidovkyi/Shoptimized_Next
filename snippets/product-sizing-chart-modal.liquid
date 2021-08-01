@@ -1,0 +1,37 @@
+{% assign size_chart_page = settings.sizing_chart_page %}
+{% assign view_size_chart = false %}
+
+{% for tag in product.tags %}
+	{% if tag contains "sizechart-" %}
+		{% assign size_chart_page = tag | replace: "sizechart-", "" %}
+	{% endif %}
+
+	{% if tag == "view-size-chart" %}
+		{% assign view_size_chart = true %}
+	{% endif %}
+{% endfor %}
+
+{% if template contains "product" and settings.display_sizing_chart and view_size_chart and size_chart_page != blank %}
+	<section id="size-chart" class="modal-new">
+		<div class="modal-new__content">
+			<header class="modal-new__header">
+				<h4 class="modal-new__title">
+					{{ 'products.general.size_chart_title' | t }}
+				</h4>
+
+				<span class="modal-new__close" data-close>
+						<span class="fa fa-times"></span>
+				</span>
+			</header>
+
+			<div class="modal-new__body rte">
+				{{ pages[size_chart_page].content }}
+			</div>
+
+			<footer class="modal-new__footer">
+				<button type="button" class="button modal-new__close-button"
+								data-close>{{ 'products.general.close_button' | t }}</button>
+			</footer>
+		</div>
+	</section>
+{% endif %}

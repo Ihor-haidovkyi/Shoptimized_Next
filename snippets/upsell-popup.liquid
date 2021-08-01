@@ -1,0 +1,56 @@
+{% assign popup_text = settings.related_popup_text %}
+
+{% if upsell_product != blank %}
+	<section id="{{ upsell_id }}" class="modal-new modal-new--wide upsell-popup js-upsell-popup">
+		<div class="modal-new__content">
+			<div class="upsell-popup__budge">
+				<img src="{{ upsell_budge_image | asset_img_url: '100x100' }}" alt="">
+			</div>
+
+			<div class="modal-new__close upsell-popup__close-button" data-close>
+				<span class="fa fa-times"></span>
+			</div>
+
+			<div class="upsell-popup__body">
+				<img src="{{ upsell_product.images.first | img_url: 'compact' }}"
+					 alt="{{ upsell_product.images.first.alt | escape }}"
+					 class="upsell-popup__image"
+				>
+
+				{% if upsell_headline_text != blank %}
+					<h4 class="upsell-popup__title">
+						{{- upsell_headline_text -}}
+					</h4>
+				{% endif %}
+
+				<div class="upsell-popup__bottom">
+					{% if yes_button_text != blank %}
+						{% capture form_id %}AddToCartForm--{{ upsell_product.id }}-upsell-popup{% endcapture %}
+
+						{% form "product", upsell_product, id: form_id, class: "product-form" %}
+							<input type="number"
+								   name="quantity"
+								   data-no-replace
+								   value="{{- quantity_upsell -}}"
+								   min="1"
+								   max="99"
+								   class="js-quantity-input hidden">
+
+							<button type="button"
+									data-variant-id="{{ upsell_product.selected_or_first_available_variant.id }}"
+									class="btn btn-default upsell-popup__yes-button js-product-add-to-cart-button" data-close>
+								{{- yes_button_text -}}
+							</button>
+						{% endform %}
+					{% endif %}
+
+					{% if no_button_text != blank %}
+						<button type="button" class="btn btn-default upsell-popup__no-button" data-close>
+							{{- no_button_text -}}
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endif %}

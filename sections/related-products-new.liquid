@@ -1,0 +1,79 @@
+{% assign arrows_style = settings.arrow_style %}
+{% assign arrows_style_class = "" %}
+{% assign use_one_and_half_layout = settings.use_two_and_half_layout %}
+{% assign hide_border = settings.show_border %}
+
+{% if arrows_style == "Left-Right" %}
+    {% assign arrows_style_class = " slider-section--arrows-sides" %}
+{% endif %}
+
+{% if arrows_style == "Bottom-Centered" %}
+    {% assign arrows_style_class = " slider-section--arrows-bottom" %}
+{% endif %}
+
+{% if section.settings.enable %}
+    <section class="section slider-section{{ arrows_style_class }}{% unless hide_border %} slider-section--show-border{% endunless %}">
+        <div class="section__container">
+            <h2 class="section__title">
+                {{ 'products.general.related_products_title' | t }}
+            </h2>
+
+            <div class="slider-section__slider js-slider-section{% if use_one_and_half_layout %} js-slider-section-half-mobile{% endif %}">
+                {% assign count = 0 %}
+                {% assign current_product_title = product.title %}
+                {% assign max_products_count = section.settings.max_products_count %}
+
+                {% for collection in product.collections %}
+                    {% for product in collections[collection.handle].products %}
+                        {% if product.title != current_product_title %}
+                            {% if count < max_products_count %}
+                                {% assign count = count | plus: 1 %}
+
+                                <div>
+                                    {% include "product-grid-item-new" %}
+                                </div>
+                            {% else %}
+                                {% break %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if count >= max_products_count %}
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="slider-arrow slider-arrow--prev slider-section__slider-arrow slider-section__slider-arrow--prev js-slider-section-prev">
+                {% include 'icon-arrow-down' %}
+            </div>
+
+            <div class="slider-arrow slider-arrow--next slider-section__slider-arrow slider-section__slider-arrow--next js-slider-section-next">
+                {% include 'icon-arrow-down' %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_products_count",
+      "label": "Products limit",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 5
+    }
+  ]
+}
+{% endschema %}

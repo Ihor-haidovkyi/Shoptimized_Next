@@ -1,0 +1,408 @@
+<div class="product-tabs">
+    {% if custom_tabs %}
+        {{ product.description }}
+    {% else %}
+        {% if section.settings.enable_product_tabs %}
+            {% assign tab_cur = 0 %}
+            {% assign tab_id = 1 %}
+            {% assign tab_index = 1 %}
+            {% assign default_tab_index = section.settings.default_tab | plus: 0 %}
+
+            <div class="product-tabs__content">
+                <div class="product-tabs__tabs-wrapper">
+                    <ul class="product-tabs__tabs">
+                        {% if section.settings.enable_description_tab %}
+                            {% if section.settings.description_location == "in_tabs" %}
+                                <li class="product-tabs__tab-item">
+                                    <a href="#" class="product-tabs__tab-link{% if default_tab_index == 0 %} product-tabs__tab-link--active{% endif %} js-product-tab"
+                                       data-tab-id="tab-{{ tab_id }}">
+                                        {{ section.settings.description_tab_heading }}
+                                    </a>
+                                </li>
+
+                                {% assign tab_id = tab_id | plus: 1 %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if section.settings.enable_shipping_tab %}
+                            <li class="product-tabs__tab-item">
+                                <a href="#" class="product-tabs__tab-link{% if default_tab_index == tab_index %} product-tabs__tab-link--active{% endif %} js-product-tab"
+                                   data-tab-id="tab-{{ tab_id }}">
+                                    {{ section.settings.shipping_tab_header }}
+                                </a>
+                            </li>
+
+                            {% assign tab_id = tab_id | plus: 1 %}
+                            {% assign tab_index = tab_index | plus: 1 %}
+                        {% endif %}
+
+                        {% for block in section.blocks %}
+                            {% if block.settings.enable_tab %}
+                                <li class="product-tabs__tab-item">
+                                    <a href="#" class="product-tabs__tab-link{% if default_tab_index == tab_index %} product-tabs__tab-link--active{% endif %} js-product-tab"
+                                       data-tab-id="tab-{{ tab_id }}">{{ block.settings.heading }}</a>
+                                </li>
+
+                                {% assign tab_id = tab_id | plus: 1 %}
+                                {% assign tab_index = tab_index | plus: 1 %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if section.settings.enable_product_review %}
+                            {% if section.settings.review_location == 'in_tabs' %}
+                                <li class="product-tabs__tab-item">
+                                    <a href="#" class="product-tabs__tab-link{% if default_tab_index == tab_index %} product-tabs__tab-link--active{% endif %} js-product-tab"
+                                       data-tab-id="tab-{{ tab_id }}">
+                                        {{ section.settings.product_review_tab_heading }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+
+                {% assign tab_id = 1 %}
+                {% assign tab_index = 1 %}
+
+                <div class="product-tabs__tabs-content">
+                    {% if section.settings.enable_description_tab %}
+                        {% if section.settings.description_location == 'in_tabs' %}
+                            <div class="product-tabs__tab-content{% if default_tab_index != 0 %} product-tabs__tab-content--hidden{% endif %} js-product-tab-content rte"
+                                 data-for-tab-id="tab-{{ tab_id }}">
+
+                                {% unless settings.benefit_bullets %}
+                                    {{ product.description }}
+                                    {% else %}
+                                    {{ product.description | replace: '<ul>', '<ul class="bullets-list">' | replace: '<li>', '<li class="bullets-list__item"><i class="fa fa-check-circle"></i>' }}
+                                {% endunless %}
+
+                                {% if settings.product_description and settings.product_desc_below_image != blank %}
+                                    <div class="product-tabs__description-image-wrapper">
+                                      {% if settings.product_desc_below_link != blank %}
+                                        <a href="{{ settings.product_desc_below_link }}">
+                                      {% endif %}
+
+                                        <picture class="lazy">
+                                          <img data-srcset="{{ settings.product_desc_below_image | img_url: '700x' }} 1x, {{ settings.product_desc_below_image | img_url: '1400x' }} 2x"
+                                               srcset="{{ settings.product_desc_below_image | img_url: '40x' }}"
+                                               class="picon"
+                                               alt="{{ settings.product_desc_below_image.alt | escape }}">
+                                        </picture>
+
+                                      {% if settings.product_desc_below_link != blank %}
+                                        </a>
+                                      {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {% assign tab_id = tab_id | plus: 1 %}
+                        {% endif %}
+                    {% endif %}
+
+                    {% if section.settings.enable_shipping_tab %}
+                        {% assign shipping_tab_shipping_text = section.settings.shipping_tab_shipping_text %}
+
+                        {% if section.settings.enable_country_flag %}
+                            {% assign shipping_tab_shipping_text = shipping_tab_shipping_text | replace: '{country}', '<span class="js-country-name"></span><span class="js-country-flag product-tabs__shipping-country-flag"></span>' %}
+                        {% else %}
+                            {% assign shipping_tab_shipping_text = shipping_tab_shipping_text | replace: '{country}', '<span class="js-country-name"></span>' %}
+                        {% endif %}
+
+                        <div class="product-tabs__tab-content{% if default_tab_index != tab_index %} product-tabs__tab-content--hidden{% endif %} product-tabs__tab-content--shipping js-product-tab-content" data-for-tab-id="tab-{{ tab_id }}">
+                            <table class="product-tabs__shipping-table">
+                                <tr>
+                                    <td>
+                                        {% if section.settings.shipping_tab_shipping_label != blank %}
+                                            {{ section.settings.shipping_tab_shipping_label }}
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if shipping_tab_shipping_text != blank %}
+                                            {{ shipping_tab_shipping_text }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                {% if section.settings.enable_delivery_option %}
+                                    {% assign shipping_tab_delivery_estimate_text = section.settings.shipping_tab_delivery_estimate_text %}
+                                    {% assign shipping_tab_delivery_estimate_text = shipping_tab_delivery_estimate_text | replace: '{start_date}', '<span class="js-product-delivery-estimate-start-date"></span>' %}
+                                    {% assign shipping_tab_delivery_estimate_text = shipping_tab_delivery_estimate_text | replace: '{end_date}', '<span class="js-product-delivery-estimate-end-date"></span>' %}
+                                    {% assign product_delivery_cut_off = section.settings.delivery_cut_off %}
+                                    {% assign product_delivery_off_days = section.settings.delivery_off_days %}
+                                    {% assign estimate_start_date = section.settings.delivery_start %}
+                                    {% assign estimate_end_date = section.settings.delivery_end %}
+
+                                    <tr>
+                                        <td>
+                                            {% if section.settings.shipping_tab_delivery_label != blank %}
+                                                {{ section.settings.shipping_tab_delivery_label }}
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            {% if shipping_tab_delivery_estimate_text != blank %}
+                                                <span class="js-product-delivery-estimate"
+                                                      data-min-delivery-days="{{ estimate_start_date }}"
+                                                      data-max-delivery-days="{{ estimate_end_date }}"
+                                                      data-delivery-cut-off-time="{{ product_delivery_cut_off }}"
+                                                      data-delivery-off-days="{{ product_delivery_off_days }}"
+                                                      data-delivery-days="{{ 'layout.day_small.sun' | t }} {{ 'layout.day_small.mon' | t }} {{ 'layout.day_small.tue' | t }} {{ 'layout.day_small.wed' | t }} {{ 'layout.day_small.thu' | t }} {{ 'layout.day_small.fri' | t }} {{ 'layout.day_small.sat' | t }}">
+                                                    {{ shipping_tab_delivery_estimate_text }}
+                                                </span>
+                                            {% endif %}
+
+                                            {% if section.settings.shipping_tab_delivery_information_text != blank %}
+                                                <em>{{ section.settings.shipping_tab_delivery_information_text }}</em>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+
+                            {% if section.settings.shipping_tab_text != blank %}
+                                <p>{{ section.settings.shipping_tab_text }}</p>
+                            {% endif %}
+                        </div>
+
+                        {% assign tab_id = tab_id | plus: 1 %}
+                        {% assign tab_index = tab_index | plus: 1 %}
+                    {% endif %}
+
+                    {% for block in section.blocks %}
+                        {% if block.settings.enable_tab %}
+                            <div class="product-tabs__tab-content{% if default_tab_index != tab_index %} product-tabs__tab-content--hidden{% endif %} js-product-tab-content" data-for-tab-id="tab-{{ tab_id }}">
+                                {{ block.settings.text }}
+                            </div>
+
+                            {% assign tab_id = tab_id | plus: 1 %}
+                            {% assign tab_index = tab_index | plus: 1 %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if section.settings.enable_product_review %}
+                        {% if section.settings.review_location == "in_tabs" %}
+                            <div class="product-tabs__tab-content{% if default_tab_index != tab_index %} product-tabs__tab-content--hidden{% endif %} js-product-tab-content" data-for-tab-id="tab-{{ tab_id }}">
+                                {% if settings.product_review_type == "loox" %}
+                                    {% include 'product-reviews-loox' %}
+                                {% endif %}
+
+                                {% if settings.product_review_type == "shopify_reviews" %}
+                                    {% include 'product-reviews-shopify' %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="product-tabs__content product-tabs__content--mobile">
+                <div class="product-mobile-tabs">
+                    {% if section.settings.enable_description_tab %}
+                        {% if section.settings.description_location == "in_tabs" %}
+                            <div class="product-mobile-tabs__tab js-product-mobile-tab">
+                                <h4 class="product-mobile-tabs__tab-heading js-product-mobile-tab-heading">
+                                    {{ section.settings.description_tab_heading }}
+
+                                    <div class="product-mobile-tabs__tab-heading-arrow">
+                                        {% include 'icon-arrow-down' %}
+                                    </div>
+                                </h4>
+
+                                <div class="product-mobile-tabs__tab-body js-product-mobile-tab-body">
+                                    {% unless settings.benefit_bullets %}
+                                        {{ product.description }}
+                                        {% else %}
+                                        {{ product.description | replace: '<ul>', '<ul class="bullets-list">' | replace: '<li>', '<li class="bullets-list__item"><i class="fa fa-check-circle"></i>' }}
+                                    {% endunless %}
+
+                                    {% if settings.product_description and settings.product_desc_below_image != blank %}
+                                        <div class="product-mobile-tabs__description-image-wrapper">
+                                            <a href="{{ settings.product_desc_below_link }}">
+                                                <picture class="lazy">
+                                                    <img data-srcset="{{ settings.product_desc_below_image | img_url: '700x' }} 1x, {{ settings.product_desc_below_image | img_url: '1400x' }} 2x"
+                                                         srcset="{{ settings.product_desc_below_image | img_url: '100x' }}"
+                                                         alt="{{ settings.product_desc_below_image.alt | escape }}">
+                                                </picture>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if section.settings.enable_shipping_tab %}
+                        <div class="product-mobile-tabs__tab product-mobile-tabs__tab--shipping js-product-mobile-tab">
+                            <h4 class="product-mobile-tabs__tab-heading js-product-mobile-tab-heading">
+                                {{ section.settings.shipping_tab_header }}
+
+                                <div class="product-mobile-tabs__tab-heading-arrow">
+                                    {% include 'icon-arrow-down' %}
+                                </div>
+                            </h4>
+
+                            <div class="product-mobile-tabs__tab-body js-product-mobile-tab-body">
+                                {% assign shipping_tab_shipping_text = section.settings.shipping_tab_shipping_text %}
+
+                                {% if section.settings.enable_country_flag %}
+                                    {% assign shipping_tab_shipping_text = shipping_tab_shipping_text | replace: '{country}', '<span class="js-country-name"></span><span class="js-country-flag product-tabs__shipping-country-flag"></span>' %}
+                                {% else %}
+                                    {% assign shipping_tab_shipping_text = shipping_tab_shipping_text | replace: '{country}', '<span class="js-country-name"></span>' %}
+                                {% endif %}
+
+                                <table class="product-tabs__shipping-table">
+                                    <tr>
+                                        <td>
+                                            {% if section.settings.shipping_tab_shipping_label != blank %}
+                                                {{ section.settings.shipping_tab_shipping_label }}
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            {% if shipping_tab_shipping_text != blank %}
+                                                {{ shipping_tab_shipping_text }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+
+                                    {% if section.settings.enable_delivery_option %}
+                                        {% assign shipping_tab_delivery_estimate_text = section.settings.shipping_tab_delivery_estimate_text %}
+                                        {% assign shipping_tab_delivery_estimate_text = shipping_tab_delivery_estimate_text | replace: '{start_date}', '<span class="js-product-delivery-estimate-start-date"></span>' %}
+                                        {% assign shipping_tab_delivery_estimate_text = shipping_tab_delivery_estimate_text | replace: '{end_date}', '<span class="js-product-delivery-estimate-end-date"></span>' %}
+                                        {% assign product_delivery_cut_off = section.settings.delivery_cut_off %}
+                                        {% assign product_delivery_off_days = section.settings.delivery_off_days %}
+                                        {% assign estimate_start_date = section.settings.delivery_start %}
+                                        {% assign estimate_end_date = section.settings.delivery_end %}
+
+                                        <tr>
+                                            <td>
+                                                {% if section.settings.shipping_tab_delivery_label != blank %}
+                                                    {{ section.settings.shipping_tab_delivery_label }}
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                {% if shipping_tab_delivery_estimate_text != blank %}
+                                                    <span class="js-product-delivery-estimate"
+                                                          data-min-delivery-days="{{ estimate_start_date }}"
+                                                          data-max-delivery-days="{{ estimate_end_date }}"
+                                                          data-delivery-cut-off-time="{{ product_delivery_cut_off }}"
+                                                          data-delivery-off-days="{{ product_delivery_off_days }}"
+                                                          data-delivery-days="{{ 'layout.day_small.sun' | t }} {{ 'layout.day_small.mon' | t }} {{ 'layout.day_small.tue' | t }} {{ 'layout.day_small.wed' | t }} {{ 'layout.day_small.thu' | t }} {{ 'layout.day_small.fri' | t }} {{ 'layout.day_small.sat' | t }}">
+                                                        {{ shipping_tab_delivery_estimate_text }}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if section.settings.shipping_tab_delivery_information_text != blank %}
+                                                    <em>{{ section.settings.shipping_tab_delivery_information_text }}</em>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                </table>
+
+                                {% if section.settings.shipping_tab_text != blank %}
+                                    <p>{{ section.settings.shipping_tab_text }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% for block in section.blocks %}
+                        {% if block.settings.enable_tab %}
+                            <div class="product-mobile-tabs__tab js-product-mobile-tab">
+                                <h4 class="product-mobile-tabs__tab-heading js-product-mobile-tab-heading">
+                                    {{ block.settings.heading }}
+
+                                    <div class="product-mobile-tabs__tab-heading-arrow">
+                                        {% include 'icon-arrow-down' %}
+                                    </div>
+                                </h4>
+
+                                <div class="product-mobile-tabs__tab-body js-product-mobile-tab-body">
+                                    {{ block.settings.text }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if section.settings.enable_product_review %}
+                        {% if section.settings.review_location == 'in_tabs' %}
+                            <div class="product-mobile-tabs__tab js-product-mobile-tab">
+                                <h4 class="product-mobile-tabs__tab-heading js-product-mobile-tab-heading">
+                                    {{ section.settings.product_review_tab_heading }}
+
+                                    <div class="product-mobile-tabs__tab-heading-arrow">
+                                        {% include 'icon-arrow-down' %}
+                                    </div>
+                                </h4>
+
+                                <div class="product-mobile-tabs__tab-body js-product-mobile-tab-body">
+                                    {% if settings.product_review_type == "loox" %}
+                                        {% include 'product-reviews-loox' %}
+                                    {% endif %}
+
+                                    {% if settings.product_review_type == "shopify_reviews" %}
+                                        {% include 'product-reviews-shopify' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            {% unless section.settings.description_location == 'description_below_buttons' %}
+                {% unless settings.benefit_bullets %}
+                    <div class="product-tabs__description rte">{{ product.description }}</div>
+                    {% else %}
+                    <div class="product-tabs__description rte">{{ product.description | replace: '<ul>', '<ul class="bullets-list">' | replace: '<li>', '<li class="bullets-list__item"><i class="fa fa-check-circle"></i>' }}</div>
+                {% endunless %}
+
+                {% if settings.product_description and settings.product_desc_below_image != blank %}
+                    <div class="product-tabs__description-image-wrapper">
+                      {% if settings.product_desc_below_link != blank %}
+                        <a href="{{ settings.product_desc_below_link }}">
+                      {% endif %}
+
+                        <picture class="lazy">
+                          <img data-srcset="{{ settings.product_desc_below_image | img_url: '700x' }} 1x, {{ settings.product_desc_below_image | img_url: '1400x' }} 2x"
+                               srcset="{{ settings.product_desc_below_image | img_url: '100x' }}"
+                               alt="{{ settings.product_desc_below_image.alt | escape }}">
+                        </picture>
+
+                      {% if settings.product_desc_below_link != blank %}
+                        </a>
+                      {% endif %}
+                    </div>
+                {% endif %}
+            {% endunless %}
+
+            {% if section.settings.enable_product_review %}
+                {% if section.settings.review_location == 'in_tabs'  %}
+                    {% if settings.product_review_type == "loox" %}
+                        {% include 'product-reviews-loox' %}
+                    {% endif %}
+
+                    {% if settings.product_review_type == "shopify_reviews" %}
+                        {% include 'product-reviews-shopify' %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>
+
+{% if section.settings.enable_product_review %}
+    {% if section.settings.review_location == "show_reviews_separate" %}
+        {% if settings.product_review_type == "loox" %}
+            {% include 'product-reviews-loox' %}
+        {% endif %}
+
+        {% if settings.product_review_type == "shopify_reviews" %}
+            {% include 'product-reviews-shopify' %}
+        {% endif %}
+    {% endif %}
+{% endif %}

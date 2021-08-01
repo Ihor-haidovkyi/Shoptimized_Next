@@ -1,0 +1,444 @@
+{% unless template contains 'product' or template contains 'index' or template == 'collection' or template == 'collection.list' %}
+    <script>
+        var _0x1310=["\x3C\x73\x63\x72\x69\x70\x74\x20\x73\x72\x63\x3D\x22","\x74\x69\x6D\x62\x65\x72\x6A\x73\x70\x61\x74\x68","\x70\x61\x74\x68","\x73\x68\x6F\x70\x74\x69\x6D\x69\x7A\x65\x64\x64\x65\x6D\x6F\x2E\x6D\x79\x73\x68\x6F\x70\x69\x66\x79\x2E\x63\x6F\x6D\x7C\x73\x68\x6F\x70\x74\x69\x6D\x69\x7A\x65\x64\x35\x2D\x30\x2E\x6D\x79\x73\x68\x6F\x70\x69\x66\x79\x2E\x63\x6F\x6D\x7C\x6F\x75\x74\x64\x6F\x6F\x72\x73\x61\x64\x76\x65\x6E\x74\x75\x72\x65\x72\x2E\x6D\x79\x73\x68\x6F\x70\x69\x66\x79\x2E\x63\x6F\x6D","\x2F\x63\x6F\x6C\x6C\x65\x63\x74\x69\x6F\x6E\x73\x2F","\x69\x6E\x64\x65\x78\x4F\x66","\x68\x72\x65\x66","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x2F\x70\x72\x6F\x64\x75\x63\x74\x73\x2F","\x61\x62\x6F\x72\x74","\x6F\x66\x66","\x66\x6F\x72\x6D\x5B\x61\x63\x74\x69\x6F\x6E\x3D\x22\x2F\x63\x61\x72\x74\x2F\x61\x64\x64\x22\x5D","\x24","\x73\x75\x62\x6D\x69\x74","\x50\x6C\x65\x61\x73\x65\x20\x65\x6E\x74\x65\x72\x20\x79\x6F\x75\x72\x20\x76\x65\x72\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x20\x70\x75\x72\x63\x68\x61\x73\x65\x20\x63\x6F\x64\x65\x20\x66\x6F\x72\x20\x66\x75\x6C\x6C\x20\x74\x68\x65\x6D\x65\x20\x66\x75\x6E\x63\x74\x69\x6F\x6E\x61\x6C\x69\x74\x79","\x61\x6C\x65\x72\x74","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x73\x74\x6F\x70\x50\x72\x6F\x70\x61\x67\x61\x74\x69\x6F\x6E","\x6F\x6E","\x62\x6F\x64\x79","\x22\x3E\x3C\x2F\x73\x63\x72","\x70\x72\x6F\x64\x75\x63\x74\x5F\x6B\x65\x79","","\x62\x6C\x61\x6E\x6B","\x64\x6F\x6D\x61\x69\x6E","\x56\x65\x72\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x20\x73\x74\x61\x72\x74\x20\x69\x73\x20\x62\x72\x6F\x6B\x65\x6E","\x64\x65\x62\x75\x67","\x63\x6F\x6E\x73\x6F\x6C\x65","\x5F\x73\x68\x6F\x70\x69\x66\x79\x5F\x70\x72","\x63\x6F\x6F\x6B\x69\x65","\x31\x38\x37\x34\x63\x33\x61\x65\x65\x34\x38\x64\x33\x34\x62\x65\x65\x36\x36\x31\x65\x38\x32\x30\x35\x38\x31\x32\x35\x32\x34\x32","\x74\x79\x70\x65","\x47\x45\x54","\x75\x72\x6C","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6D\x65\x6D\x62\x65\x72\x73\x2E\x73\x68\x6F\x70\x74\x69\x6D\x69\x7A\x65\x64\x2E\x6E\x65\x74\x2F\x61\x70\x69\x2F\x76\x61\x6C\x69\x64\x61\x74\x65\x2F","\x2E\x6A\x73\x6F\x6E","\x64\x61\x74\x61","\x76\x65\x72","\x35\x2E\x31\x2E\x30","\x64\x61\x74\x61\x54\x79\x70\x65","\x6A\x73\x6F\x6E","\x73\x75\x63\x63\x65\x73\x73","\x68\x61\x73\x4F\x77\x6E\x50\x72\x6F\x70\x65\x72\x74\x79","\x76\x61\x6C\x69\x64","\x44\x61\x74\x65","\x67\x65\x74\x54\x69\x6D\x65","\x73\x65\x74\x54\x69\x6D\x65","\x65\x78\x70\x69\x72\x65\x73","\x2F","\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x64\x69\x73\x70\x6C\x61\x79\x3A\x62\x6C\x6F\x63\x6B\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x70\x6F\x73\x69\x74\x69\x6F\x6E\x3A\x66\x69\x78\x65\x64\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x7A\x2D\x69\x6E\x64\x65\x78\x3A\x39\x39\x39\x39\x39\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x62\x6F\x74\x74\x6F\x6D\x3A\x30\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x6C\x65\x66\x74\x3A\x30\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x77\x69\x64\x74\x68\x3A\x31\x30\x30\x25\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x68\x65\x69\x67\x68\x74\x3A\x31\x30\x30\x70\x78\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74\x3A\x31\x30\x30\x70\x78\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x3A\x23\x66\x66\x30\x30\x30\x30\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x66\x66\x66\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x6F\x70\x61\x63\x69\x74\x79\x3A\x31\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x70\x6F\x69\x6E\x74\x65\x72\x2D\x65\x76\x65\x6E\x74\x73\x3A\x6E\x6F\x6E\x65\x3B\x22\x3E","\x6D\x65\x73\x73\x61\x67\x65","\x3C\x2F\x64\x69\x76\x3E","\x61\x70\x70\x65\x6E\x64","\x61\x6A\x61\x78","\x73\x65\x74\x54\x69\x6D\x65\x6F\x75\x74","\x69\x70\x74\x3E","\x77\x72\x69\x74\x65","\x64\x6F\x63\x75\x6D\x65\x6E\x74"];(function(){var _0x72cbx1=_0x1310[0]+ window[_0x1310[2]][_0x1310[1]],_0x72cbx2=_0x1310[3],_0x72cbx3;if(window[_0x1310[7]][_0x1310[6]][_0x1310[5]](_0x1310[4])===  -1&& window[_0x1310[7]][_0x1310[6]][_0x1310[5]](_0x1310[8])===  -1){_0x72cbx3= _0x1310[9]};function _0x72cbx4(){window[_0x1310[12]](_0x1310[11])[_0x1310[10]]();window[_0x1310[12]](_0x1310[19])[_0x1310[18]](_0x1310[13],_0x1310[11],function(_0x72cbx5){window[_0x1310[15]](_0x1310[14]);_0x72cbx5[_0x1310[16]]();_0x72cbx5[_0x1310[17]]();return false})}_0x72cbx1+= _0x1310[20];window[_0x1310[12]](function(){var _0x72cbx6=window[_0x1310[21]]&& window[_0x1310[21]]!== _0x1310[22]?window[_0x1310[21]]:_0x1310[23],_0x72cbx7=window[_0x1310[24]];if(_0x72cbx7!== _0x1310[22]&& _0x72cbx6=== _0x1310[23]&& _0x72cbx2[_0x1310[5]](_0x72cbx7)!=  -1){if(_0x72cbx3!= _0x1310[9]){window[_0x1310[27]][_0x1310[26]](_0x1310[25])};return}else {if($[_0x1310[29]](_0x1310[28])=== _0x1310[30]){return}};window[_0x1310[54]](function(){var _0x72cbx8={};_0x72cbx8[_0x1310[31]]= _0x1310[32];_0x72cbx8[_0x1310[33]]= _0x1310[34]+ _0x72cbx6+ _0x1310[35];_0x72cbx8[_0x1310[36]]= {};_0x72cbx8[_0x1310[36]][_0x1310[24]]= _0x72cbx7;_0x72cbx8[_0x1310[36]][_0x1310[37]]= _0x1310[38];_0x72cbx8[_0x1310[39]]= _0x1310[40];_0x72cbx8[_0x1310[41]]= function(_0x72cbx9){var _0x72cbxa={},_0x72cbxb;if(_0x72cbx9[_0x1310[42]](_0x1310[41])&& _0x72cbx9[_0x1310[42]](_0x1310[43])){if(_0x72cbx9[_0x1310[43]]){_0x72cbxb=  new window[_0x1310[44]]();_0x72cbxb[_0x1310[46]](_0x72cbxb[_0x1310[45]]()+ 86400000);_0x72cbxa[_0x1310[47]]= _0x72cbxb;_0x72cbxa[_0x1310[2]]= _0x1310[48];$[_0x1310[29]](_0x1310[28],_0x1310[30],_0x72cbxa)}else {window[_0x1310[12]](_0x1310[19])[_0x1310[52]](_0x1310[49]+ _0x72cbx9[_0x1310[50]]+ _0x1310[51]);_0x72cbx4()}}};if(_0x72cbx3!== _0x1310[9]|| (window[_0x1310[7]][_0x1310[6]][_0x1310[5]](_0x1310[4])!==  -1|| window[_0x1310[7]][_0x1310[6]][_0x1310[5]](_0x1310[8])!==  -1)){window[_0x1310[12]][_0x1310[53]](_0x72cbx8)}},3000)});window[_0x1310[57]][_0x1310[56]](_0x72cbx1+ _0x1310[55])})()
+    </script>
+
+    <script id="CartTemplate" type="text/template" data-no-instant>
+        {% raw %}
+        <form action="/cart" method="post" novalidate class="cartt ajaxcart">
+            <div class="ajaxcart__inner">
+                {{#items}}
+                <div class="ajaxcart__product">
+                    <div class="ajaxcart__row" data-line="{{line}}">
+                        <div class="grid">
+                            <div class="grid__item one-quarter">
+                                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+                            </div>
+                            <div class="grid__item three-quarters">
+                                <p>
+                                    <a href="{{url}}" class="ajaxcart__product-name">{{name}}</a>
+                                    {{#if variation}}
+
+                                    <span class="ajaxcart__product-meta">{{variation}}</span>
+                                    {{else}}
+                                    <span class="ajaxcart__product-meta"></span>
+                                    {{/if}}
+                                    {{#properties}}
+                                    {{#each this}}
+                                    {{#if this}}
+                                    <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                                    {{/if}}
+                                    {{/each}}
+                                    {{/properties}}
+                                    {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                                        <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                                    {% endraw %}{% endif %}{% raw %}
+                                    <a data-line="{{ line }}" href="/cart/change?line={{ line }}&amp;quantity=0" class="ajaxcart_remove"><i class="fa fa-times"></i></a>
+                                </p>
+                                <div class="grid--full display-table">
+                                    <div class="grid__item display-table-cell one-half">
+                                        <div class="ajaxcart__qty">
+                                            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}">
+                                                <span class="shoptimized-893" aria-hidden="true"></span>
+                                                <span class="fallback-text" aria-hidden="true">&minus;</span>
+                                                <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+                                            </button>
+                                            <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                                            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text" data-id="{{key}}" data-line="{{line}}" {{itemInventoryQuantity}} data-qty="{{itemAdd}}">
+                                                <span class="shoptimized-883" aria-hidden="true"></span>
+                                                <span class="fallback-text" aria-hidden="true">+</span>
+                                                <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item display-table-cell one-half text-right">
+                                        {{#if discountsApplied}}
+                                        <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
+                                        <br><span class="money">{{{linePrice}}}</span>
+                                        {{else}}
+                                        <span class="money">{{{linePrice}}}</span>
+                                        {{/if}}
+                                        {{#if discountsApplied}}
+                                        <div class="grid--full display-table">
+                                            <div class="grid__item text-right">
+                                                {{#each discounts}}
+                                                <small class="ajaxcart-item__discount">{{ this.title }}</small><br>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                {{/items}}
+
+
+            </div>
+            <div class="ajaxcart__footer">
+                <div class="grid--full">
+                    <div class="grid__item two-thirds text-right mar-bottom">
+                        <p><b>{% endraw %}{{ 'cart.general.total' | t }}{% raw %}</b> <b><span class="money">{{{totalPrice}}}</span></b></p>
+                    </div>
+                    {% endraw %}{% if settings.showdiscountbox %}{% raw %}
+                        <p class="discuptitle">{% endraw %}{{ 'cart.general.couponappliedheading' | t }}{% raw %}</p>
+                        <input type="text" name="discount" placeholder="{% endraw %}{{ 'cart.general.placeholder' | t }}{% raw %}">
+                        <p class="discup">{% endraw %}{{ 'cart.general.couponappliedtext' | t }}{% raw %}</p>
+                    {% endraw %}{% endif %}{% raw %}
+                    <div class="grid__item one-third text-right">
+
+                    </div>
+                    {{#if totalCartDiscount}}
+                    <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
+                    {{/if}}
+                </div>
+
+                <a href="/cart" class="btn--secondary btn btn--full cart__cartview">
+                    {% endraw %}{{ 'cart.general.button' | t }}{% raw %}
+                </a>
+                {% endraw %}{% unless settings.showloginbuttons %}{% raw %}
+                    <button type="submit" class="btn btn--full cart__checkout Checkout" name="checkout">
+                    <img src="{% endraw %}{{ 'checkout-button-icon.png' | asset_url }}{% raw %}" alt="{% endraw %}{{ shop.name }}{% raw %}" itemprop="logo" class="no-border ratina-img addIcon" />
+                    <span id="CheckoutText">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</span>
+                        </button>
+                    {% endraw %}{% if additional_checkout_buttons %}
+                        <div class="additional_checkout_buttons">
+                            <button name="goto_pp" type="submit" id="paypal-express-button" class="additional-checkout-button additional-checkout-button--paypal-express" value="paypal_express" data-strategy="cart">Check out with <img alt="Checkout with: PayPal" src="//cdn.shopify.com/s/assets/checkout/easy-checkout-btn-paypal-9835af2c2b0e2a543b2905789a7f08b678d62de2c77c1b0d16fd7689aff463f3.png"></button>
+                        </div>
+                    {% endif %}
+                    {% raw %}
+                    {% endraw %}{% endunless %}{% raw %}
+                {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+                    <div>
+                    <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+                    </div>
+                {% endraw %}{% endif %}{% raw %}
+
+                {% endraw %}{% if settings.showloginbuttons %}{% raw %}
+                <div class="account-inline-cart">
+                    <form class="inline-cart-checkout-options">
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutGuest">{% endraw %}{{ 'cart.general.checkout_as_guest' | t }}{% raw %}</label>
+                            <input class="inline-checkout-btn" checked="" type="radio" id="checkoutGuest" value="guest" name="checkout" data-checkout-guest-btn="">
+                        </div>
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutAccount">
+                                {% endraw %}{{ 'cart.general.checkout_with_account' | t }}{% raw %}
+
+                            </label>
+                            <input class="inline-checkout-btn" type="radio" id="checkoutAccount" value="account" name="checkout" data-checkout-account-btn="">
+                        </div>
+                        <button type="submit"  name="checkout" class=" btn btn--full cart__checkout Checkout button gebutton button--green button--connect">   <img src="{% endraw %}{{ 'checkout-button-icon.png' | asset_url }}{% raw %}" alt="{% endraw %}{{ shop.name }}{% raw %}" itemprop="logo" class="no-border ratina-img addIcon" />
+                            {% endraw %}{{ 'cart.general.secure_checkout' | t }}{% raw %}</button>
+                    </form>
+
+                    <div class="account-inline-form account-login-form" >
+                        <div class="account-inline-login-forms visible">
+                            <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+                                <input type="hidden" name="checkout_url" value="/checkout" />
+                                <input type="email" name="customer[email]" placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                                <input type="password" name="customer[password]" placeholder="{% endraw %}{{ 'cart.general.password' | t }}{% raw %}">
+                                <button type="submit" class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.sign_in' | t }}{% raw %}</button>
+                                <div class="button account-inline-forgot">
+                                    <button type="button" class="swap-forgot" id="forgetpassword" data-form-swap-btn="">{% endraw %}{{ 'cart.general.forget_password' | t }}{% raw %}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="account-inline-form account-password-form" >
+                        <div class="account-inline-password-forms visible">
+                            <form method="post" action="/account/recover" accept-charset="UTF-8"><input type="hidden" name="form_type" value="recover_customer_password"><input type="hidden" name="utf8" value="✓">
+
+
+
+                                <input type="email" name="email" placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                                <button type="submit" class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.instructions' | t }}{% raw %}</button>
+                                <div class="button account-inline-forgot">
+                                    <button type="button" class="swap-login" id="swapforgetpassword" data-form-swap-btn="">{% endraw %}{{ 'cart.general.login' | t }}{% raw %}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="account-inline-form register-form" >
+                        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">
+                            <input type="text" name="customer[first_name]" size="30" placeholder="{% endraw %}{{ 'cart.general.name' | t }}{% raw %}">
+                            <input type="email" name="customer[email]" placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                            <input type="password" name="customer[password]" placeholder="{% endraw %}{{ 'cart.general.create_password' | t }}{% raw %}">
+                            <button type="submit"  class="btn btn--full cart__checkout Checkout button button--green button--connect">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</button>
+                        </form>
+                    </div>
+                    <section class="social-logins-hull">
+                        <button type="button"  id="button__returning" class="button button--returning button--white" >{% endraw %}{{ 'cart.general.returning_customer' | t }}{% raw %}</button>
+                        <button type="button" id="button__black" class="button button--new button--black">{% endraw %}{{ 'cart.general.connect_with_email' | t }}{% raw %}</button>
+                    </section>
+                </div>
+            </div>
+            {% endraw %}{% endif %}
+
+            {% raw %}
+
+        </form>
+        {% endraw %}
+    </script>
+    <script id="AjaxQty" type="text/template" data-no-instant>
+        {% raw %}
+        <div class="ajaxcart__qty">
+            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}">
+                <span class="shoptimized-893" aria-hidden="true"></span>
+                <span class="fallback-text" aria-hidden="true">&minus;</span>
+                <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+            </button>
+            <input type="text" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*">
+            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text" data-id="{{key}}" data-qty="{{itemAdd}}">
+                <span class="shoptimized-883" aria-hidden="true"></span>
+                <span class="fallback-text" aria-hidden="true">+</span>
+                <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+            </button>
+        </div>
+        {% endraw %}
+    </script>
+    <script id="JsQty" type="text/template" data-no-instant>
+        {% raw %}
+        <div class="js-qty">
+            <button type="button" class="js-qty__adjust js-qty__adjust--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}">
+                <span class="shoptimized-893" aria-hidden="true"></span>
+                <span class="fallback-text" aria-hidden="true">&minus;</span>
+                <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+            </button>
+            <input type="text" class="js-qty__num" value="{{itemQty}}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+            <button type="button" class="js-qty__adjust js-qty__adjust--plus icon-fallback-text" data-id="{{key}}" data-qty="{{itemAdd}}">
+                <span class="shoptimized-883" aria-hidden="true"></span>
+                <span class="fallback-text" aria-hidden="true">+</span>
+                <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+            </button>
+        </div>
+        {% endraw %}
+    </script>
+{% else %}
+    <script id="CartTemplate" type="text/template" data-no-instant>
+        {% raw %}
+        <form action="/cart" method="post" novalidate class="cartt ajaxcart">
+            <div class="ajaxcart__inner">
+                {{#items}}
+                <div class="ajaxcart__product">
+                    <div class="ajaxcart__row" data-line="{{line}}">
+                        <div class="grid">
+                            <div class="grid__item one-quarter">
+                                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+                            </div>
+                            <div class="grid__item three-quarters">
+                                <p>
+                                    <a href="{{url}}" class="ajaxcart__product-name">{{name}}</a>
+                                    {{#if variation}}
+
+                                    <span class="ajaxcart__product-meta">{{variation}}</span>
+                                    {{else}}
+                                    <span class="ajaxcart__product-meta"></span>
+                                    {{/if}}
+                                    {{#properties}}
+                                    {{#each this}}
+                                    {{#if this}}
+                                    <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                                    {{/if}}
+                                    {{/each}}
+                                    {{/properties}}
+                                    {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                                        <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                                    {% endraw %}{% endif %}{% raw %}
+                                    <a data-line="{{ line }}" href="/cart/change?line={{ line }}&amp;quantity=0"
+                                       class="ajaxcart_remove"><i class="fa fa-times"></i></a>
+                                </p>
+                                <div class="grid--full display-table">
+                                    <div class="grid__item display-table-cell one-half">
+                                        <div class="ajaxcart__qty">
+                                            <button type="button"
+                                                    class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text"
+                                                    data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}">
+                                                <span class="shoptimized-893" aria-hidden="true"></span>
+                                                <span class="fallback-text" aria-hidden="true">&minus;</span>
+                                                <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+                                            </button>
+                                            <input type="text" name="updates[]" class="ajaxcart__qty-num"
+                                                   value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}"
+                                                   aria-label="quantity" pattern="[0-9]*">
+                                            <button type="button"
+                                                    class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text"
+                                                    data-id="{{key}}" data-line="{{line}}" {{itemInventoryQuantity}}
+                                                    data-qty="{{itemAdd}}">
+                                                <span class="shoptimized-883" aria-hidden="true"></span>
+                                                <span class="fallback-text" aria-hidden="true">+</span>
+                                                <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item display-table-cell one-half text-right">
+                                        {{#if discountsApplied}}
+                                        <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
+                                        <br><span class="money">{{{linePrice}}}</span>
+                                        {{else}}
+                                        <span class="money">{{{linePrice}}}</span>
+                                        {{/if}}
+                                        {{#if discountsApplied}}
+                                        <div class="grid--full display-table">
+                                            <div class="grid__item text-right">
+                                                {{#each discounts}}
+                                                <small class="ajaxcart-item__discount">{{ this.title }}</small><br>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                {{/items}}
+            </div>
+            <div class="ajaxcart__footer">
+                <div class="grid--full">
+                    <div class="grid__item two-thirds text-right mar-bottom">
+                        <p><b>{% endraw %}{{ 'cart.general.total' | t }}{% raw %}</b> <b><span class="money">{{{totalPrice}}}</span></b>
+                        </p>
+                    </div>
+                    {% endraw %}{% if settings.showdiscountbox %}{% raw %}
+                        <p class="discuptitle">{% endraw %}{{ 'cart.general.couponappliedheading' | t }}{% raw %}</p>
+                        <input type="text" name="discount" placeholder="{% endraw %}{{ 'cart.general.placeholder' | t }}{% raw %}">
+                        <p class="discup">{% endraw %}{{ 'cart.general.couponappliedtext' | t }}{% raw %}</p>
+                    {% endraw %}{% endif %}{% raw %}
+                    <div class="grid__item one-third text-right">
+
+                    </div>
+                    {{#if totalCartDiscount}}
+                    <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
+                    {{/if}}
+                </div>
+
+                <a href="/cart" class="btn--secondary btn btn--full cart__cartview">
+                    {% endraw %}{{ 'cart.general.button' | t }}{% raw %}
+                </a>
+                {% endraw %}{% unless settings.showloginbuttons %}{% raw %}
+                    <button type="submit" class="btn btn--full cart__checkout Checkout" name="checkout">
+                    <img src="{% endraw %}{{ 'checkout-button-icon.png' | asset_url }}{% raw %}" alt="{% endraw %}{{ shop.name }}{% raw %}"
+                    itemprop="logo" class="no-border ratina-img addIcon" />
+                    <span id="CheckoutText">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</span>
+                        </button>
+                    {% endraw %}{% if additional_checkout_buttons and settings.paypalbutton %}
+                        <div class="additional_checkout_buttons">
+                            <button name="goto_pp" type="submit" id="paypal-express-button"
+                                    class="additional-checkout-button additional-checkout-button--paypal-express"
+                                    value="paypal_express" data-strategy="cart">Check out with <img
+                                        alt="Checkout with: PayPal"
+                                        src="//cdn.shopify.com/s/assets/checkout/easy-checkout-btn-paypal-9835af2c2b0e2a543b2905789a7f08b678d62de2c77c1b0d16fd7689aff463f3.png">
+                            </button>
+                        </div>
+                    {% endif %}
+                    {% raw %}
+                    {% endraw %}{% endunless %}{% raw %}
+                {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+                    <div>
+                    <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+                    </div>
+                {% endraw %}{% endif %}{% raw %}
+
+                {% endraw %}{% if settings.showloginbuttons %}{% raw %}
+                <div class="account-inline-cart">
+                    <form class="inline-cart-checkout-options">
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutGuest">{% endraw %}{{ 'cart.general.checkout_as_guest' | t }}{% raw %}</label>
+                            <input class="inline-checkout-btn" checked="" type="radio" id="checkoutGuest" value="guest"
+                                   name="checkout" data-checkout-guest-btn="">
+                        </div>
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutAccount">
+                                {% endraw %}{{ 'cart.general.checkout_with_account' | t }}{% raw %}
+
+                            </label>
+                            <input class="inline-checkout-btn" type="radio" id="checkoutAccount" value="account"
+                                   name="checkout" data-checkout-account-btn="">
+                        </div>
+                        <button type="submit" name="checkout"
+                                class=" btn btn--full cart__checkout Checkout button gebutton button--green button--connect">
+                            <img src="{% endraw %}{{ 'checkout-button-icon.png' | asset_url }}{% raw %}"
+                                 alt="{% endraw %}{{ shop.name }}{% raw %}" itemprop="logo"
+                                 class="no-border ratina-img addIcon"/>
+                            {% endraw %}{{ 'cart.general.secure_checkout' | t }}{% raw %}</button>
+                    </form>
+
+                    <div class="account-inline-form account-login-form">
+                        <div class="account-inline-login-forms visible">
+                            <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+                                <input type="hidden" name="checkout_url" value="/checkout"/>
+                                <input type="email" name="customer[email]"
+                                       placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                                <input type="password" name="customer[password]"
+                                       placeholder="{% endraw %}{{ 'cart.general.password' | t }}{% raw %}">
+                                <button type="submit"
+                                        class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.sign_in' | t }}{% raw %}</button>
+                                <div class="button account-inline-forgot">
+                                    <button type="button" class="swap-forgot" id="forgetpassword"
+                                            data-form-swap-btn="">{% endraw %}{{ 'cart.general.forget_password' | t }}{% raw %}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="account-inline-form account-password-form">
+                        <div class="account-inline-password-forms visible">
+                            <form method="post" action="/account/recover" accept-charset="UTF-8"><input type="hidden"
+                                                                                                        name="form_type"
+                                                                                                        value="recover_customer_password"><input
+                                        type="hidden" name="utf8" value="✓">
+
+
+                                <input type="email" name="email"
+                                       placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                                <button type="submit"
+                                        class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.instructions' | t }}{% raw %}</button>
+                                <div class="button account-inline-forgot">
+                                    <button type="button" class="swap-login" id="swapforgetpassword"
+                                            data-form-swap-btn="">{% endraw %}{{ 'cart.general.login' | t }}{% raw %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="account-inline-form register-form">
+                        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">
+                            <input type="text" name="customer[first_name]" size="30"
+                                   placeholder="{% endraw %}{{ 'cart.general.name' | t }}{% raw %}">
+                            <input type="email" name="customer[email]"
+                                   placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                            <input type="password" name="customer[password]"
+                                   placeholder="{% endraw %}{{ 'cart.general.create_password' | t }}{% raw %}">
+                            <button type="submit"
+                                    class="btn btn--full cart__checkout Checkout button button--green button--connect">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</button>
+                        </form>
+                    </div>
+                    <section class="social-logins-hull">
+                        <button type="button" id="button__returning"
+                                class="button button--returning button--white">{% endraw %}{{ 'cart.general.returning_customer' | t }}{% raw %}</button>
+                        <button type="button" id="button__black"
+                                class="button button--new button--black">{% endraw %}{{ 'cart.general.connect_with_email' | t }}{% raw %}</button>
+                    </section>
+                </div>
+            </div>
+            {% endraw %}{% endif %}
+        </form>
+    </script>
+{% endunless %}
+
+

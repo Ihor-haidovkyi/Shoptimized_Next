@@ -1,0 +1,7 @@
+{% if settings.deal_of_the_day_enabled %}
+  {% if settings.deal_of_the_day_start_date != "" %}
+    <span class="dealofthedayproductsbefore js-deal-of-the-day"
+          data-deal-of-the-day-text-last="{{- settings.deal_of_the_day_text_last -}}"
+          data-start-date="{{- settings.deal_of_the_day_start_date -}}"></span>
+  {% endif %}
+{% endif %}

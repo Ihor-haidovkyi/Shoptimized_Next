@@ -1,191 +1,241 @@
-{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+{% assign image = section.settings.image %}
+{% assign layout = section.settings.layout %}
+{% assign title = section.settings.title %}
+{% assign text = section.settings.text %}
+{% assign button_label = section.settings.button_label %}
+{% assign button_link = section.settings.button_link %}
 
-<div class="image-with-text {% if section.settings.full_width %}image-with-text--full-width{% else %}page-width{% endif %} color-scheme-{{ section.settings.color_scheme }}">
-  <div class="image-with-text__grid color-{{ section.settings.color_scheme }}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %} grid grid--gapless grid--1-col grid--2-col-tablet">
-    <div class="grid__item">
-      <div class="image-with-text__media image-with-text__media--{{ section.settings.height }} {% if section.settings.image != blank %}media{% else %}image-with-text__media--placeholder placeholder{% endif %}"
-        {% if section.settings.height == 'adapt' and section.settings.image != blank %} style="padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"{% endif %}
-      >
-        {%- if section.settings.image != blank -%}
-          <img srcset="{%- if section.settings.image.width >= 165 -%}{{ section.settings.image | img_url: '165x' }} 165w,{%- endif -%}
-            {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | img_url: '360x' }} 360w,{%- endif -%}
-            {%- if section.settings.image.width >= 535 -%}{{ section.settings.image | img_url: '535x' }} 535w,{%- endif -%}
-            {%- if section.settings.image.width >= 720 -%}{{ section.settings.image | img_url: '720x' }} 720w,{%- endif -%}
-            {%- if section.settings.image.width >= 940 -%}{{ section.settings.image | img_url: '940x' }} 940w,{%- endif -%}
-            {%- if section.settings.image.width >= 1070 -%}{{ section.settings.image | img_url: '1070x' }} 1070w{%- endif -%}"
-            src="{{ section.settings.image | img_url: '533x' }}"
-            sizes="(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
-            alt="{{ section.settings.image.alt | escape }}"
-            loading="lazy"
-            width="{{ section.settings.image.width }}"
-            height="{{ section.settings.image.height }}"
-          >
-        {%- else -%}
-          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-        {%- endif -%}
-      </div>
-    </div>
-    <div class="grid__item">
-      <div class="image-with-text__content image-with-text__content--{{ section.settings.height }}">
-        {%- for block in section.blocks -%}
-          {% case block.type %}
-            {%- when 'heading' -%}
-              <h2 class="image-with-text__heading h1" {{ block.shopify_attributes }}>
-                {{ block.settings.heading | escape }}
-              </h2>
-            {%- when 'text' -%}
-              <div class="image-with-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
-            {%- when 'button' -%}
-              {%- if block.settings.button_label != blank -%}
-                <a{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %} {{ block.shopify_attributes }}>
-                  {{ block.settings.button_label | escape }}
-                </a>
-              {%- endif -%}
-          {%- endcase -%}
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-</div>
+<section class="image-with-text">
+	<div class="container">
+		<div class="image-with-text__row{% if layout == 'right' %} image-with-text__row--reverse{% endif %}">
+			<div class="image-with-text__column">
+				<img src="{{- image | img_url: '667x' -}}"
+					 alt="{{- image.alt -}}"
+					 class="image-with-text__image">
+			</div>
+
+			<div class="image-with-text__column">
+				<div class="image-with-text__text-wrapper">
+					{% if title != blank %}
+						<h3 class="image-with-text__title">
+							{{- title -}}
+						</h3>
+					{% endif %}
+
+					{% if text != blank %}
+						<div class="image-with-text__text">
+							{{- text -}}
+						</div>
+					{% endif %}
+
+					{% if button_label != blank and button_link != blank %}
+						<a class="btn image-with-text__button" href="{{- button_link -}}">
+							{{- button_label -}}
+						</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 {% schema %}
 {
-  "name": "t:sections.image-with-text.name",
-  "class": "spaced-section spaced-section--full-width",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "t:sections.image-with-text.settings.image.label"
-    },
-    {
-      "type": "select",
-      "id": "height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.image-with-text.settings.height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.image-with-text.settings.height.options__2.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.image-with-text.settings.height.options__3.label"
-        }
-      ],
-      "default": "adapt",
-      "label": "t:sections.image-with-text.settings.height.label"
-    },
-    {
-      "type": "select",
-      "id": "color_scheme",
-      "options": [
-        {
-          "value": "background-1",
-          "label": "t:sections.image-with-text.settings.color_scheme.options__1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.image-with-text.settings.color_scheme.options__2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.image-with-text.settings.color_scheme.options__3.label"
-        },
-        {
-          "value": "accent-1",
-          "label": "t:sections.image-with-text.settings.color_scheme.options__4.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.image-with-text.settings.color_scheme.options__5.label"
-        }
-      ],
-      "default": "background-1",
-      "label": "t:sections.image-with-text.settings.color_scheme.label"
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "options": [
-        {
-          "value": "image_first",
-          "label": "t:sections.image-with-text.settings.layout.options__1.label"
-        },
-        {
-          "value": "text_first",
-          "label": "t:sections.image-with-text.settings.layout.options__2.label"
-        }
-      ],
-      "default": "image_first",
-      "label": "t:sections.image-with-text.settings.layout.label",
-      "info": "t:sections.image-with-text.settings.layout.info"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "heading",
-      "name": "t:sections.image-with-text.blocks.heading.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "default": "Image with text",
-          "label": "t:sections.image-with-text.blocks.heading.settings.heading.label"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "t:sections.image-with-text.blocks.text.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "richtext",
-          "id": "text",
-          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-          "label": "t:sections.image-with-text.blocks.text.settings.text.label"
-        }
-      ]
-    },
-    {
-      "type": "button",
-      "name": "t:sections.image-with-text.blocks.button.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "button_label",
-          "default": "Button label",
-          "label": "t:sections.image-with-text.blocks.button.settings.button_label.label",
-          "info": "t:sections.image-with-text.blocks.button.settings.button_label.info"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "t:sections.image-with-text.blocks.button.settings.button_link.label"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.image-with-text.presets.name",
-      "blocks": [
-        {
-          "type": "heading"
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "button"
-        }
-      ]
-    }
-  ]
+	"name": {
+		"de": "Bild mit Text",
+		"en": "Image with text",
+		"es": "Imagen con texto",
+		"fr": "Image avec texte",
+		"it": "Immagine con testo",
+		"ja": "テキスト付き画像",
+		"nl": "Afbeelding met tekst",
+		"pt-BR": "Imagem com texto",
+		"zh-CN": "带文本的图片",
+		"zh-TW": "附文字的圖片"
+	},
+	"class": "index-section cole",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": {
+				"de": "Bild",
+				"en": "Image",
+				"es": "Imagen",
+				"fr": "Image",
+				"it": "Immagine",
+				"ja": "画像",
+				"nl": "Afbeelding",
+				"pt-BR": "Imagem",
+				"zh-CN": "图片",
+				"zh-TW": "圖片"
+			}
+		},
+		{
+			"type": "select",
+			"id": "layout",
+			"label": {
+				"de": "Bildausrichtung",
+				"en": "Image alignment",
+				"es": "Alineación de imagen",
+				"fr": "Alignement de l'image",
+				"it": "Allineamento immagine",
+				"ja": "画像アラインメント",
+				"nl": "Afbeelding uitlijnen",
+				"pt-BR": "Alinhamento da imagem",
+				"zh-CN": "图片对齐方式",
+				"zh-TW": "圖片對齊"
+			},
+			"default": "left",
+			"options": [
+				{
+					"value": "left",
+					"label": {
+						"de": "Links",
+						"en": "Left",
+						"es": "Izquierda",
+						"fr": "Gauche",
+						"it": "Sinistra",
+						"ja": "左",
+						"nl": "Links",
+						"pt-BR": "Esquerda",
+						"zh-CN": "左侧",
+						"zh-TW": "左方"
+					}
+				},
+				{
+					"value": "right",
+					"label": {
+						"de": "Rechts",
+						"en": "Right",
+						"es": "Derecha",
+						"fr": "Droite",
+						"it": "Destra",
+						"ja": "右",
+						"nl": "Rechts",
+						"pt-BR": "Direita",
+						"zh-CN": "右侧",
+						"zh-TW": "右方"
+					}
+				}
+			]
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"de": "Überschrift",
+				"en": "Heading",
+				"es": "Título",
+				"fr": "Titre",
+				"it": "Heading",
+				"ja": "見出し",
+				"nl": "Kop",
+				"pt-BR": "Título",
+				"zh-CN": "标题",
+				"zh-TW": "標題"
+			},
+			"default": {
+				"de": "Bild mit Text",
+				"en": "Image with text",
+				"es": "Imagen con texto",
+				"fr": "Image avec texte",
+				"it": "Immagine con testo",
+				"ja": "テキスト付き画像",
+				"nl": "Afbeelding met tekst",
+				"pt-BR": "Imagem com texto",
+				"zh-CN": "带文本的图片",
+				"zh-TW": "附文字的圖片"
+			}
+		},
+		{
+			"type": "richtext",
+			"id": "text",
+			"label": {
+				"de": "Text",
+				"en": "Text",
+				"es": "texto",
+				"fr": "Texte",
+				"it": "Testo",
+				"ja": "テキスト",
+				"nl": "Tekst",
+				"pt-BR": "Texto",
+				"zh-CN": "文本",
+				"zh-TW": "文字"
+			},
+			"default": {
+				"de": "<p>Kombinieren Sie lange Texte mit einem Bild, um den Fokus auf Ihr Produkt, Ihre Kategorie oder Ihren Blogpost zu richten. Sie können außerdem weitere Details über die Verfügbarkeit oder den Stil und sogar eine Bewertung hinzufügen.</p>",
+				"en": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+				"es": "<p>Vincula un texto largo con una imagen para dar visibilidad a tu producto, colección o publicación de blog elegida. Agrega detalles sobre disponibilidad, estilo o incluso ofrece un comentario.</p>",
+				"fr": "<p>Associez un texte de grande taille à une image pour mettre en relief le produit, la collection ou l'article de blog de votre choix. Ajoutez des informations sur la disponibilité ou le style. Vous pouvez même fournir un avis.</p>",
+				"it": "<p>Associa un testo di grandi dimensioni a un'immagine per dare importanza al tuo prodotto, collezione o articolo del blog scelto. Aggiungi dettagli sulla disponibilità, sullo stile o fornisci anche una recensione.</p>",
+				"ja": "<p>あなたが選んだ商品、コレクション、またはブログ投稿に注目を集めるため、大きなテキストと画像を組み合わせます。可用性、スタイル、またはレビュー提供についての詳細を追加します。</p>",
+				"nl": "<p>Plaats een afbeelding bij grote stukken tekst om de aandacht op uw gekozen product, collectie of blogpost te richten. Voeg details over beschikbaarheid en stijl toe of plaats een productrecensie.</p>",
+				"pt-BR": "<p>Emparelhe texto grande com uma imagem para dar foco ao produto, coleção ou postagem do blog escolhido. Adicione detalhes sobre disponibilidade, estilo ou até mesmo um comentário.</p>",
+				"zh-CN": "<p>将大文本与图片配对，以便将焦点置于您选择的产品、产品系列或博客文章。添加有关可用性和样式的详细信息，甚至是提供评论。</p>",
+				"zh-TW": "<p>大型文字搭配圖片，以便強調特定產品、商品系列或部落格貼文。您可以加上各種有關可用性、樣式的資料，甚至可以提供使用心得。</p>"
+			}
+		},
+		{
+			"type": "text",
+			"id": "button_label",
+			"label": {
+				"de": "Schaltflächenbezeichnung",
+				"en": "Button label",
+				"es": "Etiqueta de botón",
+				"fr": "Texte du bouton",
+				"it": "Etichetta pulsante",
+				"ja": "ボタンラベル",
+				"nl": "Knoplabel",
+				"pt-BR": "Etiqueta do botão",
+				"zh-CN": "按钮标签",
+				"zh-TW": "按鈕標籤"
+			}
+		},
+		{
+			"type": "url",
+			"id": "button_link",
+			"label": {
+				"de": "Schaltflächenlink",
+				"en": "Button link",
+				"es": "Enlace de botón",
+				"fr": "Lien du bouton",
+				"it": "Link pulsante",
+				"ja": "ボタンリンク",
+				"nl": "Knoplink",
+				"pt-BR": "Link do botão",
+				"zh-CN": "按钮链接",
+				"zh-TW": "按鈕連結"
+			}
+		}
+	],
+	"presets": [
+		{
+			"name": {
+				"de": "Bild mit Text",
+				"en": "Image with text",
+				"es": "Imagen con texto",
+				"fr": "Image avec texte",
+				"it": "Immagine con testo",
+				"ja": "テキスト付き画像",
+				"nl": "Afbeelding met tekst",
+				"pt-BR": "Imagem com texto",
+				"zh-CN": "带文本的图片",
+				"zh-TW": "附文字的圖片"
+			},
+			"category": {
+				"de": "Foto",
+				"en": "Image",
+				"es": "Imagen",
+				"fr": "Image",
+				"it": "Immagine",
+				"ja": "画像",
+				"nl": "Afbeelding",
+				"pt-BR": "Imagem",
+				"zh-CN": "图片",
+				"zh-TW": "圖片"
+			}
+		}
+	]
 }
 {% endschema %}

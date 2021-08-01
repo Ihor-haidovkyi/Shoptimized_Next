@@ -1,0 +1,250 @@
+{% layout none %}
+
+{% assign on_sale = false %}
+{% assign sold_out = true %}
+{% assign view_size_chart = false %}
+{% assign display_countdown = false %}
+{% assign display_limited = false %}
+{% assign display_limited = false %}
+{% assign quantity = 100 %}
+{% assign qty_sold = 0 %}
+{% assign expire  = 72 %}
+{% assign displayquantity = 0 %}
+{% assign startdate = product.published_at | date: "%m/%d/%Y %H:%M:%S" %}
+{% assign size_chart_page = settings.sizing_chart_page %}
+{% assign product_title = product.title %}
+{% assign product_variant = product.selected_or_first_available_variant %}
+{% assign product_variant_price = product_variant.price | money %}
+{% assign product_variant_compare_at_price = product_variant.compare_at_price | money %}
+{% assign is_product_available = product_variant.available %}
+{% assign show_saved_amount = settings.show_saved_amount %}
+{% assign product_layout_option = settings.product_layout_option %}
+{% assign is_to_show_save_amount = false %}
+{% assign is_to_show_sale_label = false %}
+{% assign is_to_show_quickview = settings.collections_quickview %}
+{% assign save_amount_money = 0 %}
+{% assign save_amount_percents = 0 %}
+{% assign products_max_desc_length_enable = settings.products_max_desc_length_enable %}
+{% assign products_max_desc_length = settings.products_max_desc_length %}
+{% assign display_review_star_collection = settings.display_review_star_collection %}
+{% assign badges_enable = settings.badges_enable %}
+{% assign sale_button_option = settings.sale_button_option %}
+{% assign item_style = settings.options_styles %}
+{% assign item_style_class = "" %}
+
+{% if product_variant.compare_at_price > product_variant.price %}
+    {% assign on_sale = true %}
+    {% assign save_amount_money = product_variant.compare_at_price | minus: product_variant.price | money %}
+    {% assign save_amount_percents = product_variant.compare_at_price | minus: product_variant.price | times: 100.0 | divided_by: product_variant.compare_at_price | round %}
+{% endif %}
+
+{% if product_variant.available %}
+    {% assign sold_out = false %}
+{% endif %}
+
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    {% if tag == "view-size-chart" %}
+        {% assign view_size_chart = true %}
+    {% endif %}
+
+    {% if tag == "display-countdown" %}
+        {% assign display_countdown = true %}
+    {% endif %}
+
+    {% if tag == "display-limited" %}
+        {% assign display_limited = true %}
+    {% endif %}
+
+    {% if tag contains "quantity-" %}
+        {% assign quantity = tag | replace: "quantity-", "" %}
+    {% endif %}
+
+    {% if tag contains "quantitysold-" %}
+        {% assign qty_sold = tag | replace: "quantitysold-", "" %}
+    {% endif %}
+
+    {% if tag contains "limited-default-" %}
+        {% assign limited_default = tag | replace: "limited-default-", "" %}
+    {% endif %}
+
+    {% if tag contains "expire-" %}
+        {% assign expire = tag | replace: "expire-", "" %}
+    {% endif %}
+
+    {% if tag contains "sizechart-" %}
+        {% assign size_chart_page = tag | replace: "sizechart-", "" %}
+    {% endif %}
+
+    {% if tag contains "displayquantity-" %}
+        {% assign displayquantity = tag | replace: "displayquantity-", "" %}
+    {% endif %}
+{% endfor %}
+
+{% if show_saved_amount %}
+    {% unless product_layout_option == "product_none" %}
+        {% if on_sale and is_product_available %}
+            {% assign is_to_show_save_amount = true %}
+        {% endif %}
+    {% endunless %}
+{% endif %}
+
+{% if show_saved_amount %}
+    {% unless product_layout_option == "product_none" and sale_button_option == "sale_button_option_six" %}
+        {% if on_sale and is_product_available %}
+            {% assign is_to_show_sale_label = true %}
+        {% endif %}
+    {% endunless %}
+{% endif %}
+
+{% if products_max_desc_length_enable %}
+    {% assign product_title = product_title | truncatewords: products_max_desc_length %}
+{% endif %}
+
+{% if item_style == "Option_1" %}
+    {% assign item_style_class = "product-grid-item--boxes" %}
+{% endif %}
+
+{% if item_style == "Option_2" %}
+    {% assign item_style_class = "product-grid-item--boxes-hover" %}
+{% endif %}
+
+<div class="product-grid-item {{ item_style_class }}">
+    <div class="product-grid-item__inner">
+        <div class="product-grid-item__media">
+            <a href="{{ product.url | within: collection }}" class="product-grid-item__image">
+                <picture>
+                    <img src="{{ product.featured_image | img_url: '400x' }}"
+                         alt="{{ product.featured_image.alt }}">
+                </picture>
+            </a>
+
+            {% if is_to_show_save_amount %}
+                {% if product_layout_option == "product_one" or product_layout_option == "product_three" %}
+                    <div class="product-grid-item__save-amount product-grid-item__save-amount--absolute">
+                        {{ 'products.product.save' | t }}
+
+                        <span class='money'>
+                            {% if product_layout_option == "product_one" %}
+                                {{ save_amount_money }}
+                            {% endif %}
+
+                            {% if product_layout_option == "product_three" %}
+                                {{ save_amount_percents }}%
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if badges_enable %}
+                {% include "product-badges" %}
+            {% endif %}
+
+            {% if is_to_show_quickview %}
+                <button class="product-grid-item__quick-view js-product-quick-view js-modal-link"
+                        data-modal-id="quick-view"
+                        data-product-handle="{{ product.handle }}">
+                    Quick Buy
+                </button>
+            {% endif %}
+
+            {% if is_to_show_sale_label %}
+                {% if sale_button_option == "sale_button_option_one" %}
+                    <div class="product-sale-label product-sale-label--first">
+                        {{ 'products.product.sale' | t }}
+
+                        <span class="money product-sale-label__amount">
+                            {{ save_amount_money }}
+                        </span>
+                    </div>
+                {% endif %}
+
+                {% if sale_button_option == "sale_button_option_two" %}
+                    <div class="product-sale-label product-sale-label--two">
+                        {{ 'products.product.sale' | t }}
+
+                        <span class="money product-sale-label__amount">
+                            {{ save_amount_money }}
+                        </span>
+                    </div>
+                {% endif %}
+
+                {% if sale_button_option == "sale_button_option_three" %}
+                    <div class="product-sale-label product-sale-label--three">
+                        {{ 'products.product.on_sale' | t }}
+                    </div>
+                {% endif %}
+
+                {% if sale_button_option == "sale_button_option_four" %}
+                    <div class="product-sale-label product-sale-label--four">
+                        {{ 'products.product.on_sale' | t }}
+                    </div>
+                {% endif %}
+
+                {% if sale_button_option == "sale_button_option_five" %}
+                    <div class="product-sale-label product-sale-label--five">
+                        {{ 'products.product.sale' | t }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="product-grid-item__info">
+            <a href="{{ product.url | within: collection }}" class="product-grid-item__product-name">
+                {{ product_title }}
+            </a>
+
+            <div class="product-grid-item__price">
+                {% unless is_product_available %}
+                    {{ 'products.product.unavailable' | t }}
+                    {% else %}
+                    <span class="money">
+                        {{ product_variant_price }}
+                    </span>
+                {% endunless %}
+
+                {% unless product_layout_option == "product_none" %}
+                    {% if on_sale and is_product_available %}
+                        <span class="money product-grid-item__compare-at-price">
+                            {{ product_variant_compare_at_price }}
+                        </span>
+                    {% endif %}
+                {% endunless %}
+            </div>
+
+            {% if is_to_show_save_amount %}
+                {% if product_layout_option == "product_two" or product_layout_option == "product_four" %}
+                    <div class="product-grid-item__save-amount product-grid-item__save-amount--static">
+                        {{ 'products.product.save' | t }}
+
+                        <span class='money'>
+                            {% if product_layout_option == "product_two" %}
+                                {{ save_amount_money }}
+                            {% endif %}
+
+                            {% if product_layout_option == "product_four" %}
+                                {{ save_amount_percents }}%
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if display_review_star_collection %}
+                <div class="product-grid-item__reviews product-reviews-stars">
+                    {% if settings.product_review_type == "loox" %}
+                        <div class="loox-rating" data-id="{{ product.id }}"
+                             data-rating="{{ product.metafields.loox.avg_rating }}"
+                             data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                    {% endif %}
+
+                    {% if settings.product_review_type == "shopify_reviews" %}
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

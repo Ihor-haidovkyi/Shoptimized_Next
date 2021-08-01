@@ -1,0 +1,12 @@
+{% assign checklist = checklist | split: "|||" %}
+
+<ul class="check-list">
+	{% for checklist_line in checklist %}
+		<li class="check-list__item">
+			<i class="check-list__icon fa fa-check"></i>
+			<span class="check-list__text">
+				{{ checklist_line }}
+			</span>
+		</li>
+	{% endfor %}
+</ul>

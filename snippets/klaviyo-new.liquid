@@ -1,0 +1,55 @@
+<form class="contact-form mailing-form mc-embedded-subscribe-form"
+      action="//manage.kmail-lists.com/subscriptions/subscribe"
+      data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank"
+      novalidate="novalidate">
+
+    <input type="hidden" name="g" value="{{ settings.newslatter_klaviyo_id }}">
+
+    <div class="footer__form-group klaviyo_field_group klaviyo_form_actions">
+        <input type="email" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="email"
+               id="k_id_email" class="input footer__newsletter-input"
+               aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+
+        <button type="submit" name="ft"
+                class="button footer__form-group-submit">{{ settings.newslatter_btn_text }}</button>
+    </div>
+
+    <div class="klaviyo_messages">
+        <div class="success_message" style="display:none;">
+            <div class='footer-coupon-code'>
+                <div class='footer-coupon-code__text'>
+                    <p class='footer-coupon-code__thanks-msg'> {{ settings.newslatter_coupan }} </p>
+
+                    {% if settings.coupan != '' %}
+                        <p class='footer-coupon-code__coupon-text'>{{ 'layout.coupon_code.text' | t }}
+                            <input type="text"
+                                   value="{{ settings.coupan }}"
+                                   class="footer-coupon-code__input"
+                                   id="coupan_code">
+                        </p>
+                    {% endif %}
+                </div>
+
+                {% if settings.coupan != '' %}
+                    <div class='footer-coupon-code__code'>
+                        <p class='footer-coupon-code__save-text'>{{ 'layout.coupon_code.save' | t }}</p>
+                        <p class='footer-coupon-code__copy-div'>
+                            <span class="footer-coupon-code__copy-code">{{ 'layout.coupon_code.copy_code' | t }}</span>
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="error_message" style="display:none;"></div>
+    </div>
+</form>
+
+<script src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+
+<script>
+    KlaviyoSubscribe.attachToForms('.mc-embedded-subscribe-form', {
+        hide_form_on_success: true,
+        custom_success_message: true
+    });
+</script>

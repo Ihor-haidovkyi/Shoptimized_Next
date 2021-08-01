@@ -1,0 +1,73 @@
+{% capture form_id %}AddToCartForm--{{ product.id }}{% endcapture %}
+
+<div class="quick-view-info product-info">
+    <h2 class="quick-view-info__title">
+        {{ product.title }}
+    </h2>
+
+    {% form "product", product, id: form_id, class: "product-form" %}
+        {% include "product-price-new" %}
+
+        {% if settings.display_sku %}
+            {% include "product-sku" %}
+        {% endif %}
+
+        <div class="product-selectors">
+            {% include "product-variants-select" %}
+
+            {% if settings.variant_swatch %}
+                {% include "product-variant-swatch", unique_letter: "b" %}
+            {% else %}
+                {% include "product-variant-selects" %}
+            {% endif %}
+
+            {% if settings.product_personalisation %}
+                {% include "product-personalisation-properties" %}
+            {% endif %}
+
+            <div class="product-details{% if settings.cart_button_fullwidth or settings.display_quantity_dropdown != true %} product-details--full-width{% endif %}">
+                <div class="product-details__row">
+                    {% include "product-quantity" %}
+
+                    <div class="product-actions quick-view-info__actions">
+                        <div class="product-actions__row">
+                            <div class="product-actions__add-to-cart-wrapper js-product-add-to-cart-wrapper">
+                                {% if settings.amazonbutton and amazon_url != "" %}
+                                    {% include "product-amazon-button" %}
+                                {% else %}
+                                    {% include "product-add-to-cart-quick-view" %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="product-actions__row">
+                            {% if settings.enable_checkout_icon %}
+                                <div class="product-actions__checkout-image">
+                                    {% if settings.enable_custom_checkout_icon and settings.checkout_icon != blank %}
+                                        <img src="{{ settings.checkout_icon | img_url: '500x' }}"
+                                             alt="Checkout Secure">
+                                    {% else %}
+                                        <img src="{{ 'secure-checkout.png' | asset_img_url: '500x' }}"
+                                             alt="Checkout Secure">
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endform %}
+
+    {% if settings.informations_alert_enable %}
+        {% include "product-information-alert" %}
+    {% endif %}
+
+    {% if settings.enable_product_progressbar and product.available %}
+        {% if settings.use_tags_to_display_quantity != true or show_quantity_bar %}
+            {% include "product-quantity-progress-new" %}
+        {% endif %}
+    {% endif %}
+
+    {% include "product-reasons" %}
+</div>

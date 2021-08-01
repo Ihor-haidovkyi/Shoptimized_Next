@@ -1,0 +1,18 @@
+{% assign product_motivator_text = product_motivator_text | default: settings.product_motivator_text %}
+{% assign promotion_display_user_country = settings.promotion_display_user_country %}
+
+{% if show_country_and_flag == true or show_country_and_flag == false %}
+    {% assign promotion_display_user_country = show_country_and_flag %}
+{% endif %}
+
+<div class="product-motivator-text js-product-motivator-text"
+	 data-motivator-text="{{ product_motivator_text }}"
+	 data-free-shipping-text="{{ free_shipping_text }}">
+
+	<span class="js-product-motivator-text-main"></span>
+
+	{% if promotion_display_user_country %}
+		<span class="js-country-name js-product-motivator-text-country product-motivator-text__country"></span>
+		<span class="js-country-flag js-product-motivator-text-flag product-motivator-text__flag"></span>
+	{% endif %}
+</div>

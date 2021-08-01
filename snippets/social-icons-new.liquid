@@ -1,0 +1,23 @@
+<ul class="social-media">
+    {% if settings.social_icons_enabled %}
+        {% if settings.twitter_url != '' %}
+            <li><a href="{{ settings.twitter_url }}" target="_blank"><i class="fab fa-twitter"></i></a></li>{% endif %}
+        {% if settings.facebook_url != '' %}
+            <li><a href="{{ settings.facebook_url }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>{% endif %}
+        {% if settings.pinterest_url != '' %}
+            <li><a href="{{ settings.pinterest_url }}" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+            </li>{% endif %}
+        {% if settings.instagram_url != '' %}
+            <li><a href="{{ settings.instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a>
+            </li>{% endif %}
+        {% if settings.google_url != '' %}
+            <li><a href="{{ settings.google_url }}" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+            </li>{% endif %}
+        {% if settings.tumblr_url != '' %}
+            <li><a href="{{ settings.tumblr_url }}" target="_blank"><i class="fab fa-tumblr"></i></a></li>{% endif %}
+        {% if settings.youtube_url != '' %}
+            <li><a href="{{ settings.youtube_url }}" target="_blank"><i class="fab fa-youtube"></i></a></li>{% endif %}
+        {% if settings.vimeo_url != '' %}
+            <li><a href="{{ settings.vimeo_url }}" target="_blank"><i class="fab fa-vimeo-v"></i></a></li>{% endif %}
+    {% endif %}
+</ul>

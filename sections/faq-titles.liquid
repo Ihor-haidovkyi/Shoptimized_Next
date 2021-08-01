@@ -1,0 +1,25 @@
+{% assign title = section.settings.title | default: page.title %}
+{% assign subtitle = section.settings.subtitle %}
+
+<h1 class="text-center">{{- title -}}</h1>
+
+<p class="text-center cuta">{{- subtitle -}}</p>
+
+{% schema %}
+{
+	"name": "Headings",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Page Heading"
+		},
+		{
+			"type": "text",
+			"id": "subtitle",
+			"label": "Page Subheading",
+			"default": "A few simple answers"
+		}
+	]
+}
+{% endschema %}

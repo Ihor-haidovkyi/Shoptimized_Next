@@ -1,0 +1,53 @@
+{% if template contains 'article' or template contains 'blog' %}
+    {% assign permalinkURL = shop.url | append: article.url %}
+    {% assign shareTitle = article.title %}
+{% elsif template contains 'product' %}
+    {% assign permalinkURL = shop.url | append: product.url %}
+    {% assign shareTitle = product.title %}
+{% elsif template contains 'password' %}
+    {% assign permalinkURL = shop.url %}
+    {% assign shareTitle = '' %}
+
+    {% unless shop.metafields.global.description_tag == blank %}
+        {% assign shareTitle = shop.metafields.global.description_tag | url_param_escape %}
+    {% else %}
+        {% assign shareTitle = shop.name | url_param_escape %}
+    {% endunless %}
+{% endif %}
+
+{% if settings.social_sharing_products %}
+    <div class="social-sharing{% unless settings.social_sharing_products_mobile %} social-sharing--hide-mobile{% endunless %}">
+        {% if settings.share_facebook %}
+            <a target="_blank" class="social-sharing__link"
+               href="//www.facebook.com/sharer.php?u={{ permalinkURL }}">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+
+                <span aria-hidden="true" class="social-sharing__title">{{ 'general.social.share_on_facebook' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+            </a>
+        {% endif %}
+
+        {% if settings.share_twitter %}
+            <a target="_blank" class="social-sharing__link"
+               href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle | url_param_escape | replace: ' ', '%20' | replace: '&', '%26' | replace: '?', '%3F' | replace: '!', '%21' | replace: ',', '%2C' | replace: "'", "%27" }}">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+
+                <span aria-hidden="true" class="social-sharing__title">{{ 'general.social.share_on_twitter' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+            </a>
+        {% endif %}
+
+        {% if settings.share_pinterest and template contains 'product' %}
+            <a target="_blank" class="social-sharing__link"
+               href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ product.featured_image | product_img_url: '1024x1024' }}&amp;description={{ shareTitle | url_param_escape | replace: ' ', '%20' | replace: '&', '%26' | replace: '?', '%3F' | replace: '!', '%21' | replace: ',', '%2C' | replace: "'", "%27" }}">
+                <i class="fab fa-pinterest" aria-hidden="true"></i>
+
+                <span aria-hidden="true" class="social-sharing__title">{{ 'general.social.share_on_pinterest' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+            </a>
+        {% endif %}
+
+        <a class="fa fa-envelope social-sharing__link js-social-sharing-email"
+           href="mailto:?subject=Check out this site!&body={{ permalinkURL }}"></a>
+    </div>
+{% endif %}

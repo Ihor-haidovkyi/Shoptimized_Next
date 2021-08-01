@@ -1,0 +1,98 @@
+{%- capture styles -%}
+	--heading-color: {{- heading_color -}};
+	--heading-font-size: {{- heading_font_size -}};
+	--subheading-color: {{- subheading_color -}};
+	--subheading-font-size: {{- subheading_font_size -}};
+	--button-bg-color: {{- button_bg_color -}};
+	--button-text-color: {{- button_text_color -}};
+	{% if button_font_size != blank %}
+		--button-font-size: {{- button_font_size -}};
+	{% endif %}
+{%- endcapture -%}
+{%- assign styles = styles | strip_newlines -%}
+
+{%- capture slides -%}
+	{%- for block in blocks -%}
+		{%- assign image = block.settings.image -%}
+		{%- assign heading = block.settings.heading -%}
+		{%- assign subheading = block.settings.subheading -%}
+		{%- assign button_text = block.settings.button_text -%}
+		{%- assign link = block.settings.link -%}
+		{%- assign heading_vertical_pos = block.settings.heading_vertical_pos -%}
+		{%- assign heading_horizontal_pos = block.settings.heading_horizontal_pos -%}
+		{%- assign text_overlay_alignment = block.settings.text_overlay_alignment -%}
+
+		{%- if image != blank -%}
+			<div>
+				<div class="slideshow-hero__slide">
+                  	{%- if settings.lazyload -%}
+                      <picture class="lazy">
+                        <source data-srcset="{{- image | img_url: '380x' -}} 1x, {{- image | img_url: '760x' -}} 2x" media="(max-width: 380px)">
+                        <source data-srcset="{{- image | img_url: '480x' -}} 1x, {{- image | img_url: '960x' -}} 2x" media="(max-width: 480px)">
+                        <source data-srcset="{{- image | img_url: '575x' -}} 1x, {{- image | img_url: '1150x' -}} 2x" media="(max-width: 575px)">
+                        <source data-srcset="{{- image | img_url: '767x' -}} 1x, {{- image | img_url: '1534x' -}} 2x" media="(max-width: 767px)">
+                        <source data-srcset="{{- image | img_url: '991x' -}} 1x, {{- image | img_url: '1982x' -}} 2x" media="(max-width: 991px)">
+                        <source data-srcset="{{- image | img_url: '1199x' -}} 1x, {{- image | img_url: '2398x' -}} 2x" media="(max-width: 1199px)">
+                        <source data-srcset="{{- image | img_url: '1600x' -}} 1x, {{- image | img_url: '3200x' -}} 2x" media="(min-width: 1600px)">
+
+                        <img data-srcset="{{- image | img_url: '1440x' -}} 1x, {{- image | img_url: '2880x' -}} 2x"
+                             srcset="{{- image | img_url: '100x' -}}"
+                             class="slideshow-hero__image"
+                             alt="{{- image.alt -}}">
+                      </picture>
+                  	{%- else -%}
+                  	  <picture>
+                        <img src="{{- image | img_url: '1440x' -}} 1x, {{- image | img_url: '2880x' -}} 2x"
+                             class="slideshow-hero__image"
+                             alt="{{- image.alt -}}">
+                      </picture>
+                  	{%- endif -%}
+
+					<div class="slideshow-hero__content slideshow-hero__content--vertical-{{ heading_vertical_pos }} slideshow-hero__content--horizontal-{{ heading_horizontal_pos }} slideshow-hero__content--text-{{ text_overlay_alignment }}">
+						{%- if heading -%}
+							<h2 class="slideshow-hero__title">
+								{{- heading -}}
+							</h2>
+						{%- endif -%}
+
+						{%- if subheading %}
+							<h3 class="slideshow-hero__subtitle">
+								{{- subheading -}}
+							</h3>
+						{%- endif -%}
+
+						{%- if button_text != blank and link != blank -%}
+							<a class="btn btn-default slideshow-hero__button" href="{{- link -}}">
+								{{- button_text -}}
+							</a>
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div>
+				<div class="slideshow-hero__slide">
+					<div class="slideshow-hero__slide-svg-wrapper">
+						{{ 'lifestyle-1'  | placeholder_svg_tag: 'placeholder-svg' }}
+					</div>
+				</div>
+			</div>
+		{%- endif -%}
+	{%- endfor -%}
+{%- endcapture -%}
+
+{%- if slides -%}
+	<div class="slideshow-hero{% unless bottom_padding %} slideshow-hero--padding-bottom{% endunless %}{% if is_mobile %} slideshow-hero--mobile{% endif %}"
+		 style="{{- styles -}}">
+		<div class="slideshow-hero__container{% unless fullwidth %} container{% endunless %}">
+			<div class="slideshow-hero__slider-wrapper js-slideshow-hero"
+				 {% if speed != 0 %}data-speed="{{- speed -}}000"{% else %}data-speed="0"{% endif %}
+				 data-dots="{{- dots -}}"
+			>
+				{%- if slides -%}
+					{{- slides -}}
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+{%- endif -%}

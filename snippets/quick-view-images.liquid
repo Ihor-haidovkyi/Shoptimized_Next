@@ -1,0 +1,33 @@
+{% assign border_settings = settings.thumbbordersettings %}
+{% assign images_class = "" %}
+
+{% if border_settings == "one" %}
+    {% assign images_class = " quick-view-images--hide-borders" %}
+{% elsif border_settings == "two" %}
+    {% assign images_class = " quick-view-images--hide-main-border" %}
+{% endif %}
+
+<div class="quick-view-images{{ images_class }}">
+    <div class="quick-view-images__slider js-quick-view-slider">
+        {% for image in product.images %}
+            <div class="quick-view-images__slider-image">
+                <img src="{{ image.src | img_url: '550x' }}"
+                     alt="{{ image.alt | escape }}">
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="quick-view-images__thumbs">
+        {% for image in product.images %}
+            <picture class="quick-view-images__thumb{% if forloop.first %} quick-view-images__thumb--active{% endif %} js-quick-view-thumb"
+                     data-index="{{ forloop.index0 }}">
+                <img src="{{ image.src | img_url: '550x' }}"
+                     alt="{{ image.alt | escape }}">
+            </picture>
+        {% endfor %}
+    </div>
+
+    <a href="{{ product.url }}" class="button quick-view-images__product-link">
+        {{ 'products.general.full_detail_button_text' | t }}
+    </a>
+</div>

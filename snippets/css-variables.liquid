@@ -1,0 +1,515 @@
+<style>
+    {% assign add_to_cart_background_color = settings.add_to_cart_bg_color %}
+    {% assign add_to_cart_border_color = settings.add_to_cart_border %}
+    {% assign add_to_cart_font_size = settings.add_to_cart_font_size %}
+    {% assign add_to_cart_font_style = settings.add_to_cart_font_style %}
+    {% assign add_to_cart_text_color = settings.add_to_cart_font_color %}
+    {% assign add_to_cart_hover_background_color = settings.add_to_cart_hover_bg_color %}
+    {% assign add_to_cart_hover_font_color = settings.add_to_cart_hover_font_color %}
+
+    {% assign benefit_bullet_color = settings.benefit_bullet_color %}
+
+    {% assign body_bg_color = settings.color_body_bg %}
+    {% assign body_text_color = settings.color_body_text %}
+    {% assign border_color = settings.bcolor %}
+    {% assign color_primary = settings.color_primary %}
+    {% assign color_secondary = settings.color_secondary %}
+	{% assign color_borders = settings.color_borders %}
+
+    {% assign countdown_timer_font_size = settings.countdown_timer_text_font_size %}
+    {% assign countdown_timer_font_style = settings.countdown_timer_text_font_style %}
+    {% assign countdown_timer_text_color = settings.countdown_timer_text_color %}
+
+    {% assign default_font_size = settings.default_font_size %}
+
+    {% assign flash_sold_font_size = settings.flash_sold_text_font_size %}
+    {% assign flash_sold_font_style = settings.flash_sold_font_style %}
+    {% assign flash_sold_text_color = settings.flash_sold_text_color %}
+
+    {% assign default_font_family = settings.default_font_family %}
+    {% assign font_stack = "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif" %}
+
+    {% if default_font_family != "" %}
+    {% assign font_stack = font_stack | prepend: ", " | prepend: default_font_family %}
+    {% endif %}
+
+    {% assign information_alert_highlighted_color = settings.information_alert_highlighted_color %}
+
+    {% assign multibuy_font_size = settings.p_tag_text_font_size %}
+    {% assign multibuy_font_style = settings.p_tag_font_style %}
+    {% assign multibuy_text_color = settings.p_tag_text_color %}
+
+    {% assign product_compared_price_font_size = settings.product_compared_price_font_size %}
+    {% assign product_compared_price_font_style = settings.product_compared_price_font_style | downcase %}
+    {% assign product_compared_price_text_color = settings.product_compared_price_color %}
+
+    {% assign product_tabs_font_size = settings.product_tabs_font_size %}
+
+    {% assign product_tab_background_color = settings.tab_bg %}
+    {% assign product_tab_border_color = settings.tab_border %}
+    {% assign product_tab_font_color = settings.tab_title_font %}
+    {% assign product_tab_font_size = settings.tab_title_font_size %}
+    {% assign product_tab_font_style = settings.tab_title_font_style %}
+    {% assign product_tab_selected_border_color = settings.tab_title_selected_border %}
+
+    {% assign product_title_color = settings.product_title_color %}
+    {% assign product_title_font_size = settings.product_title_font_size %}
+    {% assign product_title_font_style = settings.product_title_font_style | downcase %}
+
+    {% assign product_price_color = settings.product_price_color %}
+    {% assign product_price_font_size = settings.product_price_font_size %}
+    {% assign product_price_font_style = settings.product_price_font_style | downcase %}
+
+    {% assign progress_bar_text_color = settings.progress_bar_text_color %}
+    {% assign progress_bar_font_size = settings.progress_bar_text_font_size %}
+    {% assign progress_bar_font_style = settings.progress_bar_text_font_style %}
+    {% assign progress_bar_background_color = settings.progress_bar_bg_color %}
+    {% assign progress_bar_fill_background_color = settings.progress_bar_fill_bg_color %}
+    {% assign progress_bar_fill_background_color_danger = settings.progress_bar_fill_bg_color_danger %}
+
+    {% assign quantity_text_color = settings.quantity_color %}
+    {% assign quantity_text_font_size = settings.quantity_text_font_size %}
+    {% assign quantity_text_font_style = settings.quantity_text_font_style %}
+
+    {% assign size_chart_link_color = settings.size_chart_link_color %}
+    {% assign size_chart_link_font_size = settings.size_chart_link_font_size %}
+    {% assign size_chart_link_font_style = settings.size_chart_link_font_style | downcase %}
+
+    {% assign wishlist_color = settings.wishlist_color %}
+    {% assign wishlist_color_selected = settings.wishlist_color_selected %}
+
+    {% assign save_bar_bg = settings.save_bar_bg %}
+    {% assign save_bar_color = settings.save_bar_font %}
+
+    {% assign collection_image_max_height = settings.collection_image_max_height | append: 'px' %}
+    {% assign collection_product_font_size = settings.collection_product_font_size %}
+    {% assign collection_product_font_style = settings.collection_product_font_style %}
+    {% assign collection_product_font_color = settings.collection_product_font_color %}
+    {% assign collection_product_price_font_size = settings.collection_product_price_font_size %}
+    {% assign collection_product_price_font_style = settings.collection_product_price_font_style %}
+    {% assign collection_product_price_font_color = settings.collection_product_price_font_color %}
+    {% assign collection_product_compare_price_font_size = settings.collection_product_price_compare_font_size %}
+    {% assign collection_product_compare_price_font_style = settings.collection_product_price_compare_font_style %}
+    {% assign collection_product_compare_price_font_color = settings.collection_product_compare_price_font_color %}
+
+    {% assign quickview_bg_color = settings.badge_add_to_cart_bg_color %}
+    {% assign quickview_border_color = settings.badge_add_to_cart_border %}
+    {% assign quickview_font_color = settings.badge_add_to_cart_font_color %}
+    {% assign quickview_hover_bg_color = settings.badge_add_to_cart_hover_bg_color %}
+    {% assign quickview_hover_font_color = settings.badge_add_to_cart_hover_font_color %}
+    {% assign quickview_font_size = settings.badge_add_to_cart_font_size %}
+    {% assign quickview_font_style = settings.badge_add_to_cart_font_style %}
+
+    {% assign continue_button_bg_color = settings.con_btn_bg %}
+    {% assign continue_button_font_color = settings.con_btn_font %}
+    {% assign continue_button_bg_hover_color = settings.con_btn_bg_hover %}
+    {% assign continue_button_font_hover_color = settings.con_bnt_font_hover %}
+
+    {% assign top_reasons_heading_position = settings.reason_buy_text_align %}
+
+    {% assign section_heading_color = settings.section_heading_color %}
+
+    {% assign sticky_button_bg_color = settings.stickybuttonbg %}
+    {% assign sticky_button_text_color = settings.stickybuttontext %}
+    {% assign sticky_buy_button_bg_color = settings.stickybuttonbuybg %}
+    {% assign sticky_buy_button_text_color = settings.stickybuttonbuytext %}
+
+    {% assign cross_sell_popup_heading_font_size = settings.related_popup_heading_font_size | append: 'px' %}
+    {% assign cross_sell_popup_heading_font_color = settings.related_popup_heading_font_color %}
+    {% assign cross_sell_popup_text_font_size = settings.related_popup_text_font_size | append: 'px' %}
+    {% assign cross_sell_popup_text_font_color = settings.related_popup_text_font_color %}
+    {% assign cross_sell_popup_continue_shopping_color = settings.r_continue_shoping_color %}
+    {% assign cross_sell_popup_continue_shopping_font_color = settings.r_continue_shoping_text_color %}
+    {% assign cross_sell_popup_view_cart_color = settings.r_view_cart_color %}
+    {% assign cross_sell_popup_view_cart_font_color = settings.r_view_cart_text_color %}
+    {% assign cross_sell_popup_checkout_color = settings.r_checkout_color %}
+    {% assign cross_sell_popup_checkout_font_color = settings.r_checkout_text_color %}
+
+    {% assign footer_bg_color = settings.footer_second_row_bg_color %}
+    {% assign footer_border_color = settings.footer_border_colors %}
+    {% assign footer_border_font_color = settings.mobile_footer_border_font_color %}
+    {% assign footer_font_color = settings.footer_second_row_font_color %}
+    {% assign footer_font_size = settings.footer_second_row_font_size %}
+    {% assign footer_font_weight = settings.footer_second_row_font_style %}
+    {% assign footer_title_font_color = settings.footer_second_row_title_font_color %}
+    {% assign footer_title_font_size = settings.footer_second_row_title_font_size %}
+    {% assign footer_title_font_style = settings.footer_second_row_title_font_style %}
+    {% assign footer_phone_font_color = settings.footer_second_row_phone_font_color %}
+    {% assign footer_phone_font_size = settings.footer_second_row_phone_font_size %}
+    {% assign footer_phone_font_style = settings.footer_second_row_phone_font_style %}
+    {% assign footer_phone_heading_font_size = settings.footer_phone_heading_font_size %}
+    {% assign footer_phone_heading_font_style = settings.footer_phone_heading_font_style %}
+    {% assign footer_opt_button_bg_color = settings.footer_opt_in_button_bg %}
+    {% assign footer_opt_button_font_color = settings.footer_opt_in_button_font_color %}
+    {% assign footer_opt_checkbox_font_color = settings.checkbox_font_color %}
+    {% assign footer_opt_checkbox_link_color = settings.checkbox_link_font_color %}
+    {% assign footer_menu_font_size = settings.footer_linklist_font_size %}
+    {% assign footer_menu_font_style = settings.footer_linklist_font_style %}
+    {% assign footer_menu_font_color = settings.menu_font_color-1 %}
+    {% assign footer_social_link_color = settings.color_footer_social_link %}
+    {% assign footer_copyright_bg_color = settings.footer_copyright_bg_color %}
+    {% assign footer_copyright_font_color = settings.footer_copyright_font_color %}
+    {% assign footer_cart_icon_color = settings.footercarticoncolor %}
+    {% assign footer_cart_icon_bg_color = settings.footercarticonbackground %}
+
+    {% comment %}Header{% endcomment %}
+
+    {% assign header_bg_color = settings.header_bgcolor %}
+    {% assign header_menu_border_color = settings.menu_border_color %}
+    {% assign header_menu_bg_color = settings.menu_bgcolor %}
+    {% assign header_menu_font_color = settings.menu_font_color %}
+    {% assign header_menu_link_font_size = settings.menu_link_font_size %}
+    {% assign header_menu_link_font_style = settings.menu_link_font_style %}
+    {% assign header_search_bg_color = settings.search_bg_color %}
+    {% assign header_search_text_color = settings.search_text_color %}
+    {% assign header_search_border_color = settings.search_border_color %}
+    {% assign header_search_button_color = settings.color_searchbutton %}
+    {% assign header_search_icon_color = settings.searchiconcolor %}
+    {% assign header_question_line_font_color = settings.header_question_line_font_color %}
+    {% assign header_phone_prompt_font_size = settings.header_phone_number_prompt_font_size %}
+    {% assign header_phone_prompt_font_style = settings.header_phone_number_prompt_font_style %}
+    {% assign header_phone_font_color = settings.header_phone_font_color %}
+    {% assign header_phone_font_size = settings.header_phone_font_size %}
+    {% assign header_phone_font_style = settings.header_phone_font_style %}
+    {% assign header_opening_hours_font_color = settings.header_opening_hours_font_color %}
+    {% assign header_opening_hours_font_size = settings.header_opening_hours_font_size %}
+	{% assign header_opening_hours_font_style = settings.header_opening_hours_font_style %}
+
+    {% assign header_strip_bg_color = settings.strip_bg_color %}
+    {% assign header_strip_text_color = settings.strip_text_color %}
+    {% assign header_strip_link_color = settings.strip_link_color %}
+    {% assign header_strip_hover_link_color = settings.strip_hover_link_color %}
+	{% assign header_strip_bottom_border_width = settings.strip_bottom_border_width %}
+    {% assign header_strip_border_color = settings.strapline_border_color %}
+    {% assign header_strip_text_color_desk = settings.text_color_desk %}
+    {% assign header_strip_text_color_mobile = settings.text_color_mobile %}
+    {% assign header_strip_text_other_colors = settings.other_colors %}
+    {% assign header_strip_font_size = settings.strip_font_size %}
+    {% assign header_strip_font_style = settings.strip_line_font_style %}
+
+    {% assign header_mobile_top_bar_font_color = settings.mobile_top_bar_font_color %}
+    {% assign header_mobile_top_bar_bg_color = settings.mobile_top_bar_bg_color %}
+    {% assign header_mobile_top_bar_bottom_border_color = settings.mobile_top_bar_bottom_border_color %}
+    {% assign header_mobile_header_bg_color = settings.mobile_header_bg_color %}
+    {% assign header_mobile_search_icon_color = settings.search_icon_color %}
+
+    {% assign header_sticky_bg_color = settings.sticky_bg_color %}
+    {% assign header_sticky_text_color = settings.sticky_text_color %}
+    {% assign header_sticky_font_size = settings.sticky_font_size %}
+    {% assign header_sticky_font_style = settings.sticky_font_style %}
+
+    {% assign header_megamenu_bg_color = settings.megamenu_bg_color %}
+    {% assign header_megamenu_title_font_color = settings.megamenu_title_font_color %}
+    {% assign header_megamenu_title_font_size = settings.megamenu_title_font_size %}
+    {% assign header_megamenu_title_font_style = settings.megamenu_title_font_style %}
+    {% assign header_megamenu_link_color = settings.megamenu_link_color %}
+    {% assign header_megamenu_link_hover_color = settings.megamenu_link_hover_color %}
+    {% assign header_megamenu_link_font_size = settings.megamenu_link_font_size %}
+    {% assign header_megamenu_link_font_style = settings.megamenu_link_font_style %}
+    {% assign header_megamenu_custom_link_color = settings.megamenu_custom_link_color %}
+    {% assign header_megamenu_custom_link_hover_color = settings.megamenu_custom_link_hover_color %}
+    {% assign header_megamenu_custom_link_font_size = settings.megamenu_custom_link_font_size %}
+    {% assign header_megamenu_custom_link_font_style = settings.megamenu_custom_link_font_style %}
+    {% assign header_megamenu_line_spacing = settings.megamenu_line_spacing %}
+
+	{% if settings.megamenu_line_spacing == "1" %}
+		{% assign header_megamenu_line_height = '17px' %}
+		{% assign header_megamenu_margin = '0 0 10px 0' %}
+		{% assign header_megamenu_link_line_height = '25px' %}
+		{% assign header_left_bar = '10px' %}
+		{% assign header_media_object_width = '25px' %}
+		{% assign header_custom_links_margin_right = '2px' %}
+	{% elsif settings.megamenu_line_spacing == "2" %}
+		{% assign header_megamenu_line_height = '20px' %}
+		{% assign header_megamenu_margin = '0 0 15px 0' %}
+		{% assign header_megamenu_link_line_height = '25px' %}
+		{% assign header_left_bar = '15px' %}
+		{% assign header_media_object_width = '30px' %}
+		{% assign header_custom_links_margin_right = '5px' %}
+	{% elsif settings.megamenu_line_spacing == "3" %}
+		{% assign header_megamenu_line_height = '24px' %}
+		{% assign header_megamenu_margin = '0 0 20px 0' %}
+		{% assign header_megamenu_link_line_height = '25px' %}
+		{% assign header_left_bar = '20px' %}
+		{% assign header_media_object_width = '35px' %}
+		{% assign header_custom_links_margin_right = '10px' %}
+	{% elsif settings.megamenu_line_spacing == "4" %}
+		{% assign header_megamenu_line_height = '27px' %}
+		{% assign header_megamenu_margin = '0 0 25px 0' %}
+		{% assign header_megamenu_link_line_height = '40px' %}
+		{% assign header_left_bar = '25px' %}
+		{% assign header_media_object_width = '40px' %}
+		{% assign header_custom_links_margin_right = '15px' %}
+	{% endif %}
+
+    {% assign deal_of_the_day_progressbar_color = settings.deal_of_the_day_progressbar_color %}
+    {% assign deal_of_the_day_progressbar_full_color = settings.totalprogress %}
+    {% assign deal_of_the_day_progressbar_timer_color = settings.dealtimercolor %}
+
+    {% comment %}Header end{% endcomment %}
+
+    {% assign cart_icon_color = settings.carticoncolor %}
+    {% assign cart_count_bg_color = settings.cartcountcolor %}
+    {% assign cart_mobile_count_bg_color = settings.mobilecountbgcolor %}
+    {% assign cart_count_text_color = settings.cartcounttextcolor %}
+    {% assign menu_search_color = settings.menuandsearchcolor %}
+	{% assign cart_drawer_border_colors = settings.Cart_drawer_border_colors %}
+
+    {% assign top_coupon_bar_bg_color = settings.topcbar_bg_color %}
+    {% assign top_coupon_bar_text_color = settings.topcbar_text_color %}
+    {% assign top_coupon_bar_code_color = settings.topcbar_code_color %}
+
+	{% assign quantity_selector_bg = settings.quantity_selector_bg %}
+	{% assign quantity_selector_text = settings.quantity_selector_text %}
+	{% assign quantity_selector_hover_bg = settings.quantity_selector_hover_bg %}
+	{% assign quantity_selector_hover_text = settings.quantity_selector_hover_text %}
+
+	{% assign colection_sale_badge_text_color = settings.colection_sale_badge_text_color %}
+	{% assign checkout_button_color = settings.checkoutbuttoncolor %}
+	{% assign checkout_button_color_text = settings.checkoutbuttoncolortext %}
+	{% assign checkout_button_color_hover = settings.checkoutbuttoncolorhover %}
+	{% assign checkout_button_color_text_hover = settings.checkoutbuttoncolortexthover %}
+
+	{% assign sticky_cart_icon_color = settings.stickycarticoncolor %}
+	{% assign purchases_proof_bg_color = settings.purchases_proof_bg_color %}
+
+	{% assign notifications_cookie_text_color = settings.notifications_cookie_text_color %}
+	{% assign notifications_cookie_bg_color = settings.notifications_cookie_bg_color %}
+	{% assign notifications_cookie_buttons_text_color = settings.notifications_cookie_buttons_text_color %}
+
+	{% assign collection_product_font_mobile = settings.collectionproductfontmobile %}
+	{% assign collection_product_font_style_mobile = settings.collectionproductfontstylemobile %}
+	{% assign collection_product_price_font_mobile = settings.collectionproductpricefontmobile %}
+	{% assign collection_product_price_font_style_mobile = settings.collectionproductpricefontstylemobile %}
+	{% assign collection_product_price_compare_font_mobile = settings.collectionproductpricecomparefontmobile %}
+	{% assign collection_product_price_compare_font_style_mobile = settings.collectionproductpricecomparefontstylemobile %}
+
+	{% assign badge_add_to_cart_font_size = settings.badge_add_to_cart_font_size %}
+	{% assign badge_add_to_cart_font_style = settings.badge_add_to_cart_font_style %}
+	{% assign badge_add_to_cart_font_color = settings.badge_add_to_cart_font_color %}
+	{% assign badge_add_to_cart_border = settings.badge_add_to_cart_border %}
+
+    :root {
+        --add-to-cart-background-color: {{ add_to_cart_background_color }};
+        --add-to-cart-border-color: {{ add_to_cart_border_color }};
+        --add-to-cart-font-size: {{ add_to_cart_font_size }};
+        --add-to-cart-font-style: {{ add_to_cart_font_style }};
+        --add-to-cart-text-color: {{ add_to_cart_text_color }};
+        --add-to-cart-hover-background-color: {{ add_to_cart_hover_background_color }};
+        --add-to-cart-hover-font-color: {{ add_to_cart_hover_font_color }};
+        --body-bg-color: {{ body_bg_color }};
+        --body-text-color: {{ body_text_color }};
+        --benefit-bullet-color: {{ benefit_bullet_color }};
+        --border-color: {{ border_color }};
+        --color-primary: {{ color_primary }};
+		--color-secondary: {{ color_secondary }};
+		--color-borders: {{ color_borders }};
+        --countdown-timer-font-size: {{ countdown_timer_font_size }};
+        --countdown-timer-font-style: {{ countdown_timer_font_style }};
+        --countdown-timer-text-color: {{ countdown_timer_text_color }};
+        --default-font-size: {{ default_font_size }};
+        --flash-sold-text-color: {{ flash_sold_text_color }};
+        --flash-sold-font-size: {{ flash_sold_font_size }};
+        --flash-sold-font-style: {{ flash_sold_font_style }};
+        --font-stack: {{ font_stack }};
+        --information-alert-highlighted-color: {{ information_alert_highlighted_color }};
+        --multibuy-font-size: {{ multibuy_font_size }};
+        --multibuy-font-style: {{ multibuy_font_style }};
+        --multibuy-text-color: {{ multibuy_text_color }};
+        --product-compared-price-font-size: {{ product_compared_price_font_size }};
+        --product-compared-price-font-style: {{ product_compared_price_font_style }};
+        --product-compared-price-text-color: {{ product_compared_price_text_color }};
+        --product-tabs-font-size: {{ product_tabs_font_size }};
+        --product-tab-background-color: {{ product_tab_background_color }};
+        --product-tab-border-color: {{ product_tab_border_color }};
+        --product-tab-font-color: {{ product_tab_font_color }};
+        --product-tab-font-size: {{ product_tab_font_size }};
+        --product-tab-font-style: {{ product_tab_font_style }};
+        --product-tab-selected-border-color: {{ product_tab_selected_border_color }};
+        --product-title-color: {{ product_title_color }};
+        --product-title-font-size: {{ product_title_font_size }};
+        --product-title-font-style: {{ product_title_font_style }};
+        --product-price-color: {{ product_price_color }};
+        --product-price-font-size: {{ product_price_font_size }};
+        --product-price-font-style: {{ product_price_font_style }};
+        --progress-bar-text-color: {{ progress_bar_text_color }};
+        --progress-bar-font-size: {{ progress_bar_font_size }};
+        --progress-bar-font-style: {{ progress_bar_font_style }};
+        --progress-bar-background-color: {{ progress_bar_background_color }};
+        --progress-bar-fill-background-color: {{ progress_bar_fill_background_color }};
+        --progress-bar-fill-background-color-danger: {{ progress_bar_fill_background_color_danger }};
+        --quantity-text-color: {{ quantity_text_color }};
+        --quantity-text-font-size: {{ quantity_text_font_size }};
+        --quantity-text-font-style: {{ quantity_text_font_style }};
+        --size-chart-link-color: {{ size_chart_link_color }};
+        --size-chart-link-font-size: {{ size_chart_link_font_size }};
+        --size-chart-link-font-style: {{ size_chart_link_font_style }};
+        --wishlist-color: {{ wishlist_color }};
+        --wishlist-color-selected: {{ wishlist_color_selected }};
+        --save-amount-bar-bg-color: {{ save_bar_bg }};
+        --save-amount-bar-color: {{ save_bar_color }};
+        --collection-image-max-height: {{ collection_image_max_height }};
+        --collection-product-font-size: {{ collection_product_font_size }};
+        --collection-product-font-style: {{ collection_product_font_style }};
+        --collection-product-font-color: {{ collection_product_font_color }};
+        --collection-product-price-font-size: {{ collection_product_price_font_size }};
+        --collection-product-price-font-style: {{ collection_product_price_font_style }};
+        --collection-product-price-font-color: {{ collection_product_price_font_color }};
+        --collection-product-compare-price-font-size: {{ collection_product_compare_price_font_size }};
+        --collection-product-compare-price-font-style: {{ collection_product_compare_price_font_style }};
+        --collection-product-compare-price-font-color: {{ collection_product_compare_price_font_color }};
+        --quickview-bg-color: {{ quickview_bg_color }};
+        --quickview-border-color: {{ quickview_border_color }};
+        --quickview-font-color: {{ quickview_font_color }};
+        --quickview-hover-bg-color: {{ quickview_hover_bg_color }};
+        --quickview-hover-font-color: {{ quickview_hover_font_color }};
+        --quickview-font-size: {{ quickview_font_size }};
+        --quickview-font-style: {{ quickview_font_style }};
+        --continue-button-bg-color: {{ continue_button_bg_color }};
+        --continue-button-font-color: {{ continue_button_font_color }};
+        --continue-button-bg-hover-color: {{ continue_button_bg_hover_color }};
+        --continue-button-font-hover-color: {{ continue_button_font_hover_color }};
+        --top-reasons-heading-position: {{ top_reasons_heading_position }};
+        --section-heading-color: {{ section_heading_color }};
+        --sticky-button-bg-color: {{ sticky_button_bg_color }};
+        --sticky-button-text-color: {{ sticky_button_text_color }};
+        --sticky-buy-button-bg-color: {{ sticky_buy_button_bg_color }};
+        --sticky-buy-button-text-color: {{ sticky_buy_button_text_color }};
+        --cross-sell-popup-heading-font-size: {{ cross_sell_popup_heading_font_size }};
+        --cross-sell-popup-heading-font-color: {{ cross_sell_popup_heading_font_color }};
+        --cross-sell-popup-text-font-size: {{ cross_sell_popup_text_font_size }};
+        --cross-sell-popup-text-font-color: {{ cross_sell_popup_text_font_color }};
+        --cross-sell-popup-continue-shopping-color: {{ cross_sell_popup_continue_shopping_color }};
+        --cross-sell-popup-continue-shopping-font-color: {{ cross_sell_popup_continue_shopping_font_color }};
+        --cross-sell-popup-view-cart-color: {{ cross_sell_popup_view_cart_color }};
+        --cross-sell-popup-view-cart-font-color: {{ cross_sell_popup_view_cart_font_color }};
+        --cross-sell-popup-checkout-color: {{ cross_sell_popup_checkout_color }};
+        --cross-sell-popup-checkout-font-color: {{ cross_sell_popup_checkout_font_color }};
+        --footer-bg-color: {{ footer_bg_color }};
+        --footer-border-color: {{ footer_border_color }};
+        --footer-border-font-color: {{ footer_border_font_color }};
+        --footer-font-color: {{ footer_font_color }};
+        --footer-font-size: {{ footer_font_size }};
+        --footer-font-weight: {{ footer_font_weight }};
+        --footer-title-font-color: {{ footer_title_font_color }};
+        --footer-title-font-size: {{ footer_title_font_size }};
+        --footer-title-font-style: {{ footer_title_font_style }};
+        --footer-phone-font-color: {{ footer_phone_font_color }};
+        --footer-phone-font-size: {{ footer_phone_font_size }};
+        --footer-phone-font-style: {{ footer_phone_font_style }};
+        --footer-phone-heading-font-size: {{ footer_phone_heading_font_size }};
+        --footer-phone-heading-font-style: {{ footer_phone_heading_font_style }};
+        --footer-opt-button-bg-color: {{ footer_opt_button_bg_color }};
+        --footer-opt-button-font-color: {{ footer_opt_button_font_color }};
+        --footer-opt-checkbox-font-color: {{ footer_opt_checkbox_font_color }};
+        --footer-opt-checkbox-link-color: {{ footer_opt_checkbox_link_color }};
+        --footer-menu-font-size: {{ footer_menu_font_size }};
+        --footer-menu-font-style: {{ footer_menu_font_style }};
+        --footer-menu-font-color: {{ footer_menu_font_color }};
+        --footer-social-link-color: {{ footer_social_link_color }};
+        --footer-copyright-bg-color: {{ footer_copyright_bg_color }};
+        --footer-copyright-font-color: {{ footer_copyright_font_color }};
+        --footer-cart-icon-color: {{ footer_cart_icon_color }};
+        --footer-cart-icon-bg-color: {{ footer_cart_icon_bg_color }};
+        --header-bg-color: {{ header_bg_color }};
+        --header-menu-border-color: {{ header_menu_border_color }};
+        --header-menu-bg-color: {{ header_menu_bg_color }};
+        --header-menu-font-color: {{ header_menu_font_color }};
+        --header-menu-link-font-size: {{ header_menu_link_font_size }};
+        --header-menu-link-font-style: {{ header_menu_link_font_style }};
+        --header-search-bg-color: {{ header_search_bg_color }};
+        --header-search-text-color: {{ header_search_text_color }};
+        --header-search-border-color: {{ header_search_border_color }};
+        --header-search-button-color: {{ header_search_button_color }};
+        --header-search-icon-color: {{ header_search_icon_color }};
+        --header-question-line-font-color: {{ header_question_line_font_color }};
+        --header-phone-prompt-font-size: {{ header_phone_prompt_font_size }};
+        --header-phone-prompt-font-style: {{ header_phone_prompt_font_style }};
+        --header-phone-font-color: {{ header_phone_font_color }};
+        --header-phone-font-size: {{ header_phone_font_size }};
+        --header-phone-font-style: {{ header_phone_font_style }};
+        --header-opening-hours-font-color: {{ header_opening_hours_font_color }};
+        --header-opening-hours-font-size: {{ header_opening_hours_font_size }};
+		--header-opening-hours-font-style: {{ header_opening_hours_font_style }};
+        --header-strip-bg-color: {{ header_strip_bg_color }};
+        --header-strip-text-color: {{ header_strip_text_color }};
+        --header-strip-link-color: {{ header_strip_link_color }};
+        --header-strip-hover-link-color: {{ header_strip_hover_link_color }};
+		--header-strip-bottom-border-width: {{ header_strip_bottom_border_width }};
+        --header-strip-border-color: {{ header_strip_border_color }};
+        --header-strip-text-color-desk: {{ header_strip_text_color_desk }};
+        --header-strip-text-color-mobile: {{ header_strip_text_color_mobile }};
+        --header-strip-text-other-colors: {{ header_strip_text_other_colors }};
+        --header-strip-font-size: {{ header_strip_font_size }};
+        --header-strip-font-style: {{ header_strip_font_style }};
+        --header-mobile-top-bar-font-color: {{ header_mobile_top_bar_font_color }};
+        --header-mobile-top-bar-bg-color: {{ header_mobile_top_bar_bg_color }};
+        --header-mobile-top-bar-bottom-border-color: {{ header_mobile_top_bar_bottom_border_color }};
+        --header-mobile-header-bg-color: {{ header_mobile_header_bg_color }};
+        --header-mobile-search-icon-color: {{ header_mobile_search_icon_color }};
+        --header-sticky-bg-color: {{ header_sticky_bg_color }};
+        --header-sticky-text-color: {{ header_sticky_text_color }};
+        --header-sticky-font-size: {{ header_sticky_font_size }};
+        --header-sticky-font-style: {{ header_sticky_font_style }};
+        --header-megamenu-bg-color: {{ header_megamenu_bg_color }};
+        --header-megamenu-title-font-color: {{ header_megamenu_title_font_color }};
+        --header-megamenu-title-font-size: {{ header_megamenu_title_font_size }};
+        --header-megamenu-title-font-style: {{ header_megamenu_title_font_style }};
+        --header-megamenu-link-color: {{ header_megamenu_link_color }};
+        --header-megamenu-link-hover-color: {{ header_megamenu_link_hover_color }};
+        --header-megamenu-link-font-size: {{ header_megamenu_link_font_size }};
+        --header-megamenu-link-font-style: {{ header_megamenu_link_font_style }};
+        --header-megamenu-custom-link-color: {{ header_megamenu_custom_link_color }};
+        --header-megamenu-custom-link-hover-color: {{ header_megamenu_custom_link_hover_color }};
+        --header-megamenu-custom-link-font-size: {{ header_megamenu_custom_link_font_size }};
+        --header-megamenu-custom-link-font-style: {{ header_megamenu_custom_link_font_style }};
+        --header-megamenu-line-spacing: {{ header_megamenu_line_spacing }};
+		--header-megamenu-line-height: {{ header_megamenu_line_height }};
+        --header-megamenu-margin: {{ header_megamenu_margin }};
+		--header-megamenu-link-line-height: {{ header_megamenu_link_line_height }};
+		--header-left-bar: {{ header_left_bar }};
+		--header-media-object-width: {{ header_media_object_width }};
+		--header-custom-links-margin-right: {{ header_custom_links_margin_right }};
+        --deal-of-the-day-progressbar-color: {{ deal_of_the_day_progressbar_color }};
+        --deal-of-the-day-progressbar-full-color: {{ deal_of_the_day_progressbar_full_color }};
+        --deal-of-the-day-progressbar-timer-color: {{ deal_of_the_day_progressbar_timer_color }};
+        --cart-icon-color: {{ cart_icon_color }};
+        --cart-count-bg-color: {{ cart_count_bg_color }};
+        --cart-mobile-count-bg-color: {{ cart_mobile_count_bg_color }};
+        --cart-count-text-color: {{ cart_count_text_color }};
+		--cart-drawer-border-colors: {{ cart_drawer_border_colors }};
+        --menu-search-color: {{ menu_search_color }};
+        --top-coupon-bar-bg-color: {{ top_coupon_bar_bg_color }};
+        --top-coupon-bar-text-color: {{ top_coupon_bar_text_color }};
+        --top-coupon-bar-code-color: {{ top_coupon_bar_code_color }};
+		--quantity-selector-bg: {{ quantity_selector_bg }};
+		--quantity-selector-text: {{ quantity_selector_text }};
+		--quantity-selector-hover-bg: {{ quantity_selector_hover_bg }};
+		--quantity_selector_hover_text: {{ quantity_selector_hover_text }};
+        --colection-sale-badge-text-color: {{ colection_sale_badge_text_color }};
+		--checkout-button-color: {{ checkout_button_color }};
+		--checkout-button-color-text: {{ checkout_button_color_text }};
+		--checkout-button-color-hover: {{ checkout_button_color_hover }};
+		--checkout-button-color-text-hover: {{ checkout_button_color_text_hover }};
+		--email-svg: url("{{ 'email.svg' | asset_url }}");
+		--top-arrow-png: url({{ 'top_arrow.png' | asset_url }});
+		--ajax-load-gif: url("{{'ajax-load.gif' | asset_url}}");
+    	--icon-check-green-svg: url({{'icon-check-green.svg' | asset_url}});
+    	--down-arrow-png: url('{{ "down-arrow.png" | asset_url }}');
+		--sticky-cart-icon-color: {{ sticky_cart_icon_color }};
+		--purchases-proof-bg-color: {{ purchases_proof_bg_color }};
+		--notifications-cookie-text-color: {{ notifications_cookie_text_color }};
+        --notifications-cookie-bg-color: {{ notifications_cookie_bg_color }};
+		--notifications-cookie-buttons-text-color: {{ notifications_cookie_buttons_text_color }};
+		--collection-product-font-mobile: {{ collection_product_font_mobile }};
+		--collection-product-font-style-mobile: {{ collection_product_font_style_mobile }};
+		--collection-product-price-font-mobile: {{ collection_product_price_font_mobile }};
+		--collection-product-price-font-style-mobile: {{ collection_product_price_font_style_mobile }};
+		--collection-product-price-compare-font-mobile: {{ collection_product_price_compare_font_mobile }};
+		--collection-product-price-compare-font-style-mobile: {{ collection_product_price_compare_font_style_mobile }};
+		--badge-add-to-cart-font-size: {{ badge_add_to_cart_font_size }};
+		--badge-add-to-cart-font-style: {{ badge_add_to_cart_font_style }};
+		--badge-add-to-cart-font-color: {{ badge_add_to_cart_font_color }};
+		--badge-add-to-cart-border: {{ badge_add_to_cart_border }};
+    }
+</style>

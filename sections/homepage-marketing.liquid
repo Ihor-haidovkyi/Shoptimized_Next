@@ -1,0 +1,117 @@
+{% assign image1 = section.settings.image1 %}
+{% assign link1 = section.settings.link1 %}
+{% assign image2 = section.settings.image2 %}
+{% assign link2 = section.settings.link2 %}
+{% assign image3 = section.settings.image3 %}
+{% assign link3 = section.settings.link3 %}
+
+{% if image1 != blank and image2 != blank and image3 != blank %}
+	{% capture first_image %}
+		<img src="{{- image1 | img_url: '1080x' -}}"
+			 alt="{{- image1.alt -}}"
+			 class="marketing__cell--image">
+	{% endcapture %}
+
+	{% capture second_image %}
+		<img src="{{- image2 | img_url: '1080x' -}}"
+			 alt="{{- image2.alt -}}"
+			 class="marketing__cell--image">
+	{% endcapture %}
+
+	{% capture third_image %}
+		<img src="{{- image3 | img_url: '1080x' -}}"
+			 alt="{{- image3.alt -}}"
+			 class="marketing__cell--image">
+	{% endcapture %}
+
+	<div class="marketing">
+		<div class="container">
+			<div class="marketing__wrapper">
+				{% if link1 != blank %}
+					<a href="{{- link1 -}}" class="marketing__cell marketing__cell--half">
+						{{- first_image -}}
+					</a>
+				{% else %}
+					<div class="marketing__cell marketing__cell--half">
+						{{- first_image -}}
+					</div>
+				{% endif %}
+
+				<div class="marketing__cell marketing__cell--half marketing__cell--no-padding" data-link="{{ link2 }}">
+					{% if link2 != blank %}
+						<a href="{{- link2 -}}" class="marketing__cell marketing__cell--quart">
+							{{- second_image -}}
+						</a>
+					{% else %}
+						<div class="marketing__cell marketing__cell--quart">
+							{{- second_image -}}
+						</div>
+					{% endif %}
+
+					{% if link3 != blank %}
+						<a href="{{- link3 -}}" class="marketing__cell marketing__cell--quart">
+							{{- third_image -}}
+						</a>
+					{% else %}
+						<div class="marketing__cell marketing__cell--quart">
+							{{- third_image -}}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+{
+	"name": "homepage-Marketing",
+	"class": "index-section cole",
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays a large image and 2 smaller images including links."
+		},
+		{
+			"type": "header",
+			"content": "General"
+		},
+		{
+			"type": "image_picker",
+			"id": "image1",
+			"label": "Image 1 (540px X 540px)"
+		},
+		{
+			"type": "url",
+			"id": "link1",
+			"label": "Image 1 Link"
+		},
+		{
+			"type": "image_picker",
+			"id": "image2",
+			"label": "Image 2 (540px X 270px)"
+		},
+		{
+			"type": "url",
+			"id": "link2",
+			"label": "Image 2 Link"
+		},
+		{
+			"type": "image_picker",
+			"id": "image3",
+			"label": "Image 3 (540px X 270px)"
+		},
+		{
+			"type": "url",
+			"id": "link3",
+			"label": "Image 3 Link"
+		}
+	],
+	"presets": [
+		{
+			"name": "homepage-Marketing",
+			"category": "Image"
+		}
+	]
+}
+{% endschema %}
